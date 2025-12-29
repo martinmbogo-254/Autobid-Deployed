@@ -1,0 +1,350 @@
+{% extends 'vehicles/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load social_share %}
+
+
+{% block content %}
+<div class="container-fluid details_pane">
+    <head>
+        <head>
+            <!-- Google tag (gtag.js) -->
+{% comment %} <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HBY7XY3QB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5HBY7XY3QB');
+</script> {% endcomment %}
+
+<!-- Google tag (gtag.js) --> 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T22ZQYJGM6"></script>
+ <script>
+     window.dataLayer = window.dataLayer || []; 
+     function gtag(){dataLayer.push(arguments);} 
+     gtag('js', new Date()); 
+     gtag('config', 'G-T22ZQYJGM6');
+</script>
+            <meta property="og:title" content="{{ vehicle.YOM }} {{ vehicle.make }} {{ vehicle.model }}" />
+            <meta property="og:description" content="Reserved Price: Ksh {{ vehicle.reserve_price|intcomma }}. View more details and images here." />
+            <meta property="og:image" content="{{ vehicle.vehicleimage_set.first.image.url|default:'https://www.bmw.co.ke/content/dam/bmw/common/topics/offers-and-services/bmw-special-sales-2020/protection-vehicle/bmw-special-sales-protection-vehicle-protection-sd-01.jpg' }}" />
+            <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+            <meta property="og:type" content="website" />
+        </head>
+        
+    </head>
+<div class="jumbotron center">
+    <div class="breadcram m-4">        
+        <ul class="breadcrumb">
+            <li><a href="{% url 'homepage'%}"><i class="fa-solid fa-house cicon"></i></a></li>
+            <li><a href="{% url 'available_vehicles' %}">Vehicles</a></li>
+            <li>{{ vehicle.YOM }} {{ vehicle.make }} {{ vehicle.model }}</li>
+          </ul>
+    </div>
+ 
+<div class="row">
+    <div class="col-md-2" id="vehicleimgs">
+        {% for image in vehicle.vehicleimage_set.all %}
+        <div class="col-md-12">
+            <img src="{{ image.image.url }}" class="img-thumbnail" alt="Vehicle Image" data-target="#vehicleCarousel" data-slide-to="{{ forloop.counter0 }}">
+        </div>
+        {% endfor %}
+    </div>
+    <div class="col-md-6">
+        <div id="vehicleCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                {% for image in vehicle.vehicleimage_set.all %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <img src="{{ image.image.url }}" class="d-block w-100" alt="Vehicle Image">
+                </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#vehicleCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#vehicleCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4 mt-2">
+        
+        <div class="right_box">
+            <span class="badge views-bg pull-right">Views: {{ vehicle.views }}</span>
+            <h4 class="right-header">{{vehicle.YOM}}, {{vehicle.make}} {{vehicle.model}}</h4>
+
+            <div class="vehicle_info">             
+                <h6>Yard Name: <b><a class="nav-link" href="{{vehicle.yard.link}}">{{vehicle.yard}}</a></b></h6>                
+                <h6>{{vehicle.registration_no}} | {{vehicle.transmission}} | {{vehicle.engine_cc}} CC</h6>  
+                <h6> Reserve Price : KSH {{ vehicle.reserve_price|intcomma }} </h6>
+                 <!-- Financing Badge -->
+                            <div class="text-center">
+                                {% if vehicle.financed %}
+                                <span style="
+                                    display: inline-block;
+                                    background-color: #28a745;
+                                    color: white;
+                                    padding: 5px 12px;
+                                    font-size: 0.9rem;
+                                    font-weight: 500;
+                                    border-radius: 20px;
+                                    box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                                    💰Finance option available upto 80% to 90%.
+                                </span>
+                                {% endif %}
+                            </div>
+            </div>
+
+            <div class="contact-btn">
+                <div class="row">
+                    {% if vehicle.current_auction_end_date %}
+                    <p id="countdown" ></p>
+                    <script>
+                        // Pass the auction end date to JavaScript
+                        const auctionEndDate = "{{ vehicle.current_auction_end_date|date:'Y-m-d H:i:s' }}";
+                    </script>     
+                    <div class="col-md-10">
+                        {% if user.is_authenticated %}
+                    <button type="button" id="bidbtn" class="btn btn-warning p-2 m-2 mr-2 text-center enq-bid" data-toggle="modal" data-target="#bidModal">
+                    <i class="fa fa-gavel"></i> Place a bid
+                    </button>  
+                    {% else %}
+                    <a href="{% url 'login' %}?next={% url 'detail' vehicle.id %}"  class="btn btn-info p-2 m-2 text-center">
+                        Login to bid
+                    </a>
+                    {% endif %}       
+                    </div>
+                    {% else %}
+                    {% if user.is_authenticated %}
+                   <button type="button" id="bidbtn" class="btn btn-warning p-2 m-2 mr-2 text-center enq-bid" data-toggle="modal" data-target="#bidModal">
+                    <i class="fa fa-gavel"></i> Place a bid
+                    </button> 
+                    {% else %}
+                    <a href="{% url 'login' %}?next={% url 'detail' vehicle.id %}"  class="btn btn-info p-2 m-2 text-center login2bid">
+                        Login to bid
+                    </a>
+                    {% endif %}
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <a href="https://wa.me/+254701689319" class="enq-whatsapp p-2 rounded mb-2 nav-link text-light"><i class="fa-brands fa-whatsapp"></i> Whatsapp</a>
+                        </div>
+                        <div class="col-md-6">                            
+                            <a href="tel:0701689319" class="enq-call p-2 rounded mb-2 nav-link text-light"><i class="fa fa-phone"></i> Call Now</a>                       
+                        </div>
+
+                    
+
+                    </div>
+                   
+                </div>   
+            </div>
+            <div class="col-md-12 enq-share">
+                <h6>Let Others Know:</h6>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card text-justifyrounded shadow">
+                                                <!-- WhatsApp Share -->
+                                <a class="btn btn-success  m-2" href="https://wa.me/?text={{ vehicle.YOM }} {{ vehicle.make }} {{ vehicle.model }}%0AReserved Price: Ksh {{ vehicle.reserve_price|intcomma }}%0AView more details here: https://autobid.riverlong.com/vehicle/{{ vehicle.id}}" 
+                                target="_blank" class="btn btn-outline-success m-1 nav-link text-light">
+                                <i class="fa-brands fa-whatsapp"></i> Share On WhatsApp
+                                </a>
+    
+                                <!-- Facebook Share -->
+                                <a class="btn btn-info m-2 " href="https://www.facebook.com/sharer/sharer.php?u=https://autobid.riverlong.com/vehicle/{{ vehicle.registration_number }}&quote={{ vehicle.YOM }} {{ vehicle.make }} {{ vehicle.model }}%0AReserved Price: Ksh {{ vehicle.reserve_price|intcomma }}%0AView more details here: https://autobid.riverlong.com/vehicle/{{ vehicle.id}}" 
+                                target="_blank" class="btn btn-outline-info m-1 nav-link text-light">
+                                <i class="fa-brands fa-facebook"></i> Share On Facebook
+                                </a>
+    
+                                <!-- Twitter Share -->
+                                <a class="btn btn-dark m-2" href="https://twitter.com/intent/tweet?text={{ vehicle.YOM }} {{ vehicle.make }} {{ vehicle.model }}%0AReserved Price: Ksh {{ vehicle.reserve_price|intcomma }}%0AView more details here: https://autobid.riverlong.com/vehicle/{{ vehicle.id }}" 
+                                target="_blank" class="btn btn-outline-primary m-1 nav-link text-light">
+                                <i class="fa-brands fa-twitter"></i> Share On Twitter
+                                </a>
+    
+    
+                        </div>                    
+                    </div>               
+                </div>
+            </div>
+        </div>
+       
+  
+    </div>
+</div>
+<div class="row container p-5">
+    <hr class="hr_details">
+</div>
+<div class="row container additional-info"> 
+    <div class="info_title">
+        <label for="">Additional information</label>
+    </div>    
+    <div class="col-md-6">                
+        <table class="info_table">
+            <tr>
+                <td><span class="info_label"><i class="fa fa-industry cicon"></i></i> Year of Manufacture </span></td>
+                <td><span  class="info_data">{{vehicle.YOM}}</span></td>
+            </tr> 
+            <tr>
+                <td><span class="info_label"> <i class="fa-solid fa-bus-simple cicon"></i> Model </span></td>
+                <td><span  class="info_data">{{vehicle.model}}</span></td>
+            </tr> 
+            <tr>
+                <td><span class="info_label"> <i class="fa fa-car cicon" aria-hidden="true"></i> Body </span></td>
+                <td><span  class="info_data">{{vehicle.body_type}}</span></td>
+            </tr>  
+            <tr>
+                <td><span class="info_label"><i class="fa-solid fa-gas-pump cicon"></i> Fuel </span></td>
+                <td><span  class="info_data">{{vehicle.fuel_type}}</span></td>
+            </tr>    
+            <tr>
+                <td><span class="info_label"><i class="fas fa-chair cicon"></i></i> Seats </span></td>
+                <td><span  class="info_data">{{vehicle.seats}}</span></td>
+            </tr>  
+                   
+        </table>
+         
+    </div>
+   
+    <div class="col-md-6">
+        <table class="info_table">            
+            <tr>
+                <td><span class="info_label"> <i class="fa-solid fa-cable-car cicon"></i> Transmission </span></td>
+                <td><span  class="info_data">{{vehicle.transmission}}</span></td>
+            </tr>       
+            <tr>
+                <td><span class="info_label"> <i class="fa-solid fa-road cicon"></i> Mileage </span></td>
+                <td><span  class="info_data">{{vehicle.mileage|intcomma}} Km</span></td>
+            </tr>           
+            <tr>
+                <td><span class="info_label"> <i class="fas fa-tachometer-alt cicon"></i> Engine Capacity </span></td>
+                <td><span  class="info_data">{{vehicle.engine_cc}} CC</span></td>
+            </tr>   
+            <tr>
+                <td><span class="info_label"><i class="fa-solid fa-droplet cicon"></i> Color </span></td>
+                <td><span  class="info_data">{{vehicle.color}}</span></td>
+            </tr>          
+        </table>        
+    </div>
+    <div class="jumbotron container">
+        <p>Vehicle Description</p>
+        <p>{{vehicle.description|safe}}</p>
+    </div>
+</div>
+
+<div class="row deals">
+    <h3>Similar Deals</h3>
+    {% for similar_vehicle in similar_vehicles %}
+    <div class="col-md-3">
+        <div class="card mb-3 car_cad">
+            <img src="{{ similar_vehicle.file.url }}" class="card-img-top" alt="Similar Vehicle Image">
+            <div class="card-body">
+                <p class="card-text">{{ similar_vehicle.YOM }} {{ similar_vehicle.make }}  {{ similar_vehicle.model }}</p>
+                <a href="{% url 'detail' similar_vehicle.id%}" class="btn btn-info">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No similar vehicles found.</p>
+    {% endfor %}
+</div>
+
+<!-- Bid Modal -->
+<!-- Bid Modal --> 
+<div class="modal fade" id="bidModal" tabindex="-1" role="dialog" aria-labelledby="bidModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bidModalLabel">Place Bid</h5>
+                <button class="btn btn-dark text-light" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="image">
+                    <p>{{ vehicle.YOM }} | {{ vehicle.make }} | {{ vehicle.model }}</p>
+                    <img class="card-img-top thumbnail" src="{{ vehicle.file.url }}" style="height:250px" />
+                </div>
+                <form method="POST" action="{% url 'place_bid' vehicle.id %}" onsubmit="showSpinner(this)">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <p>Reserve Price: Ksh {{ vehicle.reserve_price|intcomma }}</p>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="amount" 
+                            name="amount" 
+                            placeholder="Enter bid amount" 
+                            required>
+                        <input 
+                            type="text" 
+                            class="form-control mt-2 mb-2" 
+                            id="referred_by" 
+                            name="referred_by" 
+                            placeholder="Enter your referee full name" 
+                            required>
+                        
+                    </div>
+
+                    <!-- Accept Terms and Conditions Checkbox -->
+                    <div class="form-group form-check">
+                        <input 
+                            type="checkbox" 
+                            class="form-check-input" 
+                            id="acceptTerms" 
+                            name="accept_terms" 
+                            required>
+                        <label class="form-check-label" for="acceptTerms">
+                            I accept the <a href="{% url 'terms' %}" target="_blank">Terms and Conditions</a>.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark">
+                        <span class="spinner-border spinner-border-sm text-light mr-2 d-none" role="status" aria-hidden="true"></span>
+                        Submit Bid
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+</div>
+<script>
+    function showSpinner(form) {
+        const button = form.querySelector('button[type="submit"]');
+        const spinner = button.querySelector('.spinner-border');
+
+        // Show spinner and disable button
+        spinner.classList.remove('d-none');
+        button.disabled = true;
+    }
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var amountInput = document.getElementById('amount');
+
+    amountInput.addEventListener('input', function (e) {
+        var value = amountInput.value;
+        // Remove non-digit characters except commas
+        value = value.replace(/[^\d]/g, '');
+        // Format the value with commas
+        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        amountInput.value = value;
+    });
+
+    document.querySelector('form').addEventListener('submit', function () {
+        // Remove commas before form submission
+        amountInput.value = amountInput.value.replace(/,/g, '');
+    });
+});
+</script>
+
+{% endblock content %}

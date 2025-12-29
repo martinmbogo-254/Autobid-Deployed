@@ -1,0 +1,1000 @@
+{% extends 'vehicles/base.html'%}
+{% load crispy_forms_tags%}
+{% load static %}
+{% load humanize %}
+
+<html>
+{% block content%}
+
+<head>
+    <!-- Google tag (gtag.js) -->
+{% comment %} <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HBY7XY3QB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5HBY7XY3QB');
+</script> {% endcomment %}
+
+<!-- Google tag (gtag.js) --> 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T22ZQYJGM6"></script>
+ <script>
+     window.dataLayer = window.dataLayer || []; 
+     function gtag(){dataLayer.push(arguments);} 
+     gtag('js', new Date()); 
+     gtag('config', 'G-T22ZQYJGM6');
+</script>
+    <!-- SEO Meta Tags -->
+    <title>AutoBid by RiverLong | Vehicles | Best Auction Cars for Sale in Kiambu Road,fourways junction, Kenya</title>
+  
+    <meta name="description" content="{% block meta_description %}Bid on a wide selection of auction vehicles in Nairobi, Kenya, conveniently located along Kiambu Road. Find cars, trucks, SUVs, and more at competitive prices. Riverlong Autobid makes buying and selling vehicles fast, secure, and transparent.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}auction vehicles Nairobi, car auctions Nairobi, used car auctions Nairobi, vehicle auctions Kenya, Kiambu Road car auctions, Nairobi car bazaar, buy cars Nairobi auction, sell cars Nairobi auction, truck auctions Nairobi, SUV auctions Nairobi, affordable cars Nairobi, cheap cars Nairobi, online car auction Nairobi, Kenya car auction website{% endblock %}">
+    <meta name="author" content="Riverlong Autobid">
+    <link rel="canonical" href="https://autobid.riverlong.com" />
+
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    
+    <!-- Open Graph Meta Tags (For Social Media Sharing) -->
+    <meta property="og:title" content="Riverlong Autobid - Buy Vehicles">
+    <meta property="og:description" content="Find the best deals on used  cars. Riverlong Autobid makes buying and selling vehicles fast, secure, and transparent.">
+    <meta property="og:image" content="{% static 'images/logo-autobid.svg' %}">
+    <meta property="og:url" content="https://autobid.riverlong.com">
+    <meta property="og:type" content="website">
+  
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Riverlong Autobid - Buy Vehicles">
+    <meta name="twitter:description" content="Find the best deals on used  cars. Riverlong Autobid makes buying and selling vehicles fast, secure, and transparent.">
+    <meta name="twitter:image" content="{% static 'images/logo-autobid.svg' %}">
+  
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://autobid.riverlong.com">
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="{% static 'images/logo-autobid.svg' %}">
+  
+    <meta name="google-site-verification" content="Bti7HINMSboF3KQ5swk07uemG5jFDwhTtvzBLQs29IE" />
+  </head>
+<div class=" vehicles_pane">
+<div class="jumbotron center">
+    <form method="get" class="vehicle-search-form rounded">
+        <div class="search-container">
+            <!-- Basic Search Fields - First Row -->
+            <div class="search-row row">
+                <div class="search-group col-md-4">
+                    <label for="id_price_range">Price</label>
+                    {{ vehiclefilter.form.price_range }}
+                </div>
+                {% comment %} <div class="search-group">
+                    <label for="id_make">Make</label>
+                    {{ vehiclefilter.form.make }}
+                </div> {% endcomment %}
+                <div class="search-group col-md-6">
+                    <label for="id_make">Search All</label>
+                    <input type="text" name="q" class="form-control" placeholder="Search vehicles...">
+                </div>
+                {% comment %} <div class="search-group">
+                    <label for="id_body_type">Body</label>
+                    {{ vehiclefilter.form.body_type }}
+                </div>
+                <div class="search-group">
+                    <label for="id_fuel_type">Fuel</label>
+                    {{ vehiclefilter.form.fuel_type }}
+                </div> {% endcomment %}
+            </div>
+  
+            <!-- Advanced Search Toggle -->
+            {% comment %} <div class="search-row">
+                <button type="button" class="advanced-search-toggle">
+                    + Advanced Search
+                </button>
+            </div> {% endcomment %}
+    
+            <!-- Advanced Search Fields (Hidden by default) -->
+            {% comment %} <div class="advanced-search-fields" style="display: none;">
+                <div class="search-row">
+                   
+                    <div class="search-group">
+                        <label for="id_transmission">Transmission</label>
+                        {{ vehiclefilter.form.transmission }}
+                    </div>
+                    <div class="search-group">
+                        <label for="id_registration_no">Reg No</label>
+                        {{ vehiclefilter.form.registration_no }}
+                    </div>
+                    <div class="search-group">
+                        <label for="id_YOM">Year</label>
+                        {{ vehiclefilter.form.YOM }}
+                    </div>
+                    {% if user.is_staff %}
+                    <div class="search-group">
+                        <label for="id_YOM">Client</label>
+                        {{ vehiclefilter.form.Financier }}
+                    </div>
+                    {% endif%}
+                </div>
+            </div> {% endcomment %}
+            <!-- Search Buttons Row -->
+        <div class="search-row">
+            <button type="submit" class="search-button">Search</button>
+            <a href="{% url 'available_vehicles' %}" class=" search-button">Reset</a>
+        </div>
+        </div>
+    </form>
+    <!-- Add this to your vehicles.html template -->
+<div class="search-controls">
+    <!-- Sorting Dropdown -->
+    <div class="sort-dropdown">
+        <label for="sort-select">Sort by:</label>
+        <select id="sort-select" onchange="window.location.href=this.value">
+            <option value="?sort_by=newest" {% if current_sort == 'newest' %}selected{% endif %}>Newest First</option>
+            <option value="?sort_by=oldest" {% if current_sort == 'oldest' %}selected{% endif %}>Oldest First</option>
+            <option value="?sort_by=price_low" {% if current_sort == 'price_low' %}selected{% endif %}>Price: Low to High</option>
+            <option value="?sort_by=price_high" {% if current_sort == 'price_high' %}selected{% endif %}>Price: High to Low</option>
+          
+            <option value="?sort_by=popular" {% if current_sort == 'popular' %}selected{% endif %}>Most Popular</option>
+        </select>
+    </div>
+
+</div>
+
+
+<style>
+    
+    /* Search Controls Styling */
+    .search-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: left;
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        left:0;
+    }
+
+    /* Sort Dropdown */
+    .sort-dropdown {
+        display: flex;
+        align-items: center;
+        left:0;
+    }
+
+    .sort-dropdown label {
+        margin-right: 10px;
+        font-weight: 200;
+        color: #333;
+    }
+
+    .sort-dropdown select {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: white;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .sort-dropdown select:hover {
+        border-color: #007bff;
+    }
+
+
+    /* Filter Section */
+    .filter-section {
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .filter-form {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .filter-form p {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .filter-form label {
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #555;
+    }
+
+    .filter-form input,
+    .filter-form select {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    /* Filter Actions */
+    .filter-actions {
+        grid-column: 1 / -1;
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .apply-filters {
+        padding: 8px 15px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .apply-filters:hover {
+        background-color: #218838;
+    }
+
+    .reset-filters {
+        padding: 8px 15px;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .reset-filters:hover {
+        background-color: #c82333;
+        color: white;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .filter-form {
+            grid-template-columns: 1fr;
+        }
+
+        .filter-toggle {
+            display: block;
+        }
+
+        .filter-section {
+            display: none;
+        }
+
+        .filter-section.visible {
+            display: block;
+        }
+        
+    }
+</style>
+
+    
+
+<script>
+    // Toggle filter visibility on mobile
+    function toggleFilters() {
+        const filterSection = document.getElementById('filter-section');
+        filterSection.classList.toggle('visible');
+    }
+
+    // Update URL when sort select changes
+    document.getElementById('sort-select').addEventListener('change', function() {
+        // Preserve existing GET parameters
+        const currentParams = new URLSearchParams(window.location.search);
+        const newSort = this.value.split('=')[1];
+        
+        // Update or add the sort_by parameter
+        currentParams.set('sort_by', newSort);
+        
+        // Navigate to new URL
+        window.location.search = currentParams.toString();
+    });
+</script>
+    <style>
+        .clear-button {
+            background-color: #f5f5f5;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 12px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            text-decoration: none;
+            text-align: center;
+            width: 150px;
+            display: inline-block;
+        }
+        .search-button{
+            text-decoration:none;
+        }
+        .search-button:hover {
+            background-color: #f5f5f5;
+            color:black;
+            text-decoration:none;
+        }
+        .vehicle-search-form {
+           
+            max-width: 1000px;
+            margin: 0 auto;
+           
+            border-radius: 20px;
+        }
+    
+        .search-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom:20px;
+        }
+    
+        .search-row {
+            display: flex;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+    
+        .search-group {
+            flex: 1;
+        }
+    
+        .search-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+    
+        .search-group select,
+        .search-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 14px;
+            height: 40px;
+        }
+    
+        .search-button {
+            background-color: #2c7be5;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 150px;
+        }
+    
+        .advanced-search-toggle {
+            background: none;
+            border: none;
+            color: #2c7be5;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 0;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    
+        .advanced-search-toggle:hover {
+            text-decoration: underline;
+        }
+        .flashsale-section{
+            margin: 0;
+
+        }
+    </style>
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleBtn = document.querySelector('.advanced-search-toggle');
+            const advancedFields = document.querySelector('.advanced-search-fields');
+        
+            toggleBtn.addEventListener('click', function() {
+                if (advancedFields.style.display === 'none') {
+                    advancedFields.style.display = 'block';
+                    toggleBtn.textContent = '- Advanced Search';
+                } else {
+                    advancedFields.style.display = 'none';
+                    toggleBtn.textContent = '+ Advanced Search';
+                }
+            });
+        });
+    </script>
+      
+    <div class="m-2">
+        <div class="container-fluid">
+            <ul class="breadcrumbs ">
+                <!-- <li><a href="{% url 'homepage'%}">Home</a></li> -->
+                <li class="">  {{vehicles_count}} Vehicles for sale</li>
+              </ul>
+        </div>
+       
+{% if black_fridays %}
+<div class="blackfriday-section">
+    <div class="blackfriday-header">
+        <h2 class="blackfriday-title">
+            <span class="emoji">🖤</span> BLACK NOVEMBER DEALS <span class="emoji">🔥</span>
+        </h2>
+        <p class="blackfriday-subtitle">Exclusive discounts this black November only!</p>
+    </div>
+
+    <div class="row">
+        {% for vehicle in black_friday %}
+        <div class="col-md-3 col-sm-12">
+            <div class="card car_cad blackfriday-card">
+                <div class="blackfriday-badge">BLACK NOVEMBER</div>
+
+                <div class="car_image">
+                    <a href="{% url 'detail' vehicle.id %}">
+                        <img class="car_img" src="{{ vehicle.file.url }}" alt="{{ vehicle.make }} {{ vehicle.model }}">
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    <h5 class="car_name">
+                        <a href="{% url 'detail' vehicle.id %}" class="vehicle-link">
+                            {{ vehicle.make }} • {{ vehicle.model }} ({{ vehicle.YOM }})
+                        </a>
+                    </h5>
+
+                    <p class="car_info">
+                        <i class="fa-solid fa-road cicon"></i> {{ vehicle.mileage|intcomma }} KM •
+                        <i class="fas fa-tachometer-alt cicon"></i> {{ vehicle.engine_cc }} CC •
+                        <i class="fa-solid fa-gas-pump cicon"></i> {{ vehicle.fuel_type }}
+                    </p>
+
+                    <hr class="divider">
+
+                    <div class="price-box">
+                        <span class="sale-price">Ksh {{ vehicle.reserve_price|intcomma }}</span>
+                        {% if vehicle.original_price %}
+                        <span class="original-price">Ksh {{ vehicle.original_price|intcomma }}</span>
+                        {% endif %}
+                    </div>
+
+                    {% if vehicle.financed %}
+                    <div class="finance-badge">
+                        💰 Finance up to {{ vehicle.financing_percentage }}%
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-md-12">
+            <p class="no-blackfriday">No Black Friday vehicles available. Check back soon!</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<style>
+/* === 🖤 BLACK FRIDAY SECTION (ISOLATED STYLING) === */
+
+.blackfriday-section {
+    background: linear-gradient(180deg, #2e2929ff 20%, #350808ff 80%);
+    color: #221e1eff;
+    padding: 60px 20px;
+    border-radius: 10px;
+    margin: 50px 0;
+    text-align: center;
+    border-top: 5px solid #e50914;
+    box-shadow: 0 0 30px rgba(0,0,0,0.05);
+    position: relative;
+  }
+  
+  .blackfriday-section .blackfriday-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  }
+
+.blackfriday-section .blackfriday-header {
+    margin-bottom: 30px;
+}
+
+.blackfriday-section .blackfriday-title {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: #ff2b2b;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.blackfriday-section .blackfriday-subtitle {
+    font-size: 1rem;
+    color: #f2f2f2;
+    margin-top: 10px;
+}
+
+{% comment %} .blackfriday-section .blackfriday-card {
+    background-color: white;
+    border: 2px solid #ff2b2b;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    color: black;
+} {% endcomment %}
+
+.blackfriday-section .blackfriday-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
+}
+
+.blackfriday-section .blackfriday-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ff2b2b;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.blackfriday-section .car_img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-bottom: 2px solid #ff2b2b;
+}
+
+.blackfriday-section .vehicle-link {
+    color: black;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.blackfriday-section .vehicle-link:hover {
+    color: #ff2b2b;
+}
+
+.blackfriday-section .car_info {
+    color: black;
+    font-size: 0.9rem;
+}
+
+.blackfriday-section .divider {
+    border: none;
+    border-bottom: 1px solid #ff2b2b;
+    margin: 15px 0;
+}
+
+.blackfriday-section .price-box {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.blackfriday-section .sale-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ff2b2b;
+}
+
+.blackfriday-section .original-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+.blackfriday-section .finance-badge {
+    margin-top: 10px;
+    display: inline-block;
+    background-color: #28a745;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.blackfriday-section .no-blackfriday {
+    color: #ccc;
+    font-size: 1rem;
+    padding: 30px;
+}
+
+.blackfriday-section .emoji {
+    font-size: 1.8rem;
+}
+</style>
+
+
+
+{% if flashsale_vehicles %}
+<div class="flashsale-section">
+   
+    <div class="section-header">
+        <h2><span class="alarm-emoji">🚨</span> Deals Of The Day</h2>
+        <div class="limited-offer">Deals:  {% if user.is_staff %} {{flashsale_count}} {% endif %}</div>
+    </div>
+    
+    <div class="row ">
+        {% for vehicle in flashsale_vehicles %}
+        <div class="col-md-3 col-sm-12">
+            <div class="card car_cad flashsale-card">
+                <div class="flashsale-badge">Today's Deals </div>
+    
+                <div class="car_image">
+                    <a href="{% url 'detail' vehicle.id %}">
+                        <img class="car_img" src="{{vehicle.file.url}}" />
+                    </a>
+                </div>       
+                
+                <div class="card-body">
+                    <div class="row">
+                        <!-- New Financing Badge -->
+                        {% if vehicle.financed %}
+                        <div class="flashsale-badge" style="top: 35px; background-color: #28a745;">
+                            Financing up to {{vehicle.financing_percentage}}%
+                        </div>
+                        {% endif %}
+    
+                        <div class="col-md-12">
+                                    <label class="car_name text-center">
+                                <a href="{% url 'detail' vehicle.id %}">{{vehicle.YOM}}</a>
+                            </label></br>
+                            <label class="car_name">
+                                <a href="{% url 'detail' vehicle.id %}">{{vehicle.make}} • {{vehicle.model}}</a>
+                            </label>
+                        </div>
+                        <div class="col-md-12">
+                            <span class="car_info">
+                                <i class="fa-solid fa-road cicon"></i> {{ vehicle.mileage }} KM • 
+                                <i class="fas fa-tachometer-alt cicon"></i> {{vehicle.engine_cc}} CC • 
+                                <i class="fa-solid fa-gas-pump cicon"></i> {{vehicle.fuel_type}}
+                            </span>
+                        </div>
+                        <div class="col-md-12">
+                            <hr/>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-10">
+                                <label class="flashsale-price">Ksh {{vehicle.reserve_price|intcomma}}</label>
+                                
+                            </div>
+                        </div>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-md-12">
+            <p class="no-flashsale">No current  vehicles at the moment. Check back soon!</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+    
+</div> 
+{% endif %}
+
+<style>
+    /* Flash Sale Section Styling */
+    .flashsale-section {
+        margin: 30px 0;
+        padding: 20px;
+        background-color: #fff8f8;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(255, 50, 50, 0.1);
+    }
+    
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #ff6b6b;
+    }
+    
+    .section-header h2 {
+        color: #ff4757;
+        margin: 0;
+        font-size: 24px;
+    }
+    
+    .limited-offer {
+        background-color: #ff4757;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+    
+    .flashsale-card {
+        position: relative;
+        border: 2px solid #ff6b6b;
+        transition: all 0.3s ease;
+    }
+    .flashsale-card .car_image .car_img{
+        height : 280px;
+    }
+    .vehicles-on-sale .car_image .car_img{
+        height : 280px !important;
+    }
+    
+    
+    .flashsale-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(255, 75, 87, 0.2);
+    }
+    
+    .flashsale-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #ff4757;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 12px;
+        z-index: 1;
+    }
+    
+    .original-price {
+        text-decoration: line-through;
+        color: #999;
+        font-size: 14px;
+        display: block;
+    }
+    
+    .flashsale-price {
+        color: #ff4757;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    
+    .discount-percent {
+        display: block;
+        color: white;
+        background-color: #ff4757;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        margin-top: 5px;
+        width: fit-content;
+    }
+    
+    .no-flashsale {
+        text-align: center;
+        color: #666;
+        padding: 20px;
+    }
+</style>
+
+
+
+<div class="row">
+            
+    
+    {% if vehicles_on_auction %}
+  {% for vehicle in vehicles_on_auction  %}
+
+  <div class="col-md-3 vehicles-on-sale">
+    <div class="card car_cad">
+        <div class="car_image">
+            <a href="{% url 'detail' vehicle.id %}"><img class="car_img" src="{{vehicle.file.url}}" alt="img" /></a>
+        </div>       
+        
+        <div class="card-body">
+            <div class="row">
+               
+                <div class="col-md-12">
+                    <label class="car_name text-center"><a href="{% url 'detail' vehicle.id %}">{{vehicle.YOM}} </a></label></br>
+
+                    <label class="car_name"><a href="{% url 'detail' vehicle.id %}">{{vehicle.make}} • {{vehicle.model}}</a></label>
+                </div>
+                <div class="col-md-12">
+                    <span class="car_info"> <i class="fa-solid fa-road cicon"></i> {{ vehicle.mileage }} KM • <i class="fas fa-tachometer-alt  cicon"></i> {{vehicle.engine_cc}} CC • <i class="fa-solid fa-gas-pump cicon"></i>  {{vehicle.fuel_type}}</span>
+                </div>
+                <div class="col-md-12">
+                    <hr/>
+                </div>
+               <div class="col-md-12">
+                <div class="row align-items-center">
+                    <!-- Price Display -->
+                    <div class="col-md-12">
+                        <label style="font-size: 1.2rem; font-weight: 600; color: #333;">
+                            Ksh {{ vehicle.reserve_price|intcomma }}
+                        </label>
+                    </div>
+
+                    <!-- Financing Badge -->
+                    <div class="col-md-12">
+                        {% if vehicle.financed %}
+                        <span style="
+                            display: inline-block;
+                            background-color: #28a745;
+                            color: white;
+                            padding: 5px 12px;
+                            font-size: 0.9rem;
+                            font-weight: 500;
+                            border-radius: 20px;
+                            box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                            💰Finance option available upto 80% to 90%.   
+                        </span>
+                        {% else %}
+                        <span style="
+                        display: inline-block;
+                      ">
+                       
+                    </span>
+                        {% endif %}
+                    </div>
+                </div>
+        </div>
+
+             
+            </div>
+            
+        </div>
+    </div>
+      
+  </div>
+  {% endfor %}
+    {% comment %} <!-- Pagination controls -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if vehicles_on_auction.has_previous %}
+                <a class="btn btn-outline-dark"  href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&laquo; first</a>
+                <a class="btn btn-dark"  href="?page={{ vehicles_on_auction.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ vehicles_on_auction.number }} of {{ vehicles_on_auction.paginator.num_pages }} 
+            </span>
+    
+            {% if vehicles_on_auction.has_next %}
+                <a class="btn btn-outline-dark"  href="?page={{ vehicles_on_auction.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">next</a>
+                <a class="btn btn-dark"  href="?page={{ vehicles_on_auction.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div> {% endcomment %}
+  
+  {% endif %}
+
+</div>
+
+
+
+
+        <div class="row">
+            
+    
+            {% if vehicles_on_sale %}
+          {% for vehicle in vehicles_on_sale  %}
+    
+          <div class="col-md-3 vehicles-on-sale">
+            <div class="card car_cad">
+                <div class="car_image">
+                    <a href="{% url 'detail' vehicle.id %}"><img class="car_img" src="{{vehicle.file.url}}" alt="img" /></a>
+                </div>       
+                
+                <div class="card-body">
+                    <div class="row">
+                       
+                        <div class="col-md-12">
+                            <label class="car_name text-center"><a href="{% url 'detail' vehicle.id %}">{{vehicle.YOM}} </a></label></br>
+
+                            <label class="car_name"><a href="{% url 'detail' vehicle.id %}">{{vehicle.make}} • {{vehicle.model}}</a></label>
+                        </div>
+                        <div class="col-md-12">
+                            <span class="car_info"> <i class="fa-solid fa-road cicon"></i> {{ vehicle.mileage }} KM • <i class="fas fa-tachometer-alt  cicon"></i> {{vehicle.engine_cc}} CC • <i class="fa-solid fa-gas-pump cicon"></i>  {{vehicle.fuel_type}}</span>
+                        </div>
+                        <div class="col-md-12">
+                            <hr/>
+                        </div>
+                       <div class="col-md-12">
+                        <div class="row align-items-center">
+                            <!-- Price Display -->
+                            <div class="col-md-12">
+                                <label style="font-size: 1.2rem; font-weight: 600; color: #333;">
+                                    Ksh {{ vehicle.reserve_price|intcomma }}
+                                </label>
+                            </div>
+
+                            <!-- Financing Badge -->
+                            <div class="col-md-12">
+                                {% if vehicle.financed %}
+                                <span style="
+                                    display: inline-block;
+                                    background-color: #28a745;
+                                    color: white;
+                                    padding: 5px 12px;
+                                    font-size: 0.9rem;
+                                    font-weight: 500;
+                                    border-radius: 20px;
+                                    box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                                    💰Finance option available upto 80% to 90%.   
+                                </span>
+                                {% else %}
+                                <span style="
+                                display: inline-block;
+                              ">
+                               
+                            </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                </div>
+ 
+                     
+                    </div>
+                    
+                </div>
+            </div>
+              
+          </div>
+          {% endfor %}
+            <!-- Pagination controls -->
+            <div class="pagination">
+                <span class="step-links">
+                    {% if vehicles_on_sale.has_previous %}
+                        <a class="btn btn-outline-dark"  href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&laquo; first</a>
+                        <a class="btn btn-dark"  href="?page={{ vehicles_on_sale.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">previous</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Page {{ vehicles_on_sale.number }} of {{ vehicles_on_sale.paginator.num_pages }} 
+                    </span>
+            
+                    {% if vehicles_on_sale.has_next %}
+                        <a class="btn btn-outline-dark"  href="?page={{ vehicles_on_sale.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">next</a>
+                        <a class="btn btn-dark"  href="?page={{ vehicles_on_sale.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+          {% else %}
+          <div class="jumbotron bg-info text-center">
+            <p class="text-light">Sorry, No vehicles available.</p>
+          </div>
+          
+          {% endif %}
+        
+    </div>
+     
+        
+   
+
+    </div>
+  
+</div>
+</div>
+</div>
+
+{% endblock content%}
+
+</html>

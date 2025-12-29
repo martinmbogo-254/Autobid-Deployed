@@ -1,0 +1,49 @@
+{% extends "vehicles/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-3">System Dashboard</h2>
+
+    <div class="row admin-dashboard">
+        <!-- Vehicles Summary -->
+        <div class="col-md-4">
+            <div class="card border-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Vehicles</h5>
+                    <p>Total Vehicles: <strong>{{ total_vehicles }}</strong></p>
+                    <p>Available: <strong>{{ available_vehicles }}</strong></p>
+                    <p>On Auction: <strong>{{ on_auction_vehicles }}</strong></p>
+                    <p>Sold: <strong>{{ sold_vehicles }}</strong></p>
+                    
+                    <a href="https://autobid.riverlong.com/admin/vehicles/vehicle/" class="btn btn-primary">Manage Vehicles</a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Bidding Summary -->
+        <div class="col-md-4">
+            <div class="card border-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Bidding</h5>
+                    <p>Total Bids Received: <strong>{{ total_bids }}</strong></p>
+                    <p>Awarded Bids: <strong>{{ total_awarded_bids }}</strong></p>
+                    <a href="https://autobid.riverlong.com/admin/vehicles/bidding/" class="btn btn-warning">Manage Bids</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Summary -->
+        <div class="col-md-4">
+            <div class="card border-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Users</h5>
+                    <p>Total Users: <strong>{{ total_users }}</strong></p>
+                    <a href="https://autobid.riverlong.com/admin/auth/user/" class="btn btn-info">Manage Users</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

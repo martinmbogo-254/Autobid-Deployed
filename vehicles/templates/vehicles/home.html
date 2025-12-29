@@ -1,0 +1,825 @@
+{% extends 'vehicles/base.html'%}
+{% load static %}
+{% load humanize %}
+
+<html>
+{% block content%}
+
+<head>
+  <!-- Google tag (gtag.js) -->
+{% comment %} <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HBY7XY3QB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5HBY7XY3QB');
+</script> {% endcomment %}
+
+<!-- Google tag (gtag.js) --> 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T22ZQYJGM6"></script>
+ <script>
+     window.dataLayer = window.dataLayer || []; 
+     function gtag(){dataLayer.push(arguments);} 
+     gtag('js', new Date()); 
+     gtag('config', 'G-T22ZQYJGM6');
+</script>
+  <!-- SEO Meta Tags -->
+  <title>AutoBid by RiverLong | Home | Best Auction Vehicles Nairobi, Kiambu Road,fourways Junction, Kenya</title>
+  
+    <meta name="description" content="{% block meta_description %}Bid on a wide selection of auction vehicles in Nairobi, Kenya, conveniently located along Kiambu Road. Find cars, trucks, SUVs, and more at competitive prices. Riverlong Autobid makes buying and selling vehicles fast, secure, and transparent.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}car sales, new cars,Vehicles for sale,auction vehicles Nairobi, car auctions Nairobi, used car auctions Nairobi, vehicle auctions Kenya, Kiambu Road car auctions, Nairobi car bazaar, buy cars Nairobi auction, sell cars Nairobi auction, truck auctions Nairobi, SUV auctions Nairobi, affordable cars Nairobi, cheap cars Nairobi, online car auction Nairobi, Kenya car auction website{% endblock %}">
+    <meta name="author" content="Riverlong Autobid">
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  
+  <!-- Open Graph Meta Tags (For Social Media Sharing) -->
+  <meta property="og:title" content="Riverlong Autobid - Buy Vehicles">
+  <meta property="og:description" content="Find the best deals on used  cars. Riverlong Autobid makes buying and selling vehicles fast, secure, and transparent.">
+  <meta property="og:image" content="{% static 'images/logo-autobid.svg' %}">
+  <meta property="og:url" content="https://autobid.riverlong.com">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Riverlong Autobid - Buy Vehicles">
+  <meta name="twitter:description" content="Find the best deals on used  cars. Riverlong Autobid makes buying and selling vehicles fast, secure, and transparent.">
+  <meta name="twitter:image" content="{% static 'images/logo-autobid.svg' %}">
+
+  
+  <link rel="canonical" href="https://autobid.riverlong.com">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="{% static 'images/logo-autobid.svg' %}">
+
+  <meta name="google-site-verification" content="Bti7HINMSboF3KQ5swk07uemG5jFDwhTtvzBLQs29IE" />
+</head>
+<style>
+  .flash-sale-banner {
+    /* background: linear-gradient(135deg, #ff0000, #ff6b00, #ffbb00);  */
+    color: white;
+    padding: 2.5rem 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #fff;
+  }
+  
+  /* .flash-sale-banner::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+    animation: pulse 6s infinite linear;
+    z-index: 0;
+  } */
+  
+  .flash-sale-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: space-between;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+  
+  @media (min-width: 768px) {
+    .flash-sale-content {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+  
+  .flash-sale-text h2 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 0.75rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .flash-sale-text p {
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    max-width: 90%;
+  }
+  
+  .flash-sale-button {
+    background-color: white;
+    color: #ff0000;
+    font-weight: 800;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: inline-block;
+    width: auto;
+    text-align: center;
+  }
+  
+  .flash-sale-button:hover {
+    background-color: #f3f4f6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  }
+  
+  .flash-sale-button:active {
+    transform: translateY(0);
+  }
+  
+  .sale-icon {
+    font-size: 2.8rem;
+    animation: shake 0.5s ease infinite alternate;
+    display: inline-block;
+  }
+  
+  /* @keyframes shake {
+    0% { transform: rotate(-5deg); }
+    100% { transform: rotate(5deg); }
+  }
+  
+  @keyframes pulse {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  } */
+  
+  /* Mobile-specific enhancements */
+  @media (max-width: 767px) {
+    .flash-sale-banner {
+      padding: 2rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 12px;
+    }
+    
+    .flash-sale-text h2 {
+      font-size: 2rem;
+    }
+    
+    .flash-sale-text p {
+      font-size: 1.1rem;
+    }
+    
+    .flash-sale-button {
+      width: 100%;
+      padding: 1rem;
+    }
+    
+    .flash-sale-content {
+      gap: 1.2rem;
+    }
+  
+  }
+</style>
+
+<style>
+   
+    
+
+    .banner {
+      position: relative !important;
+      width: 100% !important;
+      height: 100vh !important;
+      min-height: 600px !important;
+      display: flex !important;
+      align-items: center !important;
+      overflow: hidden !important;
+      margin-top: -60px !important;
+    }
+
+    .banner-content {
+      width: 100% !important;
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      align-items: center !important;
+      gap: 2rem !important;
+    }
+
+    .text-content {
+      padding: 60px !important;
+      color: #1a1a1a;
+    }
+
+    .logo {
+      /* display: ; */
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .logo-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #ff0040, #ff4070);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+      box-shadow: 0 8px 32px rgba(255, 0, 64, 0.3);
+    }
+
+    .brand-text h1 {
+      align-items: center !important;
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #ff0040 !important;
+      margin-bottom: 0.5rem;
+    }
+
+    .brand-text p {
+      align-items: center !important;
+      font-size: 1.2rem;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .main-heading {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: #111;
+    }
+
+    .description {
+      font-size: 1.3rem !important;
+      color: #555 !important;
+      line-height: 1.6 !important;
+      margin-bottom: 3rem !important;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 1rem 2rem !important;
+      border: none !important;
+      border-radius: 12px !important;
+      font-size: 1.1rem !important;
+      font-weight: 600 !important;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center !important;
+      gap: 0.5rem !important;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100% !important;
+      width: 100%   !important;
+      height: 100%  !important;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+      transition: left 0.5s ease;
+    }
+
+    .btn:hover::before {
+      left: 100% !important;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff0040, #ff4070) !important;
+      color: white;
+      box-shadow: 0 8px 32px rgba(255, 0, 64, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(255, 0, 64, 0.4);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #333;
+      border: 2px solid #ccc;
+    }
+
+    .btn-secondary:hover {
+      background: #f0f0f0;
+      border-color: #bbb;
+      transform: translateY(-2px);
+    }
+
+    .image-content {
+      position: relative;
+      height: 85%;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      transform: perspective(1000px) rotateY(-2deg);
+      transition: transform 0.4s ease;
+    }
+
+    .image-content:hover {
+      transform: perspective(1000px) rotateY(0deg);
+    }
+
+    .car-image {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      border-radius: 20px !important;
+      transition: transform 0.4s ease !important;
+    }
+
+    .image-content:hover .car-image {
+      transform: scale(1.08);
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top right, rgba(255, 0, 64, 0.08), rgba(0, 0, 0, 0.03));
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .floating-elements {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .floating-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 0, 64, 0.05), rgba(0, 255, 255, 0.05));
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-circle:nth-child(1) {
+      width: 100px;
+      height: 100px;
+      top: 20%;
+      left: 10%;
+    }
+
+    .floating-circle:nth-child(2) {
+      width: 150px;
+      height: 150px;
+      top: 60%;
+      right: 20%;
+      animation-delay: 2s;
+    }
+
+    .floating-circle:nth-child(3) {
+      width: 80px;
+      height: 80px;
+      bottom: 20%;
+      left: 30%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #ff4070;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #777;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 768px) {
+      .brand-text h1 {
+      /* align-items: center !important; */
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #ff0040 !important;
+      margin-bottom: 0.5rem;
+    }
+
+    .brand-text p {
+      /* align-items: center !important; */
+      font-size: 1.2rem;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .main-heading {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: #111;
+    }
+
+    .description {
+      font-size: 1.3rem !important;
+      color: #555 !important;
+      line-height: 1.6 !important;
+      margin-bottom: 3rem !important;
+    }
+
+      .banner {
+        height: auto !important;
+        padding: 2rem !important;
+      }
+      .image-content {
+        height: 650px !important;
+        width: 100% !important;
+        border-radius: 12px !important;
+        transform: none;
+      }
+      .car-image {
+        width: contain !important;
+        height: contain !important;
+        object-fit: contain !important;
+        border-radius: 20px !important;
+        transition: transform 0.4s ease;
+      }
+      .banner-content {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        text-align: center !important;
+      }
+      .image-content {
+      position: relative;
+      height: 200px !important;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      transform: perspective(1000px) rotateY(-2deg);
+      transition: transform 0.4s ease;
+    }
+
+    .image-content:hover {
+      transform: perspective(1000px) rotateY(0deg);
+    }
+
+    .car-image {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      border-radius: 20px !important;
+      transition: transform 0.4s ease !important;
+    }
+
+    .image-content:hover .car-image {
+      transform: scale(1.08);
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top right, rgba(255, 0, 64, 0.08), rgba(0, 0, 0, 0.03));
+      z-index: 2;
+      pointer-events: none;
+    }
+      .main-heading {
+        font-size: 2.5rem !important;
+      }
+
+      .brand-text h1 {
+        font-size: 2rem !important;
+      }
+
+      .description {
+        font-size: 1.1rem !important;
+      }
+
+      .cta-buttons {
+        justify-content: center !important;
+      }
+
+  
+
+      .stats {
+        justify-content: center !important;
+      }
+    }
+  </style>
+
+  <section class="banner">
+    <div class="floating-elements">
+      <div class="floating-circle"></div>
+      <div class="floating-circle"></div>
+      <div class="floating-circle"></div>
+    </div>
+
+    <div class="banner-content">
+      <!-- Left -->
+      <div class="text-content">
+        <div class="logo">
+          <!-- <div class="logo-icon">AB</div> -->
+          <div class="brand-text text-center">
+            <h1>AutoBid</h1>
+            <p>Powered by Riverlong</p>
+          </div>
+        </div>
+
+        <h2 class="main-heading">Smart Car Sales<br>Made Simple</h2>
+        <p class="description">
+          Register for free to get exclusive, timely notifications and reviews on smart deals for vehicles ready for sale. Your next dream car is just one bid away.
+        </p>
+
+        <div class="cta-buttons">
+          {% if user.is_authenticated%}
+          <a href="{% url 'available_vehicles' %}" class="btn btn-secondary">🚗 Explore Vehicles</a>
+          {% else %}
+          <a href="/register" class="btn btn-primary">🚀 Register Now</a>
+          <a href="{% url 'available_vehicles' %}" class="btn btn-secondary">🚗 Explore Vehicles</a>
+          {% endif %}
+          
+        </div>
+
+        <div class="stats">
+          <div class="stat-item">
+            <span class="stat-number">200+</span>
+            <span class="stat-label">Cars Available</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">1000+</span>
+            <span class="stat-label">Happy Buyers</span>
+          </div>
+          <!-- <div class="stat-item">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Support</span>
+          </div> -->
+        </div>
+      </div>
+
+      <!-- Right -->
+      <div class="image-content">
+        <div class="overlay"></div>
+        <img src="{% static 'images/CX5-BANNER.jpg' %}" alt="Banner" class="car-image">
+      </div>
+
+    </div>
+  </section>
+
+{% if hotsales %}
+<div id="autobidCarousel" class="carousel slide" data-bs-ride="carousel">
+
+
+  <!-- Slides -->
+  <div class="carousel-inner ">
+    {% for vehicle in hotsale %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+      <div style="background:rgb(238, 212, 208); width:100%; height:80%; margin: 0 auto; padding: 0 20px;">
+        <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; position: relative;" class="row">
+          <div class="col-md-3 hero-text">
+            <div>
+              <div style="font-size: 1.25rem; color: #ed1b35; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; animation: slideIn 1s ease-out;">
+                Welcome To Autobid
+              </div>
+              <h1 style="font-size: 1.5rem; font-weight: 800; color: #ffffff; text-transform: uppercase; margin-bottom: 30px; line-height: 1.2; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); animation: scaleIn 1.2s ease-out;">
+                HOT SALE
+                <span style="display: block; font-size: 1.5rem; color: #0c0b0b; margin-top: 10px; font-weight: 400;">
+                   {{ vehicle.YOM }} . {{ vehicle.make }} . {{ vehicle.model}}
+                </span>
+                <span style="display: block; font-size: 1.5rem; color: #0c0b0b; margin-top: 10px; font-weight: 400;">
+                  {{ vehicle.reserve_price|intcomma}} KSH
+               </span>
+              </h1>
+              <div style="margin-top: 30px; display: flex; gap: 20px; animation: fadeIn 1.5s ease-out;">
+                <a href="{% url 'detail' vehicle.id%}" style="background-color: #ed1b35; color: #000000; padding: 15px 30px; border-radius: 8px; font-weight: 600; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; border: 2px solid #ed1b35; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#ffed4a'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(255,215,0,0.3)'" onmouseout="this.style.backgroundColor='#ed1b35'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                  Check Vehicle
+                </a>
+                <a href="{% url 'available_vehicles' %}" style="background-color: transparent; color: #ed1b35; padding: 15px 30px; border-radius: 8px; font-weight: 600; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; border: 2px solid #ed1b35; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#ed1b35'; this.style.color='#000000'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(255,215,0,0.3)'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#ed1b35'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                  Explore
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8" style="padding: 20px; min-height:350px;">
+            <img src="{{ vehicle.file.url }}" alt="{{ vehicle.registration_no }}" style="width: 100%; height: 20%; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    {% endfor %}
+  </div>
+
+{% endif %}
+    <div class="text-center" id="banner">
+      <h1 class="">DRIVE HOME TODAY</h1>
+        <a class="btn explore" href="{% url 'available_vehicles' %}"><i class="fa-solid fa-eye"></i> Explore Vehicles</a> 
+        <a class="btn contactus" href="{% url 'contactus' %}"><i class="fa-solid fa-phone-volume"></i> Contact Us</a>
+        <p class="Top-banner-text2">Win a bid at your Price !</p>  
+    </div>
+
+
+<div class="bottom_container">
+  
+  <div class="row">    
+    <div class="col-lg-6 col-md-12  col-sm-12 text-center p-5">
+      
+        <div class="row">
+          <span class="span_about">
+            Visit Us Today
+          </span>
+        </div>
+        
+        <span class="auction_items_intro text-center">
+          <p>Welcome to <b>AutoBid</b>, where passion meets possibility in every bid.</p> 
+          Explore a world of curated car sales, where treasures await discovery and bidding is an art form.
+          Unleash the thrill of winning as you navigate through our diverse marketplace of unique items.  
+          Join us on the journey where car sales become more than transactions – they become stories.</span>
+      
+    </div>
+
+    <div class="col-lg-6 col-md-12  col-sm-12 mt-5 mt-4">    
+      <div class="text-center">
+        <div class="row">
+         
+          <div class="card-items">
+            <span class="auction_header">Your Ultimate Vehicle Sales  Destination</span>          
+            <div class="auction_items pl-5"><i class="fa-solid fa-check"></i> <span class="auction_items_text"><b>Diverse Inventory:</b> Explore a wide range of vehicles.</span></div> <br>
+            <div class="auction_items pl-5"><i class="fa-solid fa-check"></i> <span class="auction_items_text"><b>Live Auctions:</b> Immerse yourself in the excitement of real-time bidding</span></div><br>
+            <div class="auction_items pl-5"><i class="fa-solid fa-check"></i> <span class="auction_items_text"><b>Transparency:</b> We believe in openness and  award on merit.</span></div><br>
+            <div class="auction_items pl-5"><i class="fa-solid fa-check"></i> <span class="auction_items_text"><b>Secure Transactions:</b> Bid with confidence, knowing that your transactions are secure</span></div>
+          
+          </div>
+          
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="middle-banner" style="background-image:url('{% static 'images/riverlong.jpg' %}');">
+  <div class="middle-banner-content">
+    <h2 style="font-family: 'Brush Script MT', cursive; ">One Stop Vehicle Solutions</h2>
+    <h1 style="font-family: 'Comic Sans MS', cursive;">Riverlong Ltd</h1>
+  </div>
+</div>
+
+<div class="mb-5">
+  <div class="row mt-2">
+    <div class="lower-head">
+      <h3 class="text-danger">Start Now</h3>
+      <h2>How it Works </h2>
+    </div>   
+  </div>
+  <div class="row lower-content">
+    <!-- <div class="row">
+      <div class="col-lg-3">
+      
+      </div>
+      <div class="col-lg-2">
+        <img class="image" src="{% static 'images/dotted-arrow1.png' %}" />
+      </div>
+      
+      <div class="col-lg-7">
+        
+      </div>
+    </div> -->
+   
+   <div class="row" id="howitworks">
+    <div class="col-lg-4 col-md-12  col-sm-12">
+        <!-- <div class="howitworksicon m-3">
+          <span class="round_icon">
+            <i class="fa-solid fa-chalkboard-user"></i>
+          </span>          
+        </div> -->
+      
+
+      <div class="card">
+        <div class="card-header">
+          <div class=""><i class="fa-solid fa-1" id="steps"></i></div>
+            <p><label> Create your account</label> 
+        </div>  
+        <div class="card-body">
+            <p>You will be required to create an account using your Name, ID, valid email address and Telephone Number.</p>
+        </div>        
+        
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class=""><i class="fa-solid fa-2" id="steps"></i></div>
+            <label> Your account profile</label>
+        </div>
+        <div class="card-body">
+            <p> Your profile contains information on the vehicles you have bid, bid amounts and your successful bids.</p>
+        </div>  
+        
+      </div>
+    </div>
+    <div class="col-lg-4  col-md-12  col-sm-12 mt-md-1" id="step3">     
+      <!-- <div class="howitworksicon m-3">
+        <span class="round_icon m-2">
+          <i class="fa fa-gavel"></i>
+        </span>          
+      </div> -->
+      <div class="card mt-5" >
+        <div class="card-header">
+          <div class=""><i class="fa-solid fa-3" id="steps"></i></div>
+            <label>Bid for a vehicle</label> 
+        </div>
+        <div class="card-body">
+            <p>Once you have registered and logged in you can view the vehicle you would like to buy and place your OFFER AMOUNT. You can bid for as many vehicles as you like. </p>
+        </div>  
+        
+      </div>     
+      
+     </div>
+    <div class="col-lg-4  col-md-12  col-sm-12">
+     
+      <!-- <div class="howitworksicon m-3">
+        <span class="round_icon">
+          <i class="fa-solid fa-circle-dollar-to-slot mb-2"></i>
+        </span>          
+      </div> -->
+
+      <div class="card">
+        <div class="card-header">
+          <div class=""><i class="fa-solid fa-4" id="steps"></i></div>
+            <label>Bid acceptance</label> 
+        </div>
+        <div class="card-body">
+            <p>Vehicles are sold on ‘As is, Where is’ basis. Offer letter shall be issued to successful bidder(s) who will be required to pay the full amount within 24 hours. Final allocation will be on a first come first served basis</p>
+        </div>   
+        
+      </div> 
+
+      <div class="card">
+        <div class="card-header">
+          <div class=""><i class="fa-solid fa-5" id="steps"></i></div>
+            <label> Vehicle release</label>
+        </div>
+        <div class="card-body">
+            <p>The Bank will confirm receipt of your payment and immediately issue you a letter authorizing release of the vehicle from the yard. You will thereafter collect the Logbook and necessary documentation to facilitate transfer of the motor vehicle.</p>
+        </div>
+      </div> 
+      
+    </div>
+   </div>
+
+  </div>
+
+</div>
+
+{% endblock content%}
+
+</html>

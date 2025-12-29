@@ -1,0 +1,2122 @@
+2025-06-25 12:49:25.043455: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:49:25.045459: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:49:25.047459: Running on_exit tasks
+2025-06-25 12:49:25.047459: wfastcgi.py 3.0.0 closed
+2025-06-25 12:49:33.393029: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:49:33.395013: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:49:33.396014: Running on_exit tasks
+2025-06-25 12:49:33.397014: wfastcgi.py 3.0.0 closed
+2025-06-25 12:49:49.321607: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:49:49.321607: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:49:49.321607: Running on_exit tasks
+2025-06-25 12:49:49.337293: wfastcgi.py 3.0.0 closed
+2025-06-25 12:49:50.758424: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:49:50.758424: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:49:50.758424: Running on_exit tasks
+2025-06-25 12:49:50.758424: wfastcgi.py 3.0.0 closed
+2025-06-25 12:49:50.988287: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:49:50.988287: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:49:50.988287: Running on_exit tasks
+2025-06-25 12:49:51.003946: wfastcgi.py 3.0.0 closed
+2025-06-25 12:49:52.574228: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:49:52.574228: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:49:52.574228: Running on_exit tasks
+2025-06-25 12:49:52.574228: wfastcgi.py 3.0.0 closed
+2025-06-25 12:49:54.740386: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:49:54.755913: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:49:54.755913: Running on_exit tasks
+2025-06-25 12:49:54.755913: wfastcgi.py 3.0.0 closed
+2025-06-25 12:49:55.929999: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:49:55.945682: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:49:55.945682: Running on_exit tasks
+2025-06-25 12:49:55.945682: wfastcgi.py 3.0.0 closed
+2025-06-25 12:50:04.287786: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:50:04.287786: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:50:04.287786: Running on_exit tasks
+2025-06-25 12:50:04.287786: wfastcgi.py 3.0.0 closed
+2025-06-25 12:50:05.956089: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:50:05.956089: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:50:05.956089: Running on_exit tasks
+2025-06-25 12:50:05.956089: wfastcgi.py 3.0.0 closed
+2025-06-25 12:52:11.872917: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:52:11.872917: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:52:11.872917: Running on_exit tasks
+2025-06-25 12:52:11.872917: wfastcgi.py 3.0.0 closed
+2025-06-25 12:52:13.264773: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:52:13.264773: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:52:13.264773: Running on_exit tasks
+2025-06-25 12:52:13.264773: wfastcgi.py 3.0.0 closed
+2025-06-25 12:52:45.060294: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:52:45.062305: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:52:45.063288: Running on_exit tasks
+2025-06-25 12:52:45.064286: wfastcgi.py 3.0.0 closed
+2025-06-25 12:52:46.673079: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:52:46.676226: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:52:46.678065: Running on_exit tasks
+2025-06-25 12:52:46.679067: wfastcgi.py 3.0.0 closed
+2025-06-25 12:52:48.835975: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:52:48.839458: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:52:48.841458: Running on_exit tasks
+2025-06-25 12:52:48.842455: wfastcgi.py 3.0.0 closed
+2025-06-25 12:52:52.575440: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:52:52.575440: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:52:52.582037: Running on_exit tasks
+2025-06-25 12:52:52.583033: wfastcgi.py 3.0.0 closed
+2025-06-25 12:52:54.180386: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:52:54.180386: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:52:54.180386: Running on_exit tasks
+2025-06-25 12:52:54.180386: wfastcgi.py 3.0.0 closed
+2025-06-25 12:55:07.840045: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 12:55:07.840045: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 12:55:07.840045: Running on_exit tasks
+2025-06-25 12:55:07.840045: wfastcgi.py 3.0.0 closed
+2025-06-25 13:03:14.177944: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:03:14.177944: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:03:14.177944: Running on_exit tasks
+2025-06-25 13:03:14.177944: wfastcgi.py 3.0.0 closed
+2025-06-25 13:06:03.246515: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:06:03.246515: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:06:03.262128: Running on_exit tasks
+2025-06-25 13:06:03.262128: wfastcgi.py 3.0.0 closed
+2025-06-25 13:09:36.809237: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:09:36.809237: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:09:36.809237: Running on_exit tasks
+2025-06-25 13:09:36.809237: wfastcgi.py 3.0.0 closed
+2025-06-25 13:10:49.045537: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:10:49.045537: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:10:49.045537: Running on_exit tasks
+2025-06-25 13:10:49.045537: wfastcgi.py 3.0.0 closed
+2025-06-25 13:10:51.645508: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:10:51.661535: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:10:51.661535: Running on_exit tasks
+2025-06-25 13:10:51.661535: wfastcgi.py 3.0.0 closed
+2025-06-25 13:10:53.408041: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:10:53.408041: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:10:53.408041: Running on_exit tasks
+2025-06-25 13:10:53.408041: wfastcgi.py 3.0.0 closed
+2025-06-25 13:10:58.169096: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:10:58.169096: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:10:58.184769: Running on_exit tasks
+2025-06-25 13:10:58.189801: wfastcgi.py 3.0.0 closed
+2025-06-25 13:10:59.543528: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:10:59.543528: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:10:59.543528: Running on_exit tasks
+2025-06-25 13:10:59.559518: wfastcgi.py 3.0.0 closed
+2025-06-25 13:11:55.121259: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:11:55.121259: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:11:55.136730: Running on_exit tasks
+2025-06-25 13:11:55.136730: wfastcgi.py 3.0.0 closed
+2025-06-25 13:13:30.988356: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:13:30.991342: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:13:30.994341: Running on_exit tasks
+2025-06-25 13:13:31.005847: wfastcgi.py 3.0.0 closed
+2025-06-25 13:23:34.446673: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:23:34.446673: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:23:34.446673: Running on_exit tasks
+2025-06-25 13:23:34.446673: wfastcgi.py 3.0.0 closed
+2025-06-25 13:23:36.997075: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:23:36.997075: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:23:37.011244: Running on_exit tasks
+2025-06-25 13:23:37.011244: wfastcgi.py 3.0.0 closed
+2025-06-25 13:24:02.649904: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:24:02.649904: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:24:02.649904: Running on_exit tasks
+2025-06-25 13:24:02.649904: wfastcgi.py 3.0.0 closed
+2025-06-25 13:24:04.900484: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:24:04.916390: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:24:04.916390: Running on_exit tasks
+2025-06-25 13:24:04.916390: wfastcgi.py 3.0.0 closed
+2025-06-25 13:32:47.458769: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:32:47.458769: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:32:47.458769: Running on_exit tasks
+2025-06-25 13:32:47.458769: wfastcgi.py 3.0.0 closed
+2025-06-25 13:36:27.848514: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:36:27.848514: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:36:27.848514: Running on_exit tasks
+2025-06-25 13:36:27.848514: wfastcgi.py 3.0.0 closed
+2025-06-25 13:38:17.389510: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:38:17.389510: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:38:17.389510: Running on_exit tasks
+2025-06-25 13:38:17.404033: wfastcgi.py 3.0.0 closed
+2025-06-25 13:38:21.718750: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:38:21.718750: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:38:21.718750: Running on_exit tasks
+2025-06-25 13:38:21.718750: wfastcgi.py 3.0.0 closed
+2025-06-25 13:38:21.796875: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:38:21.796875: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:38:21.812499: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:38:21.812499: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:38:21.812499: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:38:21.812499: Running on_exit tasks
+2025-06-25 13:38:21.812499: Running on_exit tasks
+2025-06-25 13:38:21.812499: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:38:21.812499: wfastcgi.py 3.0.0 closed
+2025-06-25 13:38:21.812499: Running on_exit tasks
+2025-06-25 13:38:21.812499: wfastcgi.py 3.0.0 closed
+2025-06-25 13:38:24.282353: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:38:24.282353: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:38:24.282353: Running on_exit tasks
+2025-06-25 13:38:24.282353: wfastcgi.py 3.0.0 closed
+2025-06-25 13:38:39.168984: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:38:39.168984: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:38:39.168984: Running on_exit tasks
+2025-06-25 13:38:39.168984: wfastcgi.py 3.0.0 closed
+2025-06-25 13:41:03.443748: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:41:03.443748: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:41:03.443748: Running on_exit tasks
+2025-06-25 13:41:03.443748: wfastcgi.py 3.0.0 closed
+2025-06-25 13:47:13.718319: Error occurred while reading WSGI handler:
+
+Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+
+
+StdOut: 
+
+StdErr: 
+2025-06-25 13:47:13.722270: Unhandled exception in wfastcgi.py: Traceback (most recent call last):
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 791, in main
+    env, handler = read_wsgi_handler(response.physical_path)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 633, in read_wsgi_handler
+    handler = get_wsgi_handler(os.getenv("WSGI_HANDLER"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\myenv\Lib\site-packages\wfastcgi.py", line 600, in get_wsgi_handler
+    handler = __import__(module_name, fromlist=[name_list[0][0]])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\inetpub\wwwroot\Auto-auction\auctions\wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\site-packages\django\core\wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "C:\Python312\Lib\site-packages\django\__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "C:\Python312\Lib\site-packages\django\apps\registry.py", line 83, in populate
+    raise RuntimeError("populate() isn't reentrant")
+RuntimeError: populate() isn't reentrant
+2025-06-25 13:47:13.745626: Running on_exit tasks
+2025-06-25 13:47:13.746627: wfastcgi.py 3.0.0 closed
+2025-06-25 13:48:17.089115: wfastcgi.py will restart when files in C:\inetpub\wwwroot\Auto-auction\ are changed: .*((\.py)|(\.config))$
+2025-06-25 13:48:17.090971: wfastcgi.py 3.0.0 initialized
+2025-06-25 13:48:31.828078: wfastcgi.py will restart when files in C:\inetpub\wwwroot\Auto-auction\ are changed: .*((\.py)|(\.config))$
+2025-06-25 13:48:31.829069: wfastcgi.py 3.0.0 initialized
+2025-06-25 13:48:31.829069: wfastcgi.py will restart when files in C:\inetpub\wwwroot\Auto-auction\ are changed: .*((\.py)|(\.config))$
+2025-06-25 13:48:31.831077: wfastcgi.py 3.0.0 initialized
+2025-06-25 13:48:31.916044: wfastcgi.py will restart when files in C:\inetpub\wwwroot\Auto-auction\ are changed: .*((\.py)|(\.config))$
+2025-06-25 13:48:31.918044: wfastcgi.py 3.0.0 initialized
+2025-06-25 13:49:15.384974: wfastcgi.py exiting because web.config has changed, matching .*((\.py)|(\.config))$
+2025-06-25 13:49:15.384974: wfastcgi.py exiting because web.config has changed, matching .*((\.py)|(\.config))$
+2025-06-25 13:49:15.384974: Running on_exit tasks
+2025-06-25 13:49:15.385974: wfastcgi.py exiting because web.config has changed, matching .*((\.py)|(\.config))$
+2025-06-25 13:49:15.385974: wfastcgi.py exiting because web.config has changed, matching .*((\.py)|(\.config))$
+2025-06-25 13:49:15.386975: Running on_exit tasks
+2025-06-25 13:49:15.388974: Running on_exit tasks
+2025-06-25 13:49:15.396083: Running on_exit tasks

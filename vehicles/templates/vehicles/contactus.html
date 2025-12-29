@@ -1,0 +1,128 @@
+{% extends 'vehicles/base.html'%}
+{% load static %}
+{% load humanize %}
+
+<html>
+{% block content%}
+<head>
+    <!-- Google tag (gtag.js) -->
+{% comment %} <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HBY7XY3QB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5HBY7XY3QB');
+</script> {% endcomment %}
+<!-- Google tag (gtag.js) --> 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T22ZQYJGM6"></script>
+ <script>
+     window.dataLayer = window.dataLayer || []; 
+     function gtag(){dataLayer.push(arguments);} 
+     gtag('js', new Date()); 
+     gtag('config', 'G-T22ZQYJGM6');
+</script>
+
+<title>AutoBid by RiverLong | Contact Us | Best Cars for Sale in Kiambu Road,fourways Junction, Kenya</title>
+{% comment %} <title>{% block title %}Riverlong | Autobid - Auction Vehicles Nairobi, Kiambu Road{% endblock %}</title> {% endcomment %}
+<meta name="description" content="{% block meta_description %}Bid on a wide selection of auction vehicles in Nairobi, Kenya, conveniently located along Kiambu Road. Find cars, trucks, SUVs, and more at competitive prices. Riverlong Autobid makes buying and selling vehicles fast, secure, and transparent.{% endblock %}">
+<meta name="keywords" content="{% block meta_keywords %}auction vehicles Nairobi, car auctions Nairobi, used car auctions Nairobi, vehicle auctions Kenya, Kiambu Road car auctions, Nairobi car bazaar, buy cars Nairobi auction, sell cars Nairobi auction, truck auctions Nairobi, SUV auctions Nairobi, affordable cars Nairobi, cheap cars Nairobi, online car auction Nairobi, Kenya car auction website{% endblock %}">
+<meta name="author" content="Riverlong Autobid">
+<link rel="canonical" href="https://autobid.riverlong.com" />
+
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow">
+
+<!-- Open Graph Meta Tags (For Social Media Sharing) -->
+<meta property="og:title" content="Riverlong Autobid - Buy Vehicles">
+<meta property="og:description" content="Find the best deals on used  cars. Riverlong Autobid makes buying and selling vehicles fast, secure, and transparent.">
+<meta property="og:image" content="{% static 'images/logo-autobid.svg' %}">
+<meta property="og:url" content="https://autobid.riverlong.com">
+<meta property="og:type" content="website">
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Riverlong Autobid - Buy Vehicles">
+<meta name="twitter:description" content="Find the best deals on used  cars. Riverlong Autobid makes buying and selling vehicles fast, secure, and transparent.">
+<meta name="twitter:image" content="{% static 'images/logo-autobid.svg' %}">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://autobid.riverlong.com">
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="{% static 'images/logo-autobid.svg' %}">
+  
+    <meta name="google-site-verification" content="Bti7HINMSboF3KQ5swk07uemG5jFDwhTtvzBLQs29IE" />
+  
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .feedback-container {
+            /* max-width: 600px; */
+            margin: 30px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            height: 600px;
+        }
+        .btn-submit {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+        .map-container {
+            /* max-width: 600px; */
+            margin: 20px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            height: 600px;
+        }
+        .map {
+            width: 100%;
+            height: 600px;
+           
+        }
+    </style>
+</head>
+<body>
+    <div class="row m-3 p-1">
+        <div class="feedback-container col-md-6">
+           
+                <h2 class="text-center text-danger mb-4">We Value Your Feedback</h2>
+           
+            <form method="post" >
+                {% csrf_token %}
+                    {{form.as_p}}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-danger text-light btn-lg">Submit Feedback</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-container col-md-5">
+            <h4 class="text-center mt-4 mb-2">Visit Us</h4>
+            <iframe 
+                class="map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.9260789271966!2d36.83454647585793!3d-1.2117425355510365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f3d67f04d2473%3A0xdb2ba4ae3f80a1e1!2sRiverlong%20Tracking%20company!5e0!3m2!1sen!2ske!4v1737365447378!5m2!1sen!2ske"
+                allowfullscreen=""
+                loading="lazy">
+            </iframe>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+{% endblock content%}
+
+</html>

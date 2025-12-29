@@ -1,0 +1,34 @@
+<!-- templates/admin/send_bulk_sms.html -->
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+    <h2>Send SMS to Selected Profiles</h2>
+
+    <form method="post" action="">
+        {% csrf_token %}
+        
+        <div>
+            {% if profiles %}
+                <p>You are about to send an SMS to <strong>{{ profiles|length }}</strong> profiles:</p>
+                <ul>
+                    {% for profile in profiles %}
+                        <li>{{ profile.user.username }} ({{ profile.phone_number }})</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p><strong>No profiles selected.</strong></p>
+            {% endif %}
+        </div>
+
+        <div style="margin: 20px 0;">
+            <label for="message"><strong>Message:</strong></label><br>
+            <textarea name="message" id="message" rows="4" cols="50" required maxlength="160"
+                      placeholder="Enter your SMS message here..."></textarea>
+        </div>
+
+        <input type="hidden" name="post" value="yes">
+
+        <input type="submit" value="Send SMS" class="button default">
+        <a href="javascript:history.back();" class="button cancel-link">Cancel</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /profile/
+Disallow: /logout/
+Allow: /
+Sitemap: autobid.riverlong.com/sitemap.xml/
+Sitemap: 127.0.0.1:2000/sitemap.xml

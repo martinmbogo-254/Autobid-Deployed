@@ -1,0 +1,131 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .price-revision-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 70vh;
+    }
+
+    .price-revision-card {
+        background: var(--body-bg, #1e1e1e);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        padding: 36px 42px;
+        width: 100%;
+        max-width: 540px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+        text-align: center;
+    }
+
+    .price-revision-card h2 {
+        margin: 0 0 6px;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .price-revision-subtitle {
+        color: #9aa0a6;
+        font-size: 14px;
+        margin-bottom: 22px;
+    }
+
+    .selected-count {
+        font-size: 13px;
+        color: #b0b0b0;
+        margin-bottom: 28px;
+    }
+
+    .price-revision-card form p {
+        margin-bottom: 26px;
+        text-align: left;
+    }
+
+    .price-revision-card label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;
+        color: #e8eaed;
+    }
+
+    .price-revision-card input[type="number"],
+    .price-revision-card input[type="text"] {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+
+    .price-revision-actions {
+        margin-top: 30px;
+    }
+
+    .price-revision-actions button {
+        padding: 12px 36px;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 6px;
+        min-width: 220px;
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const input = document.querySelector('input[name="new_price"]');
+
+        if (!input) return;
+
+        input.addEventListener("input", function (e) {
+            // Remove non-digits
+            let value = e.target.value.replace(/,/g, '').replace(/\D/g, '');
+
+            // Format with commas
+            e.target.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        });
+
+        // Before submit, strip commas so Django receives a clean number
+        input.closest('form').addEventListener('submit', function () {
+            input.value = input.value.replace(/,/g, '');
+        });
+    });
+</script>
+
+
+<div class="price-revision-wrapper">
+    <div class="price-revision-card">
+
+        <h2>Revise Vehicle Price</h2>
+        <div class="price-revision-subtitle">
+            Update the reserve price and notify all bidders
+        </div>
+
+        <div class="selected-count">
+            {{ vehicles|length }} vehicle{{ vehicles|length|pluralize }} selected
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+                {{ form.as_p }}
+
+            <!-- Required admin action fields -->
+            <input type="hidden" name="action" value="{{ action }}">
+
+            {% for vehicle in vehicles %}
+                <input type="hidden" name="_selected_action" value="{{ vehicle.pk }}">
+            {% endfor %}
+
+            <input type="hidden" name="apply" value="1">
+
+            <div class="price-revision-actions">
+                <button type="submit" class="button default">
+                    Apply Price Revision
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
