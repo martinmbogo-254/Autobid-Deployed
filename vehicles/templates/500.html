@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="error-page server-error">
+  <h1>500 - Something broke...</h1>
+  <p>Our team has been notified. Please try again later.</p>
+  <a href="{% url 'home' %}" class="btn">Back to home</a>
+</div>
+{% endblock %}

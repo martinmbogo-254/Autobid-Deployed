@@ -1,0 +1,311 @@
+{% extends 'vehicles/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Autobid by Riverlong</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+            {#font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;#}
+        }
+
+        .privacy-policy {
+            max-width: 80%;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .privacy-policy h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .privacy-policy h2 {
+            font-size: 26px;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .privacy-policy h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            color: #333333;
+        }
+
+        .privacy-policy p {
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+
+        .privacy-policy ul {
+            list-style-type: disc;
+            margin: 12px 0 20px 20px;
+            padding: 0;
+        }
+
+        .privacy-policy li {
+            margin-bottom: 8px;
+            font-size: 16px;
+            list-style-type: disc;
+            padding-left: 8px;
+        }
+
+        .privacy-policy strong {
+            font-weight: 600;
+        }
+
+        .privacy-policy a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .privacy-policy a:hover {
+            text-decoration: underline;
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        /* Contact Info Styling */
+        .contact-information {
+            background-color: #f8f9fa;
+            border-left: 4px solid #0066cc;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .contact-info p {
+            margin-bottom: 12px;
+        }
+
+        .contact-detail {
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            color: #1a1a1a;
+            display: inline-block;
+            min-width: 80px;
+        }
+
+        /* Last Updated Styling */
+        .last-updated {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+            font-size: 14px;
+            color: #666666;
+            text-align: right;
+            font-style: italic;
+        }
+        .policy-footer-links {
+                margin-top: 40px;
+                text-align: center;
+            }
+
+            .policy-footer-links a:hover {
+                text-decoration: underline;
+            }
+
+            .last-updated {
+                margin-top: 10px;
+                font-size: 14px;
+                color: #666666;
+                text-align: center;
+                font-style: italic;
+            }
+
+
+        @media (max-width: 768px) {
+            .privacy-policy {
+                margin: 20px;
+                padding: 0;
+            }
+
+            .privacy-policy h1 {
+                font-size: 30px;
+            }
+
+            .privacy-policy h2 {
+                font-size: 22px;
+            }
+
+            .contact-information {
+                padding: 15px;
+            }
+
+            .contact-label {
+                min-width: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="privacy-policy">
+
+        <h2>Introduction</h2>
+        <p>
+            This Privacy Policy describes how <span>Autobid by Riverlong</span> ("we," "us," or "our") collects, uses, and discloses your personal information when you visit, interact with our services, make a transaction through our platforms, or communicate with us (collectively, the "Services"). The terms "you" and "your" refer to any user of our Services—whether a customer, website visitor, or another individual whose information we collect.
+        </p>
+        <p>
+            We may update this Privacy Policy from time to time. Any changes will be posted on our website with an updated "Last Updated" date. Please review this policy regularly to stay informed. Autobid by Riverlong processes personal data in compliance with the <span>Kenya Data Protection Act, 2019.</span>
+        </p>
+
+        <h2>1. Personal Information We Collect</h2>
+
+        <h3>Information You Provide Directly</h3>
+        <p>When you interact with our Services, you may provide us with personal information such as:</p>
+        <ul>
+            <li><strong>Contact Details:</strong> Name, address, email, phone number, and identification information.</li>
+            <li><strong>Transaction Information:</strong> Viewing of assets and bidding.</li>
+            <li><strong>Account Information:</strong> Login credentials and communication preferences.</li>
+            <li><strong>Customer Support Information:</strong> Details you share when reaching out for support or inquiries.</li>
+        </ul>
+        <p>
+            Certain features may require specific information to be provided. Choosing not to provide this information may limit your access to some of our services.
+        </p>
+
+        <h3>Information We Collect Automatically</h3>
+        <p>We may collect the following information automatically:</p>
+        <ul>
+            <li><strong>Usage Data:</strong> IP address, browser type, device identifiers, and interaction data from our website or platforms.</li>
+            <li>
+                <strong>Cookies and Similar Technologies:</strong> We use cookies, beacons, and similar technologies to enhance your experience, remember your preferences, and analyze how our Services are used. These tools help us improve functionality and deliver relevant content. You can manage or disable cookies at any time through your browser settings.In addition,our platform may display a <span>cookie banner</span> that allows you to accept, reject,or customize your cookie preferences. Please note that disabling certain cookies may affect the availability or performance of some features.
+            </li>
+        </ul>
+
+        <h3>Information from Third Parties</h3>
+        <p>We may receive information about you from:</p>
+        <ul>
+            <li><strong>Service Providers:</strong> Car dealers, car yards, motor vehicle importers, auctioneers, vehicle sales systems, payment providers, credit bureaus, and analytics platforms.</li>
+            <li><strong>Marketing Partners:</strong> Organizations that help us reach you with relevant asset disposal deals and updates.</li>
+        </ul>
+        <p>All third-party information is handled in accordance with this Privacy Policy.</p>
+
+        <h2>2. How We Use Your Personal Information</h2>
+        <p>
+            We use the personal data we collect to:
+        </p>
+        <ul>
+            <li><strong>Deliver Asset Disposal Services:</strong> Enhance the bidding process, manage asset disposal, communicate bid status , and offer customer support.</li>
+            <li><strong>Improve and Develop Services:</strong> Enhance user experience and develop new products.</li>
+            <li><strong>Marketing and Communication:</strong> Send relevant updates, promotions, and service-related messages.</li>
+            <li><strong>Security and Compliance:</strong> Prevent fraud, verify identities, and comply with regulatory requirements.</li>
+        </ul>
+
+        <h2>3. How We Share Your Personal Information</h2>
+        <p>We may share your personal information with:</p>
+        <ul>
+            <li><strong>Service Providers and Business Partners:</strong> Including vehicle owners, financial institutions, IT service providers, payment partners and cloud storage services.</li>
+            <li><strong>Business and Marketing Partners:</strong> That assist us in outreach and customer engagement.</li>
+            <li><strong>Affiliated Companies:</strong> Within Riverlong Limited for business purposes.</li>
+            <li><strong>Legal and Regulatory Authorities:</strong> Where required to comply with applicable laws or protect our legal interests.</li>
+        </ul>
+        <p>We do not sell or share personal data as defined under applicable data protection laws.</p>
+
+        <h2>4. Data Retention</h2>
+        <p>
+            We retain personal data for defined periods based on the purpose of collection and applicable legal requirements. For example:
+        </p>
+        <ul>
+            <li><strong>Transaction Records</strong> : Retained for <span>7 years</span>  to meet accounting and regulatory obligations.</li>
+            <li><strong>Customer Support Communications</strong> : Retained for up to <span>2 years</span> to ensure service quality and resolve disputes.</li>
+            <li><strong>Marketing Preferences</strong> : Retained until you withdraw consent or opt out.</li>
+            <li><strong>Account Information</strong> : Retained while your account is active and for a reasonable period thereafter to comply with legal or contractual obligations.</li>
+        </ul>
+        <p>
+            After these periods, data is securely deleted or anonymized unless longer retention is required by law.
+        </p>
+
+        <h2>5. Your Rights</h2>
+        <p>
+           These rights are provided Under the <span>Kenya Data Protection Act, 2019.</span> Depending on your jurisdiction, you may have the right to:
+        </p>
+        <ul>
+            <li><strong>Access / Know:</strong> Request a copy of the personal data we hold.</li>
+            <li><strong>Delete:</strong> Ask for your data to be erased.</li>
+            <li><strong>Correct:</strong> Fix inaccuracies in your information.</li>
+            <li><strong>Data Portability:</strong> Receive your data in a portable format.</li>
+            <li><strong>Restrict Processing:</strong> Limit the use of your personal information.</li>
+            <li><strong>Withdraw Consent:</strong> Where processing is based on consent.</li>
+            <li><strong>Marketing Preferences:</strong> Opt out of marketing communications. Transactional messages will still be sent.</li>
+        </ul>
+        <p>
+            To exercise these rights, please contact us via the details provided below. We may require identity verification before acting on your request.
+        </p>
+
+        <h2>6. Security Measures</h2>
+        <p>
+            We use technical and organizational safeguards such as encryption, access controls, and regular audits to protect your data. However, no system is 100% secure. Please avoid sharing sensitive information over unsecured channels.
+        </p>
+
+        <h2>7. Third-Party Websites and Links</h2>
+        <p>
+            Our website may contain links to external websites not governed by this policy. We encourage you to review their privacy practices before sharing any personal information.
+        </p>
+
+        <h2>8. Children's Data</h2>
+        <p>
+            Our services are not intended for individuals under 18. We do not knowingly collect personal data from minors. If you believe a minor has submitted personal information, please contact us so we can delete it. We require parental consent if we discover a minor has interacted with our services.
+        </p>
+
+        <h2>9. International Data Transfers</h2>
+        <p>
+            If we transfer your data outside Kenya (including transfers outside the EEA), we use legally approved safeguards such as Standard Contractual Clauses to ensure data protection is in line with the Kenya Data Protection Act, 2019, and where applicable, the EU  General Data Protection Regulation (GDPR).
+        </p>
+
+        <h2>10. Contact Information</h2>
+        <p>If you have any questions about this Privacy Policy, need assistance, or wish to exercise your rights, please contact:</p>
+
+        <div class="contact-information">
+            <div class="contact-detail">
+                <span class="contact-label">Email:</span> info@riverlong.com or autobid@riverlong.com
+            </div>
+            <div class="contact-detail">
+                <span class="contact-label">Address:</span> Fourways Junction, Kiambu Road Total Petrol Station, Nairobi, Kenya
+            </div>
+            <div class="contact-detail">
+                <span class="contact-label">Phone/WhatsApp:</span> +254 701689319 / +254 701 856557
+            </div>
+        </div>
+
+        <p>
+            Thank you for choosing Autobid by Riverlong. Your privacy matters to us.
+        </p>
+
+                <div class="policy-footer-links">
+            <p>View our
+                <a href="/terms/" style="color: #0066cc; text-decoration: none; font-weight: 500;">
+                     Terms and Conditions
+                </a>
+            </p>
+        </div>
+
+        <div class="last-updated">
+            Last Updated: December 2025
+        </div>
+
+
+    </section>
+</body>
+{% endblock content %}
