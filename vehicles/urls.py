@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/auction-status/', views.auction_status_update, name='auction_status_update'),
     path('reports/', views.reports, name='reports'),
     path('terms/',views.terms, name='terms'),
+    path('privacy-policy/',views.privacy_policy, name='privacy_policy'),
     path('aboutus/',views.aboutus, name='aboutus'),
     path('contactus/',views.feedback_view, name='contactus'),
     path('password-reset/', ResetPasswordView.as_view(), name='password_reset'),

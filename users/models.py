@@ -25,7 +25,15 @@ class Profile(models.Model):
     phone_number = models.PositiveIntegerField(max_length=10,blank=False,null=True,unique=True)
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
     full_name = models.CharField(max_length=20, blank=True)
+    referred_by = models.CharField(max_length=20, blank=True)
 
+    def get_display_name(self):
+        if self.full_name:
+            return self.full_name
+        return f"{self.user.first_name} {self.user.last_name}".strip()
+
+    def get_date_joined(self):
+        return self.user.date_joined
     
 
     def __str__(self):

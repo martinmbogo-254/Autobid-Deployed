@@ -29,13 +29,23 @@ admin.site.register(Location)
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    search_fields = ('phone_number', 'ID_number','user__email','full_name')
-    list_display = ('user','full_name','phone_number','ID_number')
-    list_filter = ('location',)
+    search_fields = ('phone_number', 'ID_number','user__email','referred_by')
+    list_display = ('user','display_name','phone_number','ID_number','date_joined','referred_by')
+    list_filter = ('referred_by',('user__date_joined', admin.DateFieldListFilter),)
     actions = ['generate_profile_report']  # Attach the CSV export function to actions
     list_per_page = 50  # Items per page
     list_max_show_all = 1000  # Maximum items when showing all
     show_full_result_count = True  # Show total count in pagination
+
+    def display_name(self, obj):
+        return obj.get_display_name()
+
+    display_name.short_description = "User Name"
+
+    def date_joined(self, obj):
+        return obj.get_date_joined()
+
+    date_joined.short_description = "Date Joined"
 
     def generate_profile_report(self, request, queryset):
         # Create the HttpResponse object with CSV content type
@@ -44,7 +54,7 @@ class ProfileAdmin(admin.ModelAdmin):
         writer = csv.writer(response)
 
         # Write header row with column names
-        writer.writerow([ 'Full Name', 'Email', 'ID Number', 'Phone Number', 'Location'])
+        writer.writerow([ 'Full Name', 'Email', 'ID Number', 'Phone Number','Date Joined', 'Referred_by'])
 
         # Write rows with relevant data
         for profile in queryset:
@@ -54,7 +64,8 @@ class ProfileAdmin(admin.ModelAdmin):
                 profile.user.email,
                 profile.ID_number,
                 profile.phone_number,
-                profile.location if profile.location else "N/A"
+                self.date_joined(profile),
+                profile.referred_by
             ])
 
         return response

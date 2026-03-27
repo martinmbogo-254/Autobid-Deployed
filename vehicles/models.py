@@ -21,6 +21,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 
+
 class VehicleMake(models.Model):
     name = models.CharField(max_length=255)
 
@@ -134,6 +135,26 @@ class Vehicle(models.Model):
     disapproved_at = models.DateTimeField(null=True, blank=True)
     sold_at = models.DateTimeField(null=True, blank=True)
     sold_by = models.ForeignKey(User, related_name="Marked_as_sold_by", null=True, blank=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        indexes = [
+            # Main listing page
+            models.Index(fields=['is_approved', 'status', '-created_at'], name='idx_v_approved_status'),
+
+            # Common filters
+            models.Index(fields=['make'], name='idx_v_make'),
+            models.Index(fields=['status'], name='idx_v_status'),
+            models.Index(fields=['is_hotsale', '-created_at'], name='idx_v_hotsale'),
+            models.Index(fields=['is_flashsale', '-created_at'], name='idx_v_flashsale'),
+
+            # Sorting
+            models.Index(fields=['-created_at'], name='idx_v_created_desc'),
+            models.Index(fields=['-views'], name='idx_v_views_desc'),
+
+            # Image field/file
+            models.Index(fields=['file'], name='idx_v_file'),
+
+        ]
     
 
     def financed_amount(self):

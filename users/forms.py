@@ -1,4 +1,3 @@
-
 from django import forms
 from django.contrib.auth.models import User
 from .models import Location, Profile
@@ -15,22 +14,23 @@ class CustomLoginForm(forms.Form):
             'class': 'form-control'
         })
     )
- 
+
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Enter your password',
             'class': 'form-control'
         })
     )
+
     class Meta:
         fields = ['username', 'password']
+
 
 class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'password1', 'password2','accept_terms']
-      
-        
+        fields = ['username', 'password1', 'password2', 'accept_terms']
+
     accept_terms = forms.BooleanField(
         required=True,
         label="I accept the Terms and Conditions",
@@ -39,13 +39,13 @@ class UserRegistrationForm(UserCreationForm):
 
     password1 = forms.CharField(
         label="PIN",
-    widget=forms.PasswordInput(attrs={
-        'placeholder': 'Enter 4-digit PIN',
-        'class': 'form-control',
-        'maxlength': '4',
-        'inputmode': 'numeric',
-        'pattern': '\\d{4}',
-    })
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Enter 4-digit PIN',
+            'class': 'form-control',
+            'maxlength': '4',
+            'inputmode': 'numeric',
+            'pattern': '\\d{4}',
+        })
     )
 
     password2 = forms.CharField(
@@ -75,7 +75,7 @@ class UserRegistrationForm(UserCreationForm):
     #         'class': 'form-control'
     #     })
     # )
- 
+
     username = forms.EmailField(  # Changed to EmailField
         label="Email",
         widget=forms.EmailInput(attrs={
@@ -83,7 +83,6 @@ class UserRegistrationForm(UserCreationForm):
             'class': 'form-control'
         })
     )
-
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -94,12 +93,14 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class ProfileForm(forms.ModelForm):
-
     class Meta:
         model = Profile
-        fields = ['phone_number', 'ID_number', 'location', 'full_name']
-         
+        fields = ['phone_number', 'ID_number', 'location', 'full_name', 'referred_by']
+
         widgets = {
+            'full_name': forms.TextInput(attrs={
+                'placeholder': 'Enter your full name',
+            }),
             'phone_number': forms.TextInput(attrs={
                 'maxlength': '10',
                 'pattern': '\\d{10}',
@@ -109,23 +110,21 @@ class ProfileForm(forms.ModelForm):
             }),
             'ID_number': forms.TextInput(attrs={
                 'maxlength': '12',
-                # 'pattern': '\\d{12}',
+
                 'inputmode': 'numeric',
                 'placeholder': 'Enter valid ID number',
                 'class': 'form-control'
             }),
-            'full_name': forms.TextInput(attrs={
-                'maxlength': '20',
-                
-                'placeholder': 'Enter your name',
-                'class': 'form-control'
-            }),
+            'referred_by': forms.TextInput(attrs={
+                'maxlength': '12',
+                'placeholder': 'Enter your referee name',
+            })
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['location'].queryset = Location.objects.all().order_by('city')
-   
+
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()

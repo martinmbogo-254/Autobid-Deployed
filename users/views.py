@@ -1,8 +1,12 @@
+from datetime import datetime, time
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+
 from .forms import UserRegistrationForm ,ProfileForm,CustomLoginForm
 from django.contrib.auth import logout
 from .models import Profile
@@ -56,6 +60,17 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
 
 
 def register(request):
+    cutoff_naive = datetime.combine(
+        datetime(2027, 2, 28),
+        time(17, 0)
+    )
+
+    cutoff_aware = timezone.make_aware(
+        cutoff_naive,
+        timezone.get_current_timezone()
+    )
+
+    show_referred_by = timezone.now() < cutoff_aware
     # Redirect a user to the homepage if they are already logged in
     if request.user.is_authenticated:
         return redirect('available_vehicles')
@@ -83,7 +98,8 @@ def register(request):
 
         context = {
             'form': form,
-            'p_form': p_form
+            'p_form': p_form,
+            'show_referred_by': show_referred_by,
         }
         return render(request, 'users/register.html', context)
 

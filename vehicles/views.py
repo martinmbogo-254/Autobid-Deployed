@@ -22,7 +22,7 @@ from users.models import User
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
-
+from django.views.decorators.cache import cache_page
 
 @login_required(login_url='login')
 def dashboard_view(request):
@@ -87,6 +87,12 @@ def homepage(request):
         'flashsale_exists': flashsale_exists,
     }
     return render(request, 'vehicles/home.html', context)
+
+def privacy_policy(request):
+    context = {
+
+    }
+    return render(request, 'vehicles/privacy_policy.html', context)
 
 def aboutus(request):
     context = {
@@ -174,11 +180,11 @@ def allvehiclespage(request):
     urysia_count = urysia_vehicles.count()
 
     # Paginator for vehicles on sale
-    paginator = Paginator(vehicles_on_sale, 20)  # Display 20 objects per page
+    paginator = Paginator(vehicles_on_sale, 16)  # Display 16 vehicles per page
 
     page = request.GET.get('page', 1)
 
-
+    # Prevent vehicles on first page to appear on every page i.e flashsale, on auction and hotsale vehicles
     try:
         vehicles_on_sale = paginator.page(page)
     except PageNotAnInteger:
@@ -195,6 +201,17 @@ def allvehiclespage(request):
         flashsale_vehicles = filtered_queryset.filter(is_flashsale=True,status="available").order_by(sort_field)
     else:
         flashsale_vehicles = None
+
+    if vehicles_on_sale.number == 1:
+        vehicles_on_auction = auctionfiltered_queryset.filter(
+        status="on_auction",
+        is_approved=True,
+        auctions__approved=True,
+        auctions__end_date__gt=timezone.now(),
+        auctions__processed=False
+    ).distinct().order_by(sort_field)
+    else:
+        vehicles_on_auction = None
 
     context = {
         'vehicles_on_sale': vehicles_on_sale,
@@ -229,7 +246,7 @@ def vehicledetail(request, pk):
     # available_vehicles = Vehicle.objects.filter(status='available')
     similar_vehicles = Vehicle.objects.filter(make=vehicle.make, model=vehicle.model,is_approved=True,status='available').exclude(id=vehicle.id)
     biddings = Bidding.objects.filter(vehicle=vehicle)
-    highest_bid = vehicle.bidding.order_by('-amount').first()
+    highest_bid = vehicle.bidding.filter(awarded=False,disqualified=False).order_by('-amount').first()
     context = {
        'vehicle': vehicle,
        'biddings':biddings,
@@ -571,7 +588,7 @@ def feedback_view(request):
                 f"Hi {name},\n\n"
                 "Thank you for taking the time to share your feedback with us. "
                 "We truly value your input .\n\n"
-                "Best regards,\nYour Team"
+                "Best regards,\nRiverlong Autobid Team"
             )
 
             subject_team = f"New Feedback Received from {name}"
@@ -597,7 +614,7 @@ def feedback_view(request):
                 # Fallback email recipients if none are found in the database
                 recipient_list = list(NotificationRecipient.objects.values_list('email', flat=True))
                 if not recipient_list:
-                    recipient_list = ['fuel@riverlong.com']
+                    recipient_list = ['autobid@riverlong.com']
                 # Email to the team
                 send_mail(
                     subject_team,

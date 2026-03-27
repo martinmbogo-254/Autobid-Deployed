@@ -72,17 +72,16 @@
                                
                             </div>
                             <div class="row">
-                                <div class="col-md-6" >
-                                    <div class="form-group">
-                                        {{ p_form.full_name|as_crispy_field }}
-                                    </div>
-                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         {{ form.username|as_crispy_field }}
                                     </div>
                                 </div>
-                                
+                                 <div class="col-md-6" >
+                                    <div class="form-group">
+                                        {{ p_form.full_name|as_crispy_field }}
+                                    </div>
+                                </div>
                                 {% comment %} <div class="col-md-6">
                                     <div class="form-group">
                                         {{ p_form.location|as_crispy_field }}
@@ -101,27 +100,35 @@
                                         {{ p_form.phone_number|as_crispy_field }}
                                     </div>
                                 </div>
-                               
+
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                {% if show_referred_by %}
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        {{ p_form.referred_by|as_crispy_field }}
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div class="col-md-4">
                                     <div class="form-group position-relative">
-                                   
+
                                         {{ form.password1|as_crispy_field }}
                                         <span class="password-toggle" onclick="togglePassword('password1')">
                                             <i class="fa-solid fa-eye" id="togglePassword1"></i>
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group position-relative">
-                                        
+
                                         {{ form.password2|as_crispy_field }}
                                         <span class="password-toggle" onclick="togglePassword('password2')">
                                             <i class="fa-solid fa-eye" id="togglePassword2"></i>
                                         </span>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="d-grid gap-2 mt-4">
 

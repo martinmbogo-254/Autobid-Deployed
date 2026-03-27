@@ -44,6 +44,8 @@ from django.utils.html import strip_tags
 from django.conf import settings
 import tempfile
 import os
+from simple_history.admin import SimpleHistoryAdmin
+
 from datetime import datetime
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
@@ -818,6 +820,19 @@ class BidAdmin(admin.ModelAdmin):
                     ["Account Number:", "01148732209300"],
                     ["Branch:", "AGHA KHAN WALK BRANCH"]
                 ]
+            elif "riverlong" in financier_name:
+                mpesa_data =[
+                    ["Payment Method","NA"],
+                    ["Paybill Number:", "NA"],
+                    ["Account Number:", "NA"],
+                ]
+                bank_data = [
+                    ["Bank Name:", "SIDIAN BANK"],
+                    ["Account Name:", "RIVERLONG LTD"],
+                    ["Account Number:", "01003020040447"],
+                    ["Branch:", "KENYATTA AVENUE"]
+                ]
+
             else:
                 mpesa_data =[
                     ["Payment Method","Test"],
@@ -990,7 +1005,15 @@ class BidAdmin(admin.ModelAdmin):
                 bank_name = "COOP BANK"
                 bank_acc_name = "JEFIGS CREDIT LTD"
                 bank_acc_no = "01148732209300"
-                bank_branch = "AGHA KHAN WALK BRANCH "                 
+                bank_branch = "AGHA KHAN WALK BRANCH "
+
+            elif "riverlong" in financier_name:
+                mpesa_paybill = "NA"
+                mpesa_acc_no = "NA"
+                bank_name = "SIDIAN BANK"
+                bank_acc_name = "RIVERLONG LTD"
+                bank_acc_no = "01003020040447"
+                bank_branch = "KENYATTA AVENUE "
 
             # Construct the message
             message = (
@@ -1241,8 +1264,8 @@ class VehicleAdmin(admin.ModelAdmin):
     search_fields = ('make__name', 'registration_no', 'model__name', 'YOM__year', 'status','yard__name','Financier__name')
     list_filter = ('Financier',PriceRangeFilter,'yard',AwardedBidderFilter,'status','is_hotsale', 'is_flashsale' ,'fuel_type', 'created_at', 'updated_at','approved_at','disapproved_at','disapproved_by', 'is_approved')
     inlines = [VehicleImageInline, BidInline, VehicleViewInline]
-    readonly_fields = ('views', 'approved_by', 'approved_at','disapproved_by', 'disapproved_at','sold_at','sold_by')
-    actions = ['make_available', 'generate_vehicle_report', 'approve_vehicle','disapprove_vehicle','revise_price','add_to_flashsale','remove_from_flashsale']
+    readonly_fields = ('views','is_approved', 'approved_by', 'approved_at','disapproved_by', 'disapproved_at','sold_at','sold_by')
+    actions = ['make_available', 'generate_vehicle_report', 'approve_vehicle','disapprove_vehicle','revise_price','stop_sale','add_to_flashsale','remove_from_flashsale']
     list_per_page = 15  # Items per page
     list_max_show_all = 1000  # Maximum items when showing all
     show_full_result_count = True  # Show total count in pagination
@@ -1318,7 +1341,8 @@ class VehicleAdmin(admin.ModelAdmin):
                     )
 
                     vehicle.reserve_price = new_price
-                    vehicle.save(update_fields=['reserve_price'])
+                    vehicle.is_flashsale = True
+                    vehicle.save(update_fields=['reserve_price','is_flashsale'])
 
                     bidders = (
                         Bidding.objects
@@ -1403,7 +1427,7 @@ class VehicleAdmin(admin.ModelAdmin):
             # Determine the winning bidder
             if vehicle.status == 'sold':
                 winning_bid = vehicle.bidding.filter(awarded=True).first()
-                awarded_bidder = f"{winning_bid.user.first_name} {winning_bid.user.last_name}".strip() if winning_bid else "No winning bidder"
+                awarded_bidder = f"{winning_bid.user.first_name} {winning_bid.user.last_name}".strip() if winning_bid else "-"
             else:
                 awarded_bidder = "Vehicle not sold"
             writer.writerow([
@@ -1487,6 +1511,33 @@ class VehicleAdmin(admin.ModelAdmin):
             )
 
     make_available.short_description = "Mark selected vehicles as available"
+
+    def stop_sale(self, request, queryset):
+        if not request.user.groups.filter(name='Approvers').exists():
+            self.message_user(request, "Only authorised persons can add vehicles to stop sale.", level=messages.WARNING)
+            return
+
+        if request.method == "POST" and "confirm" not in request.POST:
+            return render(
+                request,
+                "admin/action_confirm.html",
+                {
+                    "title": "Confirm Vehicle stop sale",
+                    "message": "Are you sure you want to stop the selected vehicle(s) from sale?",
+                    "warning": "This action cannot be undone.",
+                    "confirm_label": "Yes, add ",
+                }
+            )
+
+        count = 0
+        for vehicle in queryset.filter():
+            vehicle.status = "stop_sale"
+            vehicle.save()
+            count += 1
+
+        self.message_user(request, f"{count} vehicle(s) have been stopped from sale.", level=messages.SUCCESS)
+
+    stop_sale.short_description = "Stop selected vehicle from sale."
     # Admin action for selling vehicles
     def sell(self, request, queryset):
         already_sold = queryset.filter(status='sold').count()
@@ -1536,7 +1587,7 @@ class VehicleAdmin(admin.ModelAdmin):
         count = 0
         for vehicle in queryset.filter(is_approved=True):
             vehicle.is_approved = False
-            vehicle.disapproved_by = request.user 
+            vehicle.disapproved_by = request.user
             vehicle.disapproved_at = timezone.now()
             # vehicle.status='idle'
             vehicle.save()
@@ -1551,6 +1602,18 @@ class VehicleAdmin(admin.ModelAdmin):
             self.message_user(request, "Only Admins can add vehicles to flashsale.", level=messages.WARNING)
             return
 
+        if request.method == "POST" and "confirm" not in request.POST:
+            return render(
+                request,
+                "admin/action_confirm.html",
+                {
+                    "title": "Confirm Vehicle addition to flashsale",
+                    "message": "Are you sure you want to add the selected vehicle(s) to flashsale?",
+                    "warning": "This action cannot be undone.",
+                    "confirm_label": "Yes, add ",
+                }
+            )
+
         count = 0
         for vehicle in queryset.filter(is_flashsale=False):
             vehicle.is_flashsale = True
@@ -1558,8 +1621,6 @@ class VehicleAdmin(admin.ModelAdmin):
             count += 1
 
         self.message_user(request, f"{count} vehicle(s) have been added to Flashsale.", level=messages.SUCCESS)
-
-    add_to_flashsale.short_description = "Add selected vehicles to flashsale."
 
     def remove_from_flashsale (self, request, queryset):
         if not request.user.groups.filter(name='Approvers').exists():
@@ -1642,9 +1703,9 @@ class AuctionAdmin(admin.ModelAdmin):
     list_display = ('id','auction_id', 'start_date', 'end_date','created_at', 'approved','is_ended','completed','completed_at','completed_by')
     search_fields = ('vehicles__registration_no','auction_id')
     filter_horizontal = ('vehicles',)
-    list_filter = ('approved',EndedFilter,'start_date', 'end_date','created_at')
+    list_filter = ('approved',EndedFilter,'start_date', 'end_date','created_at',)
     inlines = [AuctionHistoryInline]
-    readonly_fields = ('approved','processed','approved_by','approved_at')
+    readonly_fields = ('approved','processed','approved_by','approved_at','completed','has_extended','completed_at','completed_by')
     actions = ['update_vehicle_status','approve_auction','disapprove_auction']
 
     def get_form(self, request, obj=None, **kwargs):
@@ -1718,15 +1779,20 @@ class AuctionAdmin(admin.ModelAdmin):
             if auction.end_date <= now and auction.approved:
                 for vehicle in auction.vehicles.all():
                     # Get highest non-disqualified bid
-                    highest_bid = vehicle.bidding.filter(disqualified=False,is_auction_bid=True).order_by('-amount').first()
+                    highest_bid = vehicle.bidding.filter(disqualified=False,awarded=False,is_auction_bid=True).order_by('-amount').first()
                     
                     if highest_bid and highest_bid.amount >= vehicle.reserve_price:
                         # Notify winner
-                        self.bid_award_notification(highest_bid)
+                        self.bid_award_notification(highest_bid,request)
                         self.send_winner_sms(highest_bid,request)
                         self.send_winner_email(highest_bid,request)
                         vehicle.status = 'bid_won'
+                       
+
+                        # Update bidding record
                         highest_bid.awarded = True
+                        highest_bid.awarded_at = timezone.now()
+                        highest_bid.awarded_by = request.user
                         highest_bid.save()
 
                             # Create an entry in the AwardHistory model
@@ -1826,6 +1892,9 @@ class AuctionAdmin(admin.ModelAdmin):
             elif "mycredit" in financier_name:
                 mpesa_data = [["Payment Method", "MPESA PAYBILL"], ["Paybill Number:", "795902"], ["Account Number:", vehicle.registration_no]]
                 bank_data = [["Bank Name:", "NCBA Bank"], ["Account Name:", "MYCREDIT LIMITED"], ["Account Number:", "1004557111"], ["Branch:", "KENYATTA AVENUE BRANCH"]]
+            elif "riverlong" in financier_name:
+                mpesa_data = [["Payment Method", "MPESA PAYBILL"], ["Paybill Number:", ""], ["Account Number:", ]]
+                bank_data = [["Bank Name:", "Equity Bank"], ["Account Name:", "RIVERLONG LIMITED"], ["Account Number:", "1340282343193"], ["Branch:", "RIDGEWAYS"]]
             else:
                 mpesa_data = [["Payment Method", "Test"], ["Paybill Number:", "Test"], ["Account Number:", vehicle.registration_no]]
                 bank_data = [["Bank Name:", "Test"], ["Account Name:", "Test"], ["Account Number:", "Test"], ["Branch:", "Test"]]
@@ -1943,6 +2012,14 @@ class AuctionAdmin(admin.ModelAdmin):
                 bank_acc_name = "MYCREDIT LIMITED"
                 bank_acc_no = "1004557111"
                 bank_branch = "KENYATTA AVENUE BRANCH"
+            
+            elif "riverlong" in financier_name:
+                mpesa_paybill = ""
+                mpesa_acc_no = vehicle.registration_no
+                bank_name = "EQUITY Bank"
+                bank_acc_name = "RIVERLONG LTD"
+                bank_acc_no = "1340282343193"
+                bank_branch = "RIDGEWAYS"
 
             # Construct the message
             message = (

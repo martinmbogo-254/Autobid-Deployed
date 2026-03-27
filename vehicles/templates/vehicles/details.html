@@ -47,7 +47,7 @@
     <div class="col-md-2" id="vehicleimgs">
         {% for image in vehicle.vehicleimage_set.all %}
         <div class="col-md-12">
-            <img src="{{ image.image.url }}" class="img-thumbnail" alt="Vehicle Image" data-target="#vehicleCarousel" data-slide-to="{{ forloop.counter0 }}">
+            <img loading="lazy" src="{{ image.image.url }}" class="img-thumbnail" alt="Vehicle Image" data-target="#vehicleCarousel" data-slide-to="{{ forloop.counter0 }}">
         </div>
         {% endfor %}
     </div>
@@ -56,7 +56,7 @@
             <div class="carousel-inner">
                 {% for image in vehicle.vehicleimage_set.all %}
                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <img src="{{ image.image.url }}" class="d-block w-100" alt="Vehicle Image">
+                    <img loading="lazy" src="{{ image.image.url }}" class="d-block w-100" alt="Vehicle Image">
                 </div>
                 {% endfor %}
             </div>
@@ -76,27 +76,36 @@
             <span class="badge views-bg pull-right">Views: {{ vehicle.views }}</span>
             <h4 class="right-header">{{vehicle.YOM}}, {{vehicle.make}} {{vehicle.model}}</h4>
 
-            <div class="vehicle_info">             
-                <h6>Yard Name: <b><a class="nav-link" href="{{vehicle.yard.link}}">{{vehicle.yard}}</a></b></h6>                
-                <h6>{{vehicle.registration_no}} | {{vehicle.transmission}} | {{vehicle.engine_cc}} CC</h6>  
-                <h6> Reserve Price : KSH {{ vehicle.reserve_price|intcomma }} </h6>
-                 <!-- Financing Badge -->
-                            <div class="text-center">
-                                {% if vehicle.financed %}
-                                <span style="
-                                    display: inline-block;
-                                    background-color: #28a745;
-                                    color: white;
-                                    padding: 5px 12px;
-                                    font-size: 0.9rem;
-                                    font-weight: 500;
-                                    border-radius: 20px;
-                                    box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-                                    💰Finance option available upto 80% to 90%.
-                                </span>
-                                {% endif %}
-                            </div>
+
+           <div class="vehicle_info">
+            <h6>Yard Name: <b><a class="nav-link" href="{{vehicle.yard.link}}">{{vehicle.yard}}</a></b></h6>
+            <h6>{{vehicle.registration_no}} | {{vehicle.transmission}} | {{vehicle.engine_cc}} CC</h6>
+            <h6>Reserve Price: KSH {{ vehicle.reserve_price|intcomma }}</h6>
+
+            <!-- Highest Bid -->
+            {% if highest_bid %}
+                <h7>Highest Bid: <b>KSH {{ highest_bid.amount|intcomma }}</b></h7>
+            {% else %}
+                <h7>Highest Bid: <b>KSH 0</b></h7>
+            {% endif %}
+
+            <!-- Financing Badge -->
+            <div class="text-center">
+                {% if vehicle.financed %}
+                <span style="
+                    display: inline-block;
+                    background-color: #28a745;
+                    color: white;
+                    padding: 5px 12px;
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                    border-radius: 20px;
+                    box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    💰Finance option available upto 80% to 90%.
+                </span>
+                {% endif %}
             </div>
+        </div>
 
             <div class="contact-btn">
                 <div class="row">
@@ -240,7 +249,7 @@
     {% for similar_vehicle in similar_vehicles %}
     <div class="col-md-3">
         <div class="card mb-3 car_cad">
-            <img src="{{ similar_vehicle.file.url }}" class="card-img-top" alt="Similar Vehicle Image">
+            <img loading="lazy" src="{{ similar_vehicle.file.url }}" class="card-img-top" alt="Similar Vehicle Image">
             <div class="card-body">
                 <p class="card-text">{{ similar_vehicle.YOM }} {{ similar_vehicle.make }}  {{ similar_vehicle.model }}</p>
                 <a href="{% url 'detail' similar_vehicle.id%}" class="btn btn-info">View Details</a>
@@ -266,7 +275,7 @@
             <div class="modal-body">
                 <div class="image">
                     <p>{{ vehicle.YOM }} | {{ vehicle.make }} | {{ vehicle.model }}</p>
-                    <img class="card-img-top thumbnail" src="{{ vehicle.file.url }}" style="height:250px" />
+                    <img  class="card-img-top thumbnail" src="{{ vehicle.file.url }}" style="height:250px" />
                 </div>
                 <form method="POST" action="{% url 'place_bid' vehicle.id %}" onsubmit="showSpinner(this)">
                     {% csrf_token %}

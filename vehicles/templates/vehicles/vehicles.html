@@ -628,6 +628,96 @@
 }
 </style>
 
+<div class="row">
+
+    {% if vehicles_on_auction %}
+  {% for vehicle in vehicles_on_auction  %}
+
+  <div class="col-md-3 vehicles-on-sale">
+    <div class="card car_cad">
+        <div class="flashsale-badge">On Auction </div>
+        <div class="car_image">
+            <a href="{% url 'detail' vehicle.id %}"><img class="car_img" src="{{vehicle.file.url}}" alt="img" /></a>
+        </div>       
+        
+        <div class="card-body">
+            <div class="row">
+               
+                <div class="col-md-12">
+                    <label class="car_name text-center"><a href="{% url 'detail' vehicle.id %}">{{vehicle.YOM}} </a></label></br>
+
+                    <label class="car_name"><a href="{% url 'detail' vehicle.id %}">{{vehicle.make}} • {{vehicle.model}}</a></label>
+                </div>
+                <div class="col-md-12">
+                    <span class="car_info"> <i class="fa-solid fa-road cicon"></i> {{ vehicle.mileage }} KM • <i class="fas fa-tachometer-alt  cicon"></i> {{vehicle.engine_cc}} CC • <i class="fa-solid fa-gas-pump cicon"></i>  {{vehicle.fuel_type}}</span>
+                </div>
+                <div class="col-md-12">
+                    <hr/>
+                </div>
+               <div class="col-md-12">
+                <div class="row align-items-center">
+                    <!-- Price Display -->
+                    <div class="col-md-12">
+                        <label style="font-size: 1.2rem; font-weight: 600; color: #333;">
+                            Ksh {{ vehicle.reserve_price|intcomma }}
+                        </label>
+                    </div>
+
+                    <!-- Financing Badge -->
+                    <div class="col-md-12">
+                        {% if vehicle.financed %}
+                        <span style="
+                            display: inline-block;
+                            background-color: #28a745;
+                            color: white;
+                            padding: 5px 12px;
+                            font-size: 0.9rem;
+                            font-weight: 500;
+                            border-radius: 20px;
+                            box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                            💰Finance option available upto 80% to 90%.   
+                        </span>
+                        {% else %}
+                        <span style="
+                        display: inline-block;
+                      ">
+                       
+                    </span>
+                        {% endif %}
+                    </div>
+                </div>
+        </div>
+
+             
+            </div>
+            
+        </div>
+    </div>
+      
+  </div>
+  {% endfor %}
+    {% comment %} <!-- Pagination controls -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if vehicles_on_auction.has_previous %}
+                <a class="btn btn-outline-dark"  href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&laquo; first</a>
+                <a class="btn btn-dark"  href="?page={{ vehicles_on_auction.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ vehicles_on_auction.number }} of {{ vehicles_on_auction.paginator.num_pages }} 
+            </span>
+    
+            {% if vehicles_on_auction.has_next %}
+                <a class="btn btn-outline-dark"  href="?page={{ vehicles_on_auction.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">next</a>
+                <a class="btn btn-dark"  href="?page={{ vehicles_on_auction.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div> {% endcomment %}
+  
+  {% endif %}
+
+</div>
 
 
 {% if flashsale_vehicles %}
@@ -797,98 +887,6 @@
 
 
 
-<div class="row">
-            
-    
-    {% if vehicles_on_auction %}
-  {% for vehicle in vehicles_on_auction  %}
-
-  <div class="col-md-3 vehicles-on-sale">
-    <div class="card car_cad">
-        <div class="car_image">
-            <a href="{% url 'detail' vehicle.id %}"><img class="car_img" src="{{vehicle.file.url}}" alt="img" /></a>
-        </div>       
-        
-        <div class="card-body">
-            <div class="row">
-               
-                <div class="col-md-12">
-                    <label class="car_name text-center"><a href="{% url 'detail' vehicle.id %}">{{vehicle.YOM}} </a></label></br>
-
-                    <label class="car_name"><a href="{% url 'detail' vehicle.id %}">{{vehicle.make}} • {{vehicle.model}}</a></label>
-                </div>
-                <div class="col-md-12">
-                    <span class="car_info"> <i class="fa-solid fa-road cicon"></i> {{ vehicle.mileage }} KM • <i class="fas fa-tachometer-alt  cicon"></i> {{vehicle.engine_cc}} CC • <i class="fa-solid fa-gas-pump cicon"></i>  {{vehicle.fuel_type}}</span>
-                </div>
-                <div class="col-md-12">
-                    <hr/>
-                </div>
-               <div class="col-md-12">
-                <div class="row align-items-center">
-                    <!-- Price Display -->
-                    <div class="col-md-12">
-                        <label style="font-size: 1.2rem; font-weight: 600; color: #333;">
-                            Ksh {{ vehicle.reserve_price|intcomma }}
-                        </label>
-                    </div>
-
-                    <!-- Financing Badge -->
-                    <div class="col-md-12">
-                        {% if vehicle.financed %}
-                        <span style="
-                            display: inline-block;
-                            background-color: #28a745;
-                            color: white;
-                            padding: 5px 12px;
-                            font-size: 0.9rem;
-                            font-weight: 500;
-                            border-radius: 20px;
-                            box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-                            💰Finance option available upto 80% to 90%.   
-                        </span>
-                        {% else %}
-                        <span style="
-                        display: inline-block;
-                      ">
-                       
-                    </span>
-                        {% endif %}
-                    </div>
-                </div>
-        </div>
-
-             
-            </div>
-            
-        </div>
-    </div>
-      
-  </div>
-  {% endfor %}
-    {% comment %} <!-- Pagination controls -->
-    <div class="pagination">
-        <span class="step-links">
-            {% if vehicles_on_auction.has_previous %}
-                <a class="btn btn-outline-dark"  href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&laquo; first</a>
-                <a class="btn btn-dark"  href="?page={{ vehicles_on_auction.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">previous</a>
-            {% endif %}
-    
-            <span class="current">
-                Page {{ vehicles_on_auction.number }} of {{ vehicles_on_auction.paginator.num_pages }} 
-            </span>
-    
-            {% if vehicles_on_auction.has_next %}
-                <a class="btn btn-outline-dark"  href="?page={{ vehicles_on_auction.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">next</a>
-                <a class="btn btn-dark"  href="?page={{ vehicles_on_auction.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">last &raquo;</a>
-            {% endif %}
-        </span>
-    </div> {% endcomment %}
-  
-  {% endif %}
-
-</div>
-
-
 
 
         <div class="row">
@@ -985,9 +983,6 @@
           {% endif %}
         
     </div>
-     
-        
-   
 
     </div>
   
