@@ -1,0 +1,31 @@
+{% extends 'vehicles/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4>Pay Bidding Fee - {{ vehicle.registration_no }}</h4>
+                </div>
+                <div class="card-body">
+                    <p><strong>Fee Amount:</strong> Ksh {{ bidding_fee|floatformat:0 }}</p>
+                    <p><strong>Vehicle:</strong> {{ vehicle.make }} {{ vehicle.model }} {{ vehicle.YOM }}</p>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">M-Pesa Phone Number (254...)</label>
+                            <input type="text" name="phone_number" class="form-control" 
+                                   value="{{ default_phone }}" placeholder="254745499838" required>
+                            <small class="text-muted">We'll send the payment prompt to this number.</small>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-lg w-100">
+                            Pay Ksh {{ bidding_fee }} via M-Pesa
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

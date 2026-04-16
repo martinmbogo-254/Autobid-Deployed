@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.utils import timezone
 from .models import (
     VehicleImage, VehicleMake, VehicleModel,
-    ManufactureYear, FuelType, VehicleBody, Vehicle, Bidding, Auction, VehicleView, AuctionHistory,NotificationRecipient,Financier,Yard,AwardHistory
+    ManufactureYear, FuelType, VehicleBody, Vehicle, Bidding, Auction, VehicleView, AuctionHistory,NotificationRecipient,Financier,Yard,AwardHistory,BiddingFeePayment
 )
 
 
@@ -30,7 +30,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from django.utils.html import strip_tags
+from django.utils.html import strip_tags, format_html
 import os
 from reportlab.platypus import Image
 from django.contrib import messages
@@ -1155,6 +1155,74 @@ class BidAdmin(admin.ModelAdmin):
         return response
 
     generate_bid_report.short_description = "Generate bid report for selected vehicles"
+
+
+class BiddingFeePaymentAdmin(admin.ModelAdmin):
+    list_display = [
+        'user',
+        'vehicle',
+        'amount_display',
+        'status_badge',
+        'phone_number',
+        'paid_at',
+        'created_at'
+    ]
+    list_filter = ['status', 'created_at', 'paid_at']
+    search_fields = [
+        'user__username',
+        'user__email',
+        'vehicle__registration_no',
+        'phone_number',
+        'transaction_id'
+    ]
+    readonly_fields = ['merchant_request_id', 'checkout_request_id', 'transaction_id', 'paid_at', 'created_at',
+                       'updated_at']
+
+    fieldsets = [
+        ('Payment Information', {
+            'fields': ('user', 'vehicle', 'amount', 'phone_number', 'status')
+        }),
+        ('M-Pesa Details', {
+            'fields': ('transaction_id', 'merchant_request_id', 'checkout_request_id'),
+            'classes': ('collapse',)
+        }),
+        ('Timestamps', {
+            'fields': ('paid_at', 'created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    ]
+
+    def amount_display(self, obj):
+        return f"Ksh {obj.amount:,}"
+
+    amount_display.short_description = "Amount"
+
+    def status_badge(self, obj):
+        colors = {
+            'completed': 'success',
+            'pending': 'warning',
+            'failed': 'danger',
+            'cancelled': 'secondary',
+        }
+        color = colors.get(obj.status, 'secondary')
+        return format_html(
+            '<span class="badge bg-{}">{}</span>',
+            color,
+            obj.get_status_display()
+        )
+
+    status_badge.short_description = "Status"
+    status_badge.allow_tags = True
+
+    def has_add_permission(self, request):
+        # Prevent manual creation from admin (payments should come via STK Push)
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        # Optional: Allow delete only for failed/pending payments
+        if obj and obj.status == 'completed':
+            return False
+        return True
 
 class VehicleImageInline(admin.TabularInline):
     model = VehicleImage
@@ -2292,6 +2360,7 @@ class NotificationLogAdmin(admin.ModelAdmin):
     search_fields = ("phone_number", "user__username", "vehicle__registration_no")
     readonly_fields = [f.name for f in NotificationLog._meta.fields]
 
+admin.site.register(BiddingFeePayment, BiddingFeePaymentAdmin)
 admin.site.site_header = "Autobid Admin"
 admin.site.site_title = "Riverlong Autobid"
 admin.site.index_title = "Welcome to Autobid Admin"
