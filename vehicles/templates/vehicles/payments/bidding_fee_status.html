@@ -1,0 +1,21 @@
+{% extends 'vehicles/base.html' %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <h3>Bidding Fee Status</h3>
+    <div class="alert alert-{{ payment.status|yesno:'success,warning,danger' }}">
+        Status: <strong>{{ payment.get_status_display }}</strong>
+    </div>
+
+    {% if payment.status == 'pending' %}
+        <p>Please complete the payment on your phone.</p>
+        <p class="text-muted">You can refresh this page after paying.</p>
+        <a href="{% url 'bidding_fee_status' payment.id %}" class="btn btn-primary">Refresh Status</a>
+    {% elif payment.status == 'completed' %}
+        <div class="alert alert-success">
+            <h4>Payment Successful!</h4>
+            <p>You can now place your bid on this vehicle.</p>
+            <a href="{% url 'detail' payment.vehicle.pk %}" class="btn btn-success">Go to Vehicle & Place Bid</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

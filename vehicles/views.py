@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render,redirect
-from .models import Vehicle, Bidding, VehicleView, Auction, AuctionHistory,NotificationRecipient
+from .models import Vehicle, Bidding, VehicleView, Auction, AuctionHistory, NotificationRecipient, BiddingFeePayment
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from .forms import BidForm, AuctionForm
@@ -15,7 +15,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from .models import Vehicle, Auction, Bidding, AwardHistory
 from users.models import User
 
@@ -23,7 +23,9 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.views.decorators.cache import cache_page
-
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .Utils.mpesautils import initiate_bidding_fee_payment
 @login_required(login_url='login')
 def dashboard_view(request):
     """System dashboard showing summary statistics and admin links."""
@@ -324,7 +326,100 @@ def send_thank_you_notification(bid, vehicle):
         recipient_list=[bid.user.email],
         fail_silently=False
     )
-    
+
+@login_required
+def pay_bidding_fee(request, vehicle_pk):
+    vehicle = get_object_or_404(Vehicle, pk=vehicle_pk)
+    bidding_fee_amount = 1000  # Change this value as needed
+
+    if request.method == 'POST':
+        phone_number = request.POST.get('phone_number', '').strip()
+
+        # Auto-fill from Profile if empty
+        if not phone_number:
+            try:
+                prof = request.user.profile
+                if prof.phone_number:
+                    phone_number = f"254{str(prof.phone_number).lstrip('0')}"
+            except:
+                pass
+
+        if not phone_number.startswith('254') or len(phone_number) != 12:
+            messages.error(request, 'Please enter a valid phone number starting with 254 (e.g. 254712345678)')
+            return redirect('pay_bidding_fee', vehicle_pk=vehicle.pk)
+
+        # Create pending payment
+        payment = BiddingFeePayment.objects.create(
+            user=request.user,
+            vehicle=vehicle,
+            amount=bidding_fee_amount,
+            phone_number=phone_number,
+        )
+
+        callback_url = request.build_absolute_uri('/mpesa/bidding-fee-callback/')
+
+        success, message = initiate_bidding_fee_payment(
+            phone_number=phone_number,
+            amount=bidding_fee_amount,
+            account_reference=f"BidFee-{vehicle.registration_no}",
+            transaction_desc=f"Bidding fee for {vehicle.registration_no}",
+            callback_url=callback_url,
+            payment_instance=payment
+        )
+
+        if success:
+            messages.info(request, message)
+            return redirect('bidding_fee_status', payment_id=payment.id)
+        else:
+            payment.delete()
+            messages.error(request, message)
+            return redirect('pay_bidding_fee', vehicle_pk=vehicle.pk)
+
+    # GET request
+    default_phone = ""
+    try:
+        if request.user.profile.phone_number:
+            default_phone = f"254{str(request.user.profile.phone_number).lstrip('0')}"
+    except:
+        pass
+
+    context = {
+        'vehicle': vehicle,
+        'bidding_fee': bidding_fee_amount,
+        'default_phone': default_phone,
+    }
+    return render(request, 'vehicles/payments/pay_bidding_fee.html', context)
+
+@csrf_exempt
+def bidding_fee_callback(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            stk = data.get('Body', {}).get('stkCallback', {})
+            result_code = stk.get('ResultCode')
+            checkout_id = stk.get('CheckoutRequestID')
+
+            payment = BiddingFeePayment.objects.filter(checkout_request_id=checkout_id).first()
+
+            if payment:
+                if result_code == 0:  # Success
+                    items = stk.get('CallbackMetadata', {}).get('Item', [])
+                    receipt = next((item.get('Value') for item in items if item.get('Name') == 'MpesaReceiptNumber'), None)
+                    payment.mark_as_paid(transaction_id=receipt)
+                else:
+                    payment.status = 'failed'
+                    payment.save()
+        except Exception:
+            pass  # Add logging in production
+
+    return JsonResponse({"ResultCode": 0, "ResultDesc": "Accepted"})
+
+@login_required
+def bidding_fee_status(request, payment_id):
+    payment = get_object_or_404(BiddingFeePayment, id=payment_id, user=request.user)
+    return render(request, 'vehicles/payments/bidding_fee_status.html', {'payment': payment})
+
+
 @login_required(login_url='login')
 def place_bid(request, pk, allowed_statuses=None):
     vehicle = get_object_or_404(Vehicle, id=pk)
@@ -335,6 +430,17 @@ def place_bid(request, pk, allowed_statuses=None):
         amount = request.POST.get('amount')
         accept_terms = request.POST.get('accept_terms')
         referred_by = request.POST.get('referred_by')
+
+        # bidding fee check
+        has_paid = BiddingFeePayment.objects.filter(
+            user=request.user,
+            vehicle=vehicle,
+            status='completed'
+        ).exists()
+
+        if not has_paid:
+            messages.info(request, 'You must pay the bidding fee first before placing a bid.')
+            return redirect('pay_bidding_fee', vehicle_pk=vehicle.pk)
 
 
         try:

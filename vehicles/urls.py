@@ -38,6 +38,10 @@ urlpatterns = [
      path("robots.txt", views.robots_txt, name="robots_txt"),
      path('dashboard/', views.dashboard_view, name='dashboard'),
 
+    path('pay-bidding-fee/<int:vehicle_pk>/', views.pay_bidding_fee, name='pay_bidding_fee'),
+    path('bidding-fee-status/<int:payment_id>/', views.bidding_fee_status, name='bidding_fee_status'),
+    path('mpesa/bidding-fee-callback/', views.bidding_fee_callback, name='bidding_fee_callback'),
+
 
 
 ]

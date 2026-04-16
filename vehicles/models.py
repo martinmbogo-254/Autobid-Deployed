@@ -341,6 +341,45 @@ class Bidding(models.Model):
         return f"{days}d ago"
 
 
+class BiddingFeePayment(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('completed', 'Completed'),
+        ('failed', 'Failed'),
+        ('cancelled', 'Cancelled'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bidding_fee_payments')
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='bidding_fee_payments')
+
+    amount = models.PositiveIntegerField(default=1000, help_text="Bidding fee in KES")
+    phone_number = models.CharField(max_length=15)  # e.g., 254712345678
+
+    # Daraja fields
+    merchant_request_id = models.CharField(max_length=100, blank=True, null=True)
+    checkout_request_id = models.CharField(max_length=100, blank=True, null=True)
+    transaction_id = models.CharField(max_length=50, blank=True, null=True)  # M-Pesa Receipt
+
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    paid_at = models.DateTimeField(null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('user', 'vehicle')
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.user.username} - {self.vehicle.registration_no} - {self.status}"
+
+    def mark_as_paid(self, transaction_id=None):
+        self.status = 'completed'
+        self.paid_at = timezone.now()
+        if transaction_id:
+            self.transaction_id = transaction_id
+        self.save()
+
 
 class AwardHistory(models.Model):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
