@@ -1,31 +1,45 @@
-{% extends 'vehicles/base.html' %}
+{% extends "vehicles/base.html" %}
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h4>Pay Bidding Fee - {{ vehicle.registration_no }}</h4>
-                </div>
-                <div class="card-body">
-                    <p><strong>Fee Amount:</strong> Ksh {{ bidding_fee|floatformat:0 }}</p>
-                    <p><strong>Vehicle:</strong> {{ vehicle.make }} {{ vehicle.model }} {{ vehicle.YOM }}</p>
+<div class="container mt-5" style="max-width: 480px;">
+  <div class="card shadow">
+    <div class="card-body p-4">
+      <h4 class="card-title mb-1">Pay Bidding Fee</h4>
+      <p class="text-muted mb-3">
+        To bid on <strong>{{ vehicle.registration_no }}</strong>, pay a one-time fee of
+        <strong>KES {{ amount }}</strong> via M-Pesa.
+      </p>
 
-                    <form method="post">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label class="form-label">M-Pesa Phone Number (254...)</label>
-                            <input type="text" name="phone_number" class="form-control" 
-                                   value="{{ default_phone }}" placeholder="254745499838" required>
-                            <small class="text-muted">We'll send the payment prompt to this number.</small>
-                        </div>
-                        <button type="submit" class="btn btn-success btn-lg w-100">
-                            Pay Ksh {{ bidding_fee }} via M-Pesa
-                        </button>
-                    </form>
-                </div>
-            </div>
+      {% for msg in messages %}
+        <div class="alert alert-{{ msg.tags }} alert-dismissible fade show" role="alert">
+          {{ msg }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
+      {% endfor %}
+
+      <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label fw-semibold">M-Pesa Phone Number</label>
+          <input
+            account_reference
+            name="phone_number"
+            class="form-control"
+            placeholder="e.g. 0712 345 678"
+            required
+          />
+          <div class="form-text">Enter the Safaricom number to receive the STK push.</div>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-success btn-lg">
+            💳 Pay KES {{ amount }} via M-Pesa
+          </button>
+        </div>
+      </form>
+
+      <div class="text-center mt-3">
+        <a href="{% url 'detail' vehicle.id %}" class="text-muted small">← Back to vehicle</a>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}
