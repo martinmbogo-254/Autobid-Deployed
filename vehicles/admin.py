@@ -1156,73 +1156,97 @@ class BidAdmin(admin.ModelAdmin):
 
     generate_bid_report.short_description = "Generate bid report for selected vehicles"
 
+from django.utils.html import format_html
+from .models import BiddingFeePayment
 
+
+@admin.register(BiddingFeePayment)
 class BiddingFeePaymentAdmin(admin.ModelAdmin):
-    list_display = [
+
+    # ── List view
+    list_display = (
+        'id',
         'user',
         'vehicle',
-        'amount_display',
+        'phone_number',
+        'amount',
         'status_badge',
-        'phone_number',
-        'paid_at',
-        'created_at'
-    ]
-    list_filter = ['status', 'created_at', 'paid_at']
-    search_fields = [
-        'user__username',
+        'mpesa_receipt_number',
+        'created_at',
+        'updated_at',
+    )
+    list_filter = ('status', 'created_at', 'vehicle')
+    search_fields = (
         'user__email',
-        'vehicle__registration_no',
+        'user__username',
         'phone_number',
-        'transaction_id'
-    ]
-    readonly_fields = ['merchant_request_id', 'checkout_request_id', 'transaction_id', 'paid_at', 'created_at',
-                       'updated_at']
+        'mpesa_receipt_number',
+        'checkout_request_id',
+        'merchant_request_id',
+        'vehicle__registration_no',
+    )
+    ordering = ('-created_at',)
+    date_hierarchy = 'created_at'
+    list_per_page = 25
 
-    fieldsets = [
-        ('Payment Information', {
-            'fields': ('user', 'vehicle', 'amount', 'phone_number', 'status')
+    # ── Detail view
+    readonly_fields = (
+        'user',
+        'vehicle',
+        'phone_number',
+        'amount',
+        'merchant_request_id',
+        'checkout_request_id',
+        'mpesa_receipt_number',
+        'status',
+        'created_at',
+        'updated_at',
+    )
+
+    fieldsets = (
+        ('Customer', {
+            'fields': ('user', 'vehicle', 'phone_number', 'amount'),
         }),
-        ('M-Pesa Details', {
-            'fields': ('transaction_id', 'merchant_request_id', 'checkout_request_id'),
-            'classes': ('collapse',)
+        ('M-Pesa Transaction', {
+            'fields': (
+                'mpesa_receipt_number',
+                'merchant_request_id',
+                'checkout_request_id',
+            ),
         }),
-        ('Timestamps', {
-            'fields': ('paid_at', 'created_at', 'updated_at'),
-            'classes': ('collapse',)
+        ('Status & Timestamps', {
+            'fields': ('status', 'created_at', 'updated_at'),
         }),
-    ]
+    )
 
-    def amount_display(self, obj):
-        return f"Ksh {obj.amount:,}"
+    # ── Disable all write operations
+    # def has_add_permission(self, request):
+    #     return False
+    #
+    # def has_change_permission(self, request, obj=None):
+    #     return False
+    #
+    # def has_delete_permission(self, request, obj=None):
+    #     return False
 
-    amount_display.short_description = "Amount"
-
+    # ── Coloured status badge
+    @admin.display(description='Status')
     def status_badge(self, obj):
-        colors = {
-            'completed': 'success',
-            'pending': 'warning',
-            'failed': 'danger',
-            'cancelled': 'secondary',
+        colours = {
+            'completed':  '#28a745',
+            'pending':    '#ffc107',
+            'failed':     '#dc3545',
+            'cancelled':  '#6c757d',
         }
-        color = colors.get(obj.status, 'secondary')
+        colour = colours.get(obj.status, '#6c757d')
         return format_html(
-            '<span class="badge bg-{}">{}</span>',
-            color,
-            obj.get_status_display()
+            '<span style="'
+            'background:{};color:#fff;padding:3px 10px;'
+            'border-radius:12px;font-size:0.8rem;font-weight:600;">'
+            '{}</span>',
+            colour,
+            obj.get_status_display(),
         )
-
-    status_badge.short_description = "Status"
-    status_badge.allow_tags = True
-
-    def has_add_permission(self, request):
-        # Prevent manual creation from admin (payments should come via STK Push)
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        # Optional: Allow delete only for failed/pending payments
-        if obj and obj.status == 'completed':
-            return False
-        return True
 
 class VehicleImageInline(admin.TabularInline):
     model = VehicleImage
@@ -2360,7 +2384,7 @@ class NotificationLogAdmin(admin.ModelAdmin):
     search_fields = ("phone_number", "user__username", "vehicle__registration_no")
     readonly_fields = [f.name for f in NotificationLog._meta.fields]
 
-admin.site.register(BiddingFeePayment, BiddingFeePaymentAdmin)
+
 admin.site.site_header = "Autobid Admin"
 admin.site.site_title = "Riverlong Autobid"
 admin.site.index_title = "Welcome to Autobid Admin"

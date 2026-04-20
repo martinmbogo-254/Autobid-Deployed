@@ -1,21 +1,88 @@
-{% extends 'vehicles/base.html' %}
+{% extends "vehicles/base.html" %}
 {% block content %}
-<div class="container mt-5 text-center">
-    <h3>Bidding Fee Status</h3>
-    <div class="alert alert-{{ payment.status|yesno:'success,warning,danger' }}">
-        Status: <strong>{{ payment.get_status_display }}</strong>
+<div class="container mt-5" style="max-width: 480px;">
+  <div class="card shadow text-center p-4">
+
+    <!-- Pending -->
+    <div id="pending-state">
+      <div style="font-size:3rem;">📱</div>
+      <h4 class="mt-2">Check Your Phone</h4>
+      <p class="text-muted">
+        An M-Pesa prompt was sent to <strong>{{ payment.phone_number }}</strong>.<br>
+        Enter your PIN to pay <strong>KES {{ payment.amount }}</strong>.
+      </p>
+      <div class="spinner-border text-success mt-2" role="status"></div>
+      <p class="text-muted mt-2 small">Checking payment status...</p>
     </div>
 
-    {% if payment.status == 'pending' %}
-        <p>Please complete the payment on your phone.</p>
-        <p class="text-muted">You can refresh this page after paying.</p>
-        <a href="{% url 'bidding_fee_status' payment.id %}" class="btn btn-primary">Refresh Status</a>
-    {% elif payment.status == 'completed' %}
-        <div class="alert alert-success">
-            <h4>Payment Successful!</h4>
-            <p>You can now place your bid on this vehicle.</p>
-            <a href="{% url 'detail' payment.vehicle.pk %}" class="btn btn-success">Go to Vehicle & Place Bid</a>
-        </div>
-    {% endif %}
+    <!-- Success -->
+    <div id="success-state" class="d-none">
+      <div style="font-size:3rem;">✅</div>
+      <h4 class="mt-2 text-success">Payment Confirmed!</h4>
+      <p class="text-muted">Redirecting you to place your bid...</p>
+    </div>
+
+    <!-- Failed -->
+    <div id="failed-state" class="d-none">
+      <div style="font-size:3rem;">❌</div>
+      <h4 class="mt-2 text-danger">Payment Failed</h4>
+      <p class="text-muted">The payment was cancelled or failed. Please try again.</p>
+      <a href="{% url 'pay_bidding_fee' payment.vehicle_id %}" class="btn btn-success mt-2">
+        Try Again
+      </a>
+    </div>
+
+    <!-- Timeout -->
+    <div id="timeout-state" class="d-none">
+      <div style="font-size:3rem;">⏳</div>
+      <h4 class="mt-2 text-warning">Taking too long?</h4>
+      <p class="text-muted">If you completed the payment, it may still be processing.</p>
+      <a href="{% url 'pay_bidding_fee' payment.vehicle_id %}" class="btn btn-outline-secondary mt-2">
+        Try Again
+      </a>
+    </div>
+
+  </div>
 </div>
+
+<script>
+  const STATUS_URL = "{% url 'check_payment_status' payment.id %}";
+  const VEHICLE_ID = {{ payment.vehicle_id }};
+  let attempts = 0;
+  const MAX_ATTEMPTS = 24; // 24 × 5s = 2 minutes
+
+  function show(id) {
+    ['pending-state','success-state','failed-state','timeout-state'].forEach(s => {
+      document.getElementById(s).classList.toggle('d-none', s !== id);
+    });
+  }
+
+  async function checkStatus() {
+    try {
+      const res = await fetch(STATUS_URL);
+      const data = await res.json();
+
+      if (data.status === 'completed') {
+        show('success-state');
+        setTimeout(() => { window.location.href = `/vehicle/${VEHICLE_ID}/?bid=1`; }, 2000);
+        return;
+      }
+      if (data.status === 'failed') {
+        show('failed-state');
+        return;
+      }
+    } catch (e) {
+      console.error('Status check error:', e);
+    }
+
+    attempts++;
+    if (attempts >= MAX_ATTEMPTS) {
+      show('timeout-state');
+    } else {
+      setTimeout(checkStatus, 5000);
+    }
+  }
+
+  setTimeout(checkStatus, 5000); // First check after 5s
+</script>
 {% endblock %}

@@ -108,49 +108,64 @@
         </div>
 
             <div class="contact-btn">
-                <div class="row">
-                    {% if vehicle.current_auction_end_date %}
-                    <p id="countdown" ></p>
-                    <script>
-                        // Pass the auction end date to JavaScript
-                        const auctionEndDate = "{{ vehicle.current_auction_end_date|date:'Y-m-d H:i:s' }}";
-                    </script>     
-                    <div class="col-md-10">
-                        {% if user.is_authenticated %}
+    <div class="row">
+        {% if vehicle.current_auction_end_date %}
+        <p id="countdown"></p>
+        <script>
+            const auctionEndDate = "{{ vehicle.current_auction_end_date|date:'Y-m-d H:i:s' }}";
+        </script>
+        <div class="col-md-10">
+            {% if user.is_authenticated %}
+                {% if has_paid_fee %}
                     <button type="button" id="bidbtn" class="btn btn-warning p-2 m-2 mr-2 text-center enq-bid" data-toggle="modal" data-target="#bidModal">
-                    <i class="fa fa-gavel"></i> Place a bid
-                    </button>  
-                    {% else %}
-                    <a href="{% url 'login' %}?next={% url 'detail' vehicle.id %}"  class="btn btn-info p-2 m-2 text-center">
-                        Login to bid
+                        <i class="fa fa-gavel"></i> Place a bid
+                    </button>
+                {% else %}
+                    <a href="{% url 'pay_bidding_fee' vehicle_id=vehicle.id %}" class="btn btn-warning p-2 m-2 mr-2 text-center enq-bid">
+                        <i class="fa fa-gavel"></i> Place a bid
                     </a>
-                    {% endif %}       
-                    </div>
-                    {% else %}
-                    {% if user.is_authenticated %}
-                   <button type="button" id="bidbtn" class="btn btn-warning p-2 m-2 mr-2 text-center enq-bid" data-toggle="modal" data-target="#bidModal">
+                {% endif %}
+            {% else %}
+                <a href="{% url 'login' %}?next={% url 'detail' vehicle.id %}" class="btn btn-info p-2 m-2 text-center">
+                    Login to bid
+                </a>
+            {% endif %}
+        </div>
+
+        {% else %}
+
+        {% if user.is_authenticated %}
+            {% if has_paid_fee %}
+                <button type="button" id="bidbtn" class="btn btn-warning p-2 m-2 mr-2 text-center enq-bid" data-toggle="modal" data-target="#bidModal">
                     <i class="fa fa-gavel"></i> Place a bid
-                    </button> 
-                    {% else %}
-                    <a href="{% url 'login' %}?next={% url 'detail' vehicle.id %}"  class="btn btn-info p-2 m-2 text-center login2bid">
-                        Login to bid
-                    </a>
-                    {% endif %}
-                    {% endif %}
-                    <div class="row">
-                        <div class="col-md-6 mb-2">
-                            <a href="https://wa.me/+254701689319" class="enq-whatsapp p-2 rounded mb-2 nav-link text-light"><i class="fa-brands fa-whatsapp"></i> Whatsapp</a>
-                        </div>
-                        <div class="col-md-6">                            
-                            <a href="tel:0701689319" class="enq-call p-2 rounded mb-2 nav-link text-light"><i class="fa fa-phone"></i> Call Now</a>                       
-                        </div>
+                </button>
+            {% else %}
+                <a href="{% url 'pay_bidding_fee' vehicle_id=vehicle.id %}" class="btn btn-warning p-2 m-2 mr-2 text-center enq-bid">
+                    <i class="fa fa-gavel"></i> Place a bid
+                </a>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'login' %}?next={% url 'detail' vehicle.id %}" class="btn btn-info p-2 m-2 text-center login2bid">
+                Login to bid
+            </a>
+        {% endif %}
+        {% endif %}
 
-                    
-
-                    </div>
-                   
-                </div>   
+        <div class="row">
+            <div class="col-md-6 mb-2">
+                <a href="https://wa.me/+254701689319" class="enq-whatsapp p-2 rounded mb-2 nav-link text-light">
+                    <i class="fa-brands fa-whatsapp"></i> Whatsapp
+                </a>
             </div>
+            <div class="col-md-6">
+                <a href="tel:0701689319" class="enq-call p-2 rounded mb-2 nav-link text-light">
+                    <i class="fa fa-phone"></i> Call Now
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
             <div class="col-md-12 enq-share">
                 <h6>Let Others Know:</h6>
                 <div class="row">
@@ -354,6 +369,22 @@ document.addEventListener('DOMContentLoaded', function () {
         amountInput.value = amountInput.value.replace(/,/g, '');
     });
 });
+</script>
+<script>
+    // Auto-open bid modal if redirected after successful payment
+    document.addEventListener('DOMContentLoaded', function () {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('bid') === '1') {
+            // Small delay to let the page fully render
+            setTimeout(function () {
+                $('#bidModal').modal('show');
+            }, 500);
+
+            // Clean the URL so a page refresh doesn't re-open the modal
+            const cleanUrl = window.location.pathname;
+            window.history.replaceState({}, document.title, cleanUrl);
+        }
+    });
 </script>
 
 {% endblock content %}

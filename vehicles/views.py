@@ -1,31 +1,151 @@
-from django.shortcuts import get_object_or_404, render,redirect
-from .models import Vehicle, Bidding, VehicleView, Auction, AuctionHistory, NotificationRecipient, BiddingFeePayment
+from .models import Vehicle, Bidding, VehicleView, Auction, AuctionHistory, NotificationRecipient,  BiddingFeePayment
 from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
-from .forms import BidForm, AuctionForm
-from django.http.response import HttpResponseRedirect
-from django.urls import reverse
 from .filters import VehicleFilter
-from django.contrib import messages
 from .forms import AuctionForm,FeedbackForm
 from django.utils import timezone
-from django.core.mail import send_mail
-from django.conf import settings
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import HttpResponse,JsonResponse
-from .models import Vehicle, Auction, Bidding, AwardHistory
 from users.models import User
-
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from django.conf import settings
-from django.views.decorators.cache import cache_page
-from django.views.decorators.csrf import csrf_exempt
 import json
-from .Utils.mpesautils import initiate_bidding_fee_payment
+import logging
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse, HttpResponse
+from django.conf import settings
+from .mpesa.stkservice import initiate_stk_push
+from .mpesa.mpesautil import format_phone_number
+from .decorators import requires_bidding_fee
+
+logger = logging.getLogger(__name__)
+
+
+#Payment Initiation
+
+@login_required
+def pay_bidding_fee(request, vehicle_id):
+    """Show payment form and trigger STK Push."""
+    vehicle = get_object_or_404(Vehicle, pk=vehicle_id)
+    config = settings.MPESA_CONFIG
+
+    # Already paid? Go straight to the vehicle
+    if BiddingFeePayment.has_paid(request.user, vehicle):
+        messages.success(request, "You have already paid the bidding fee for this vehicle.")
+        return redirect("vehicle_detail", pk=vehicle_id)
+
+    if request.method == "POST":
+        phone = request.POST.get("phone_number", "").strip()
+        if not phone:
+            messages.error(request, "Please enter your M-Pesa phone number.")
+            return render(request, "vehicles/payments/pay_bidding_fee.html", {"vehicle": vehicle, "amount": config["BIDDING_FEE_AMOUNT"]})
+
+        formatted_phone = format_phone_number(phone)
+        amount = config["BIDDING_FEE_AMOUNT"]
+
+        try:
+            response = initiate_stk_push(
+                phone_number=formatted_phone,
+                amount=amount,
+                account_reference=f"BID-VEH-{vehicle.pk}",
+                transaction_desc=f"Bidding fee for {vehicle.registration_no}",
+            )
+
+            # Save a pending payment record
+            payment = BiddingFeePayment.objects.create(
+                user=request.user,
+                vehicle=vehicle,
+                phone_number=formatted_phone,
+                amount=amount,
+                merchant_request_id=response.get("MerchantRequestID", ""),
+                checkout_request_id=response.get("CheckoutRequestID", ""),
+                status="pending",
+            )
+
+            messages.info(
+                request,
+                f"STK Push sent to {phone}. Enter your M-Pesa PIN to complete payment."
+            )
+            return redirect("payment_pending", payment_id=payment.pk)
+
+        except Exception as e:
+            logger.error(f"STK Push error for user {request.user}: {e}")
+            messages.error(request, f"Payment initiation failed: {str(e)}")
+
+    return render(request, "vehicles/payments/pay_bidding_fee.html", {
+        "vehicle": vehicle,
+        "amount": config["BIDDING_FEE_AMOUNT"],
+    })
+
+
+#Payment Pending / Status Check
+@login_required
+def payment_pending(request, payment_id):
+    """Polling page — user waits here while we confirm payment."""
+    payment = get_object_or_404(BiddingFeePayment, pk=payment_id, user=request.user)
+    return render(request, "vehicles/payments/bidding_fee_status.html", {"payment": payment})
+
+
+@login_required
+def check_payment_status(request, payment_id):
+    """AJAX endpoint polled by the pending page."""
+    payment = get_object_or_404(BiddingFeePayment, pk=payment_id, user=request.user)
+    return JsonResponse({
+        "status": payment.status,
+        "vehicle_id": payment.vehicle_id,
+    })
+
+
+# M-Pesa Callback (called by Safaricom)
+
+@csrf_exempt
+def mpesa_callback(request):
+    """
+    Safaricom POSTs the payment result here.
+    This view must be publicly accessible (no login required).
+    """
+    if request.method != "POST":
+        return HttpResponse(status=405)
+
+    try:
+        body = json.loads(request.body)
+        logger.info(f"M-Pesa callback received: {body}")
+
+        stk_callback = body["Body"]["stkCallback"]
+        checkout_request_id = stk_callback["CheckoutRequestID"]
+        result_code = stk_callback["ResultCode"]
+
+        payment = BiddingFeePayment.objects.filter(
+            checkout_request_id=checkout_request_id
+        ).first()
+
+        if not payment:
+            logger.warning(f"No payment found for CheckoutRequestID: {checkout_request_id}")
+            return JsonResponse({"ResultCode": 0, "ResultDesc": "Accepted"})
+
+        if result_code == 0:
+            # Success — extract receipt number
+            callback_metadata = stk_callback.get("CallbackMetadata", {}).get("Item", [])
+            receipt = next(
+                (item["Value"] for item in callback_metadata if item["Name"] == "MpesaReceiptNumber"),
+                ""
+            )
+            payment.status = "completed"
+            payment.mpesa_receipt_number = receipt
+        else:
+            # User cancelled or insufficient funds etc.
+            payment.status = "failed"
+
+        payment.save()
+
+    except Exception as e:
+        logger.error(f"Callback processing error: {e}", exc_info=True)
+
+    # Always respond with success so Safaricom doesn't retry endlessly
+    return JsonResponse({"ResultCode": 0, "ResultDesc": "Accepted"})
+
+
 @login_required(login_url='login')
 def dashboard_view(request):
     """System dashboard showing summary statistics and admin links."""
@@ -239,6 +359,13 @@ def vehicledetail(request, pk):
     # Get the vehicle using the slugified registration number
     # vehicle = get_object_or_404(Vehicle, registration_no__iexact=registration_no.replace("-", " "))
     if request.user.is_authenticated:
+        has_paid_fee = False
+        if request.user.is_authenticated:
+            has_paid_fee = BiddingFeePayment.objects.filter(
+                user=request.user,
+                vehicle=vehicle,
+                status='completed'
+            ).exists()
         # Check if the user has already viewed this vehicle
         if not VehicleView.objects.filter(vehicle=vehicle, user=request.user).exists():
             vehicle.views += 1
@@ -256,6 +383,7 @@ def vehicledetail(request, pk):
        'similar_vehicles': similar_vehicles,       
         'highest_bid': highest_bid,
        'similar_vehicles': similar_vehicles,
+        'has_paid_fee': has_paid_fee,
     }
     return render(request, 'vehicles/details.html', context)
 
@@ -327,99 +455,7 @@ def send_thank_you_notification(bid, vehicle):
         fail_silently=False
     )
 
-@login_required
-def pay_bidding_fee(request, vehicle_pk):
-    vehicle = get_object_or_404(Vehicle, pk=vehicle_pk)
-    bidding_fee_amount = 1000  # Change this value as needed
-
-    if request.method == 'POST':
-        phone_number = request.POST.get('phone_number', '').strip()
-
-        # Auto-fill from Profile if empty
-        if not phone_number:
-            try:
-                prof = request.user.profile
-                if prof.phone_number:
-                    phone_number = f"254{str(prof.phone_number).lstrip('0')}"
-            except:
-                pass
-
-        if not phone_number.startswith('254') or len(phone_number) != 12:
-            messages.error(request, 'Please enter a valid phone number starting with 254 (e.g. 254712345678)')
-            return redirect('pay_bidding_fee', vehicle_pk=vehicle.pk)
-
-        # Create pending payment
-        payment = BiddingFeePayment.objects.create(
-            user=request.user,
-            vehicle=vehicle,
-            amount=bidding_fee_amount,
-            phone_number=phone_number,
-        )
-
-        callback_url = request.build_absolute_uri('/mpesa/bidding-fee-callback/')
-
-        success, message = initiate_bidding_fee_payment(
-            phone_number=phone_number,
-            amount=bidding_fee_amount,
-            account_reference=f"BidFee-{vehicle.registration_no}",
-            transaction_desc=f"Bidding fee for {vehicle.registration_no}",
-            callback_url=callback_url,
-            payment_instance=payment
-        )
-
-        if success:
-            messages.info(request, message)
-            return redirect('bidding_fee_status', payment_id=payment.id)
-        else:
-            payment.delete()
-            messages.error(request, message)
-            return redirect('pay_bidding_fee', vehicle_pk=vehicle.pk)
-
-    # GET request
-    default_phone = ""
-    try:
-        if request.user.profile.phone_number:
-            default_phone = f"254{str(request.user.profile.phone_number).lstrip('0')}"
-    except:
-        pass
-
-    context = {
-        'vehicle': vehicle,
-        'bidding_fee': bidding_fee_amount,
-        'default_phone': default_phone,
-    }
-    return render(request, 'vehicles/payments/pay_bidding_fee.html', context)
-
-@csrf_exempt
-def bidding_fee_callback(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            stk = data.get('Body', {}).get('stkCallback', {})
-            result_code = stk.get('ResultCode')
-            checkout_id = stk.get('CheckoutRequestID')
-
-            payment = BiddingFeePayment.objects.filter(checkout_request_id=checkout_id).first()
-
-            if payment:
-                if result_code == 0:  # Success
-                    items = stk.get('CallbackMetadata', {}).get('Item', [])
-                    receipt = next((item.get('Value') for item in items if item.get('Name') == 'MpesaReceiptNumber'), None)
-                    payment.mark_as_paid(transaction_id=receipt)
-                else:
-                    payment.status = 'failed'
-                    payment.save()
-        except Exception:
-            pass  # Add logging in production
-
-    return JsonResponse({"ResultCode": 0, "ResultDesc": "Accepted"})
-
-@login_required
-def bidding_fee_status(request, payment_id):
-    payment = get_object_or_404(BiddingFeePayment, id=payment_id, user=request.user)
-    return render(request, 'vehicles/payments/bidding_fee_status.html', {'payment': payment})
-
-
+@requires_bidding_fee
 @login_required(login_url='login')
 def place_bid(request, pk, allowed_statuses=None):
     vehicle = get_object_or_404(Vehicle, id=pk)
@@ -437,11 +473,6 @@ def place_bid(request, pk, allowed_statuses=None):
             vehicle=vehicle,
             status='completed'
         ).exists()
-
-        if not has_paid:
-            messages.info(request, 'You must pay the bidding fee first before placing a bid.')
-            return redirect('pay_bidding_fee', vehicle_pk=vehicle.pk)
-
 
         try:
             amount = int(amount)
