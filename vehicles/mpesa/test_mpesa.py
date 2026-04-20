@@ -9,10 +9,10 @@ from datetime import datetime
 
 # ─── CONFIG ──────────────────────────────────────────────────────────────────
 # Paste your sandbox credentials directly here to test
-CONSUMER_KEY = 'GepnBTJcPLkodEQ98BjML7xbsNPsXzFFTprkBMryXADJq8jR'
-CONSUMER_SECRET ='NHar7I9Z0rzTWcqlhCQWFDnPxGVyKcA373DbBA0nq0D5tLSq4UUHqC5GPdxECA6J'
+CONSUMER_KEY = ''
+CONSUMER_SECRET =''
 SHORTCODE = "174379"
-PASSKEY = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
+PASSKEY = ''
 CALLBACK_URL = "https://c945-197-237-29-119.ngrok-free.app/payments/mpesa/callback/"
 TEST_PHONE = "254745499838"   #  sandbox test number
 AMOUNT = 1
