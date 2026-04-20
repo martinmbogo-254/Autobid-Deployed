@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.utils import timezone
 from .models import (
     VehicleImage, VehicleMake, VehicleModel,
-    ManufactureYear, FuelType, VehicleBody, Vehicle, Bidding, Auction, VehicleView, AuctionHistory,NotificationRecipient,Financier,Yard,AwardHistory,BiddingFeePayment
+    ManufactureYear, FuelType, VehicleBody, Vehicle, Bidding, Auction, VehicleView, AuctionHistory,NotificationRecipient,Financier,Yard,AwardHistory,BiddingFeePayment,SiteSettings
 )
 
 
@@ -2360,7 +2360,78 @@ class NotificationLogAdmin(admin.ModelAdmin):
     search_fields = ("phone_number", "user__username", "vehicle__registration_no")
     readonly_fields = [f.name for f in NotificationLog._meta.fields]
 
+
+@admin.register(SiteSettings)
+class SiteSettingsAdmin(admin.ModelAdmin):
+
+    readonly_fields = ('updated_at',)
+
+    fieldsets = (
+        ('General', {
+            'fields': (
+                'site_name',
+                'site_email',
+                'whatsapp_number',
+                'call_number',
+                'bidding_fee_amount',
+            ),
+        }),
+        ('M-Pesa Configuration', {
+            'fields': (
+                'mpesa_environment',
+                'mpesa_shortcode',
+                'mpesa_consumer_key',
+                'mpesa_consumer_secret',
+                'mpesa_passkey',
+                'mpesa_callback_url',
+            ),
+            'classes': ('collapse',),
+        }),
+        ('Email / SMTP Configuration', {
+            'fields': (
+                'email_backend',
+                'email_host',
+                'email_port',
+                'email_use_tls',
+                'email_use_ssl',
+                'email_host_user',
+                'email_host_password',
+                'default_from_email',
+                'admin_notification_emails',
+            ),
+            'classes': ('collapse',),
+        }),
+        ('SMS Configuration', {
+            'fields': (
+                'sms_enabled',
+                'sms_provider',
+                'sms_api_url',
+                'sms_auth_token',
+                'sms_sender_id',
+            ),
+            'classes': ('collapse',),
+        }),
+        ('Timestamps', {
+            'fields': ('updated_at',),
+        }),
+    )
+
+    def has_add_permission(self, request):
+        return not SiteSettings.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def changelist_view(self, request, extra_context=None):
+        from django.shortcuts import redirect
+        obj, _ = SiteSettings.objects.get_or_create(pk=1)
+        return redirect(f'/admin/vehicles/sitesettings/{obj.pk}/change/')
 admin.site.register(BiddingFeePayment, BiddingFeePaymentAdmin)
-admin.site.site_header = "Autobid Admin"
-admin.site.site_title = "Riverlong Autobid"
-admin.site.index_title = "Welcome to Autobid Admin"
+
+
+s = SiteSettings.get()
+admin.site.site_header = s.site_name + " Admin"
+admin.site.site_title = "Riverlong" + s.site_name
+admin.site.index_title = f"Welcome to {s.site_name} Admin"
+
+

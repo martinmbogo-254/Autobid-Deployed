@@ -557,8 +557,6 @@ class AdminActionLog(models.Model):
     def __str__(self):
         return f"{self.user} {self.get_action_type_display()} {self.object_repr} at {self.timestamp}"
 
-
-
 class VehiclePriceRevision(models.Model):
     vehicle = models.ForeignKey(
         Vehicle,
@@ -623,4 +621,155 @@ class NotificationLog(models.Model):
     def __str__(self):
         status = "SUCCESS" if self.sent else "FAILED"
         return f"{self.event_type} → {self.phone_number} ({status})"
-   
+
+# models.py
+
+from django.db import models
+from django.core.cache import cache
+
+class SiteSettings(models.Model):
+    """
+    Singleton model — only one row ever exists.
+    Edit from Django admin. Values are cached for performance.
+    """
+
+    # ── General ───────────────────────────────────────────────────────────
+    site_name = models.CharField(max_length=100, default="AutoBid")
+    site_email = models.EmailField(default="autobid@riverlong.com")
+    whatsapp_number = models.CharField(max_length=20, default="+254701689319")
+    call_number = models.CharField(max_length=20, default="0701689319")
+    bidding_fee_amount = models.DecimalField(
+        max_digits=10, decimal_places=2, default=500,
+        help_text="KES amount charged as bidding fee per vehicle"
+    )
+
+    # ── M-Pesa ────────────────────────────────────────────────────────────
+    mpesa_environment = models.CharField(
+        max_length=20,
+        choices=[("sandbox", "Sandbox"), ("production", "Production")],
+        default="sandbox",
+    )
+    mpesa_consumer_key = models.CharField(max_length=200, blank=True)
+    mpesa_consumer_secret = models.CharField(max_length=200, blank=True)
+    mpesa_shortcode = models.CharField(max_length=20, default="174379")
+    mpesa_passkey = models.TextField(blank=True)
+    mpesa_callback_url = models.URLField(
+        blank=True,
+        help_text="Must be HTTPS and publicly reachable (use ngrok for sandbox)"
+    )
+
+    # ── Email (SMTP) ──────────────────────────────────────────────────────
+    email_backend = models.CharField(
+        max_length=200,
+        default="django.core.mail.backends.smtp.EmailBackend",
+        help_text="Django email backend class"
+    )
+    email_host = models.CharField(
+        max_length=200, default="smtp-mail.outlook.com",
+        help_text="e.g. smtp-mail.outlook.com or smtp.gmail.com"
+    )
+    email_port = models.PositiveIntegerField(
+        default=587,
+        help_text="Usually 587 (TLS) or 465 (SSL)"
+    )
+    email_use_tls = models.BooleanField(default=True)
+    email_use_ssl = models.BooleanField(
+        default=False,
+        help_text="Use SSL instead of TLS. Do not enable both."
+    )
+    email_host_user = models.CharField(max_length=200, blank=True)
+    email_host_password = models.CharField(max_length=200, blank=True)
+    default_from_email = models.EmailField(
+        default="autobid@riverlong.com",
+        help_text="The From address shown in outgoing emails"
+    )
+    admin_notification_emails = models.TextField(
+        default="autobid@riverlong.com",
+        help_text="Comma-separated list of admin emails to notify on new bids"
+    )
+
+    # ── SMS (Tiara / Africa's Talking / etc.) ─────────────────────────────
+    sms_provider = models.CharField(
+        max_length=50,
+        choices=[
+            ("tiara", "Tiara"),
+            ("africastalking", "Africa's Talking"),
+            ("twilio", "Twilio"),
+        ],
+        default="tiara",
+    )
+    sms_api_url = models.URLField(
+        blank=True,
+        help_text="Base API URL for your SMS provider"
+    )
+    sms_auth_token = models.CharField(
+        max_length=500, blank=True,
+        help_text="API key / Auth token for your SMS provider"
+    )
+    sms_sender_id = models.CharField(
+        max_length=50, blank=True,
+        help_text="Sender name or shortcode shown on SMS (if supported)"
+    )
+    sms_enabled = models.BooleanField(
+        default=True,
+        help_text="Uncheck to disable all outgoing SMS globally"
+    )
+
+    # ── Timestamps ────────────────────────────────────────────────────────
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Site Settings"
+        verbose_name_plural = "Site Settings"
+
+    def __str__(self):
+        return f"Site Settings (last updated {self.updated_at:%d %b %Y %H:%M})"
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+        cache.delete("site_settings")
+
+    @classmethod
+    def get(cls):
+        obj = cache.get("site_settings")
+        if not obj:
+            obj, _ = cls.objects.get_or_create(pk=1)
+            cache.set("site_settings", obj, timeout=3600)
+        return obj
+
+    # ── Helper methods ────────────────────────────────────────────────────
+    def get_admin_emails(self):
+        return [e.strip() for e in self.admin_notification_emails.split(",") if e.strip()]
+
+    def get_mpesa_config(self):
+        return {
+            "ENVIRONMENT": self.mpesa_environment,
+            "CONSUMER_KEY": self.mpesa_consumer_key,
+            "CONSUMER_SECRET": self.mpesa_consumer_secret,
+            "SHORTCODE": self.mpesa_shortcode,
+            "PASSKEY": self.mpesa_passkey,
+            "CALLBACK_URL": self.mpesa_callback_url,
+            "BIDDING_FEE_AMOUNT": self.bidding_fee_amount,
+        }
+
+    def get_email_config(self):
+        return {
+            "EMAIL_BACKEND": self.email_backend,
+            "EMAIL_HOST": self.email_host,
+            "EMAIL_PORT": self.email_port,
+            "EMAIL_USE_TLS": self.email_use_tls,
+            "EMAIL_USE_SSL": self.email_use_ssl,
+            "EMAIL_HOST_USER": self.email_host_user,
+            "EMAIL_HOST_PASSWORD": self.email_host_password,
+            "DEFAULT_FROM_EMAIL": self.default_from_email,
+        }
+
+    def get_sms_config(self):
+        return {
+            "PROVIDER": self.sms_provider,
+            "API_URL": self.sms_api_url,
+            "AUTH_TOKEN": self.sms_auth_token,
+            "SENDER_ID": self.sms_sender_id,
+            "ENABLED": self.sms_enabled,
+        }
