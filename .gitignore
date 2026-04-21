@@ -1,7 +1,5 @@
 # .gitignore
 .env
-db.sqlite3
-settings.py
 node_modules
 staticfiles
 __pycache__
@@ -10,5 +8,4 @@ myenv/images
 media/vehicleimages
 src
 myenv.rar
-migrations/
 .pyc
