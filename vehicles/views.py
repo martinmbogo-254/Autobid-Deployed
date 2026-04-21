@@ -1,7 +1,7 @@
 from .models import Vehicle, Bidding, VehicleView, Auction, AuctionHistory, NotificationRecipient,  BiddingFeePayment
 from django.contrib.auth import logout
 from .filters import VehicleFilter
-from .forms import AuctionForm,FeedbackForm
+from .forms import AuctionForm, FeedbackForm, BidForm
 from django.utils import timezone
 from django.utils.html import strip_tags
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -383,7 +383,8 @@ def vehicledetail(request, pk):
        'similar_vehicles': similar_vehicles,       
         'highest_bid': highest_bid,
        'similar_vehicles': similar_vehicles,
-        'has_paid_fee': has_paid_fee,
+        'has_paid_fee' : has_paid_fee,
+
     }
     return render(request, 'vehicles/details.html', context)
 
@@ -459,108 +460,114 @@ def send_thank_you_notification(bid, vehicle):
 @login_required(login_url='login')
 def place_bid(request, pk, allowed_statuses=None):
     vehicle = get_object_or_404(Vehicle, id=pk)
-    # Get the vehicle using the slugified registration number
-    # vehicle = get_object_or_404(Vehicle, registration_no__iexact=registration_no.replace("-", " "))
+
+    # Check for the user's own active (non-disqualified) bid on this vehicle
+    existing_bid = Bidding.objects.filter(
+        vehicle=vehicle,
+        user=request.user,
+        disqualified=False
+    ).first()
 
     if request.method == 'POST':
-        amount = request.POST.get('amount')
+        form = BidForm(request.POST, existing_bid=existing_bid)
         accept_terms = request.POST.get('accept_terms')
-        referred_by = request.POST.get('referred_by')
 
-        # bidding fee check
+        if not accept_terms:
+            messages.error(request, 'You must accept the Terms and Conditions to place a bid.')
+            return redirect('detail', vehicle.id)
+
+        if not form.is_valid():
+            for error in form.errors.values():
+                messages.error(request, error.as_text())
+            return redirect('detail', vehicle.id)
+
+        amount = form.cleaned_data['amount']
+        referred_by = form.cleaned_data.get('referred_by')
+
+        # Bidding fee check
         has_paid = BiddingFeePayment.objects.filter(
             user=request.user,
             vehicle=vehicle,
             status='completed'
         ).exists()
 
-        try:
-            amount = int(amount)
-        except (ValueError, TypeError):
-            messages.error(request, 'Please enter a valid bid amount.')
-            return redirect('detail', vehicle.id)
-
-        if not accept_terms:
-            messages.error(request, 'You must accept the Terms and Conditions to place a bid.')
-            return redirect('detail', vehicle.id)
-
         allowed_statuses = ['on_auction', 'available']
 
-        # Check if the vehicle status is one of the allowed statuses
-        if vehicle.status in allowed_statuses:
-            current_highest_bid = Bidding.objects.filter(
-                vehicle=vehicle,
-                disqualified=False,
-                awarded=False
-            ).order_by('-amount').first()
-
-            if current_highest_bid and amount <= current_highest_bid.amount:
-                messages.warning(request, f'Sorry ,Your bid must be higher than the current highest bid.')
-                return redirect('detail', vehicle.id)
-        else:
+        if vehicle.status not in allowed_statuses:
             messages.warning(request, 'Bidding is not allowed for this vehicle.')
             return redirect('detail', vehicle.id)
 
-        # Check if this vehicle is already awarded and warn the user
-        bid_awarded = Bidding.objects.filter(vehicle=vehicle,awarded=True)
-        if bid_awarded:
-            messages.warning(request,f'Sorry , This vehicle is nolonger on sale!')
+        # Check if vehicle is already awarded
+        if Bidding.objects.filter(vehicle=vehicle, awarded=True).exists():
+            messages.warning(request, 'Sorry, this vehicle is no longer on sale!')
             return redirect('available_vehicles')
-        
-        low_bid = vehicle.reserve_price * 0.7  
-        if amount< low_bid:
+
+        # Check against current highest bid
+        current_highest_bid = Bidding.objects.filter(
+            vehicle=vehicle,
+            disqualified=False,
+            awarded=False
+        ).order_by('-amount').first()
+
+        if current_highest_bid and amount <= current_highest_bid.amount:
+            messages.warning(request, 'Sorry, your bid must be higher than the current highest bid.')
+            return redirect('detail', vehicle.id)
+
+        # Disqualify if below 70% of reserve price
+        low_bid = vehicle.reserve_price * 0.7
+        if amount < low_bid:
             bid = Bidding.objects.create(
                 vehicle=vehicle,
                 user=request.user,
                 amount=amount,
                 referred_by=referred_by,
-                disqualified=True,  # ✅ Mark as disqualified,
-                disqualification_comment = "Bid below 70% of reserved price."
-
+                disqualified=True,
+                disqualification_comment="Bid below 70% of reserved price."
             )
-      
-
-            # Send notification email to admin or other recipients
             send_bid_notification(bid, vehicle)
-
-            # Send "Thank You" email to the bidder
             send_thank_you_notification(bid, vehicle)
-
-            # Notify user via SMS
             send_sms(
                 request.user.profile.phone_number,
-                f"Thank You for placing your offer of Ksh {amount:,.0f} for {vehicle.registration_no},\n.This has however been paused as it is too low, consider placing a higher offer amount."
+                f"Thank You for placing your offer of Ksh {amount:,.0f} for {vehicle.registration_no},\n"
+                f"This has however been paused as it is too low, consider placing a higher offer amount."
             )
-
-            messages.success(request, 'Thank You for placing your bid!.')
+            messages.success(request, 'Thank You for placing your bid!')
             return redirect('detail', vehicle.id)
 
-        # Ensure the bid is above 0 Ksh
-        min_bid = vehicle.reserve_price * 0
-        if amount <= min_bid:
-            messages.warning(request, f'Your bid must be equal to or greater than 1 Ksh.')
-            return redirect('detail', vehicle.id)
-        
-
-        # Notify the current highest bidder if they are outbid
+        # Notify outbid user
         if current_highest_bid:
             send_outbid_notification(current_highest_bid.user, vehicle, current_highest_bid.amount)
-            send_sms(current_highest_bid.user.profile.phone_number, f"You've been outbid on {vehicle.registration_no}.\nPlace a higher bid amount to increase your chances of winning the vehicle. ")  # Send SMS to the outbid user
+            send_sms(
+                current_highest_bid.user.profile.phone_number,
+                f"You've been outbid on {vehicle.registration_no}.\n"
+                f"Place a higher bid amount to increase your chances of winning the vehicle."
+            )
 
-        # Create the new bid if all the above checks pass
-        bid = Bidding.objects.create(vehicle=vehicle, user=request.user, amount=amount, referred_by=referred_by)
+        # Create the bid
+        bid = Bidding.objects.create(
+            vehicle=vehicle,
+            user=request.user,
+            amount=amount,
+            referred_by=referred_by
+        )
         messages.success(request, 'Your bid has been placed successfully!')
-
-        # Send "Thank You" email to the bidder
         send_thank_you_notification(bid, vehicle)
-
-        # Send notification email to admin or other recipients
         send_bid_notification(bid, vehicle)
-         # Send SMS to the bidder
-        send_sms(request.user.profile.phone_number, f"Thank you for placing your bid of Ksh {amount:,.0f} on the vehicle {vehicle.registration_no}.\nYou will be notified if anyone places a bid higher than yours.")  
+        send_sms(
+            request.user.profile.phone_number,
+            f"Thank you for placing your bid of Ksh {amount:,.0f} on {vehicle.registration_no}.\n"
+            f"You will be notified if anyone places a bid higher than yours."
+        )
         return redirect('detail', vehicle.id)
 
-    return redirect('detail', vehicle.id)
+    # GET — build a blank form, pre-filled if there's an existing bid
+    initial = {'amount': existing_bid.amount} if existing_bid else {}
+    form = BidForm(existing_bid=existing_bid, initial=initial)
+    return render(request, 'detail.html', {
+        'form': form,
+        'vehicle': vehicle,
+        'existing_bid': existing_bid,
+    })
 def send_outbid_notification(user, vehicle, amount):
     """
     Send a notification to the previous highest bidder informing them they have been outbid.

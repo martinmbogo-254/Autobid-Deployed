@@ -4,11 +4,22 @@ from .fields import CommaSeparatedIntegerField
 from .widgets import CommaSeparatedIntegerWidget
 
 class BidForm(forms.ModelForm):
-    amount = CommaSeparatedIntegerField(widget=CommaSeparatedIntegerWidget(attrs={'class': 'form-control'}))
+    def __init__(self, *args, existing_bid=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['amount'].widget = CommaSeparatedIntegerWidget(
+            attrs={'class': 'form-control'},
+            existing_bid=existing_bid
+        )
 
     class Meta:
         model = Bidding
-        fields = ['amount','referred_by']
+        fields = ['amount', 'referred_by']
+
+    def clean_amount(self):
+        amount = self.cleaned_data.get('amount')
+        if amount is not None and amount % 1000 != 0:
+            raise forms.ValidationError("Bid amount must be a multiple of 1,000.")
+        return amount
 
 
 class AuctionForm(forms.ModelForm):
