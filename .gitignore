@@ -9,3 +9,4 @@ media/vehicleimages
 src
 myenv.rar
 .pyc
+db.sqlite3
