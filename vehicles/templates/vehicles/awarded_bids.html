@@ -1,0 +1,756 @@
+{% extends 'vehicles/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}My Awarded Bids | Riverlong Autobid{% endblock %}
+
+
+
+{% block content %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+/*
+   AWARDED BIDS PAGE
+ */
+
+.awarded-page {
+    font-family: 'DM Sans', sans-serif;
+    min-height: 80vh;
+    background: #f7f5f2;
+}
+
+.awarded-header {
+    background: #fff;
+    border-bottom: 1px solid #ebe8e3;
+    padding: 48px 0 36px;
+}
+
+.awarded-header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 28px;
+}
+
+.awarded-eyebrow {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #b0a89c;
+    margin-bottom: 8px;
+}
+
+.awarded-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+}
+
+.awarded-sub {
+    font-size: 0.9rem;
+    color: #888;
+    font-weight: 300;
+    margin: 0;
+}
+
+.awarded-body {
+    max-width: 1100px;
+    margin: 36px auto;
+    padding: 0 28px;
+}
+
+/* ── Table ── */
+.bids-table-wrap {
+    background: #fff;
+    border: 1px solid #ebe8e3;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.bids-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bids-table thead tr {
+    background: #faf9f7;
+    border-bottom: 1px solid #ebe8e3;
+}
+
+.bids-table th {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #b0a89c;
+    padding: 14px 20px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.bids-table td {
+    padding: 18px 20px;
+    font-size: 0.875rem;
+    color: #333;
+    border-bottom: 1px solid #f2f0ec;
+    vertical-align: middle;
+}
+
+.bid-row:last-child td { border-bottom: none; }
+.bid-row:hover td      { background: #fdfcfb; }
+
+.bid-vehicle-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bid-thumb {
+    width: 52px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #ebe8e3;
+    flex-shrink: 0;
+}
+
+.bid-make  { display: block; font-weight: 500; color: #1a1a1a; font-size: 0.875rem; line-height: 1.3; }
+.bid-model { display: block; font-size: 0.78rem; color: #999; font-weight: 300; }
+
+.bid-reg {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #555;
+}
+
+.bid-date   { font-size: 0.82rem; color: #777; }
+
+.bid-amount {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #1a1a1a;
+}
+
+.status-badge {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.status-pending  { background: #fffbf0; border: 1px solid #f0e0a0; color: #7a5c10; }
+.status-confirmed{ background: #f0faf4; border: 1px solid #c6e9d4; color: #2d6a47; }
+
+.btn-confirm {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 9px 16px;
+    cursor: pointer;
+    transition: opacity 0.18s ease;
+    white-space: nowrap;
+}
+.btn-confirm:hover { opacity: 0.78; }
+
+.submitted-label { font-size: 0.78rem; color: #b0a89c; font-style: italic; }
+
+.empty-state {
+    text-align: center;
+    padding: 72px 24px;
+    background: #fff;
+    border: 1px solid #ebe8e3;
+    border-radius: 14px;
+    color: #c0b8b0;
+}
+.empty-state svg { margin-bottom: 16px; color: #d0c8c0; }
+.empty-state p   { font-size: 0.9rem; margin-bottom: 20px; }
+
+/* ══════════════════════════════
+   PAYMENT CONFIRMATION MODAL
+══════════════════════════════ */
+
+.pay-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,10,0.35);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    padding: 16px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+.pay-modal-backdrop.open { opacity: 1; pointer-events: all; }
+
+.pay-modal {
+    background: #fff;
+    border: 1px solid #e8e4df;
+    border-radius: 18px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.06), 0 32px 64px rgba(0,0,0,0.12);
+    transform: translateY(20px) scale(0.98);
+    transition: transform 0.32s cubic-bezier(0.34,1.4,0.64,1);
+    font-family: 'DM Sans', sans-serif;
+}
+.pay-modal-backdrop.open .pay-modal { transform: translateY(0) scale(1); }
+
+.pay-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 24px 26px 18px;
+    border-bottom: 1px solid #f2f0ec;
+}
+
+.pay-modal-eyebrow {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #b0a89c;
+    margin: 0 0 4px;
+}
+
+.pay-modal-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.pay-modal-close {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    border: 1px solid #e4e0da;
+    background: #faf9f7;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all 0.15s ease;
+}
+.pay-modal-close:hover { background: #f0ede8; border-color: #d8d4ce; color: #333; }
+
+.pay-vehicle-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #faf9f7;
+    border-bottom: 1px solid #f2f0ec;
+    padding: 14px 26px;
+    gap: 12px;
+}
+
+.pay-vehicle-info  { display: flex; flex-direction: column; gap: 2px; }
+.pay-vehicle-name  { font-weight: 500; font-size: 0.875rem; color: #1a1a1a; }
+.pay-vehicle-reg   { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; color: #b0a89c; }
+.pay-vehicle-amount{ font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: #1a1a1a; white-space: nowrap; }
+
+.pay-type-selector { display: flex; gap: 6px; padding: 16px 26px 0; }
+
+.pay-type-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid #e4e0da;
+    background: #faf9f7;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    flex: 1;
+    justify-content: center;
+}
+.pay-type-btn:hover  { background: #f2f0ec; color: #444; }
+.pay-type-btn.active { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+
+.pay-modal-body { padding: 20px 26px; }
+
+.pay-panel        { display: block; }
+.pay-panel.hidden { display: none; }
+
+.pay-label {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.pay-textarea {
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: #1a1a1a;
+    background: #fff;
+    border: 1px solid #e0ddd8;
+    border-radius: 10px;
+    padding: 13px 15px;
+    resize: vertical;
+    min-height: 130px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    line-height: 1.6;
+}
+.pay-textarea::placeholder { color: #c0b8b0; }
+.pay-textarea:focus { outline: none; border-color: #1a1a1a; box-shadow: 0 0 0 3px rgba(26,26,26,0.06); }
+
+.pay-dropzone {
+    border: 1.5px dashed #d8d4ce;
+    border-radius: 12px;
+    background: #faf9f7;
+    padding: 36px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    color: #c0b8b0;
+}
+.pay-dropzone:hover  { border-color: #b0a89c; background: #f5f3f0; color: #888; }
+.pay-dropzone.hidden { display: none; }
+
+.dropzone-label { font-weight: 500; font-size: 0.875rem; color: #555; margin: 10px 0 4px; }
+.dropzone-sub   { font-size: 0.78rem; color: #b0a89c; margin: 0; }
+
+.hidden-input { display: none !important; }
+
+.image-preview-wrap { border: 1px solid #e4e0da; border-radius: 10px; overflow: hidden; background: #faf9f7; }
+.image-preview-wrap.hidden { display: none; }
+
+.image-preview { width: 100%; max-height: 220px; object-fit: cover; display: block; border-bottom: 1px solid #e4e0da; }
+.image-preview-meta { display: flex; flex-direction: column; gap: 2px; padding: 10px 14px 0; }
+
+.pdf-file-row { display: flex; align-items: center; gap: 10px; padding: 14px; color: #555; }
+
+.preview-filename { font-size: 0.82rem; font-weight: 500; color: #333; word-break: break-all; }
+.preview-size     { font-size: 0.75rem; color: #b0a89c; }
+
+.remove-file-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #c0392b;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 14px;
+    text-align: left;
+    transition: color 0.15s ease;
+}
+.remove-file-btn:hover { color: #922b21; }
+
+.pay-modal-footer { display: flex; gap: 8px; padding: 0 26px 24px; }
+
+.btn-cancel {
+    flex: 1;
+    padding: 12px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: #faf9f7;
+    border: 1px solid #e4e0da;
+    border-radius: 9px;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.btn-cancel:hover { background: #f0ede8; color: #333; }
+
+.btn-submit {
+    flex: 2;
+    padding: 12px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: #1a1a1a;
+    border: none;
+    border-radius: 9px;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: opacity 0.18s ease;
+}
+.btn-submit:hover    { opacity: 0.82; }
+.btn-submit:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-submit .spinner-border { width: 13px; height: 13px; border-width: 2px; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .bids-table thead { display: none; }
+    .bids-table,
+    .bids-table tbody,
+    .bids-table tr,
+    .bids-table td { display: block; width: 100%; }
+    .bid-row       { border-bottom: 1px solid #ebe8e3; padding: 16px; }
+    .bid-row td    { border: none; padding: 4px 0; }
+    .bid-row td::before {
+        content: attr(data-label);
+        font-family: 'Syne', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #b0a89c;
+        display: block;
+        margin-bottom: 2px;
+    }
+    .pay-type-btn { font-size: 0.72rem; padding: 8px; }
+    .pay-modal-header,
+    .pay-modal-body,
+    .pay-modal-footer { padding-left: 18px; padding-right: 18px; }
+    .pay-vehicle-strip { padding: 12px 18px; }
+    .pay-type-selector { padding: 14px 18px 0; }
+}
+</style>
+<div class="awarded-page">
+
+    <!-- Page Header -->
+    <div class="awarded-header">
+        <div class="awarded-header-inner">
+            <p class="awarded-eyebrow">Account</p>
+            <h1 class="awarded-title">Awarded Bids</h1>
+            <p class="awarded-sub">Submit your payment confirmation for each vehicle you have been awarded.</p>
+        </div>
+    </div>
+
+    <!-- Bids Table -->
+    <div class="awarded-body">
+
+        {% if awarded_bids %}
+        <div class="bids-table-wrap">
+            <table class="bids-table">
+                <thead>
+                    <tr>
+                        <th>Vehicle</th>
+                        <th>Reg No.</th>
+                        <th>Date Awarded</th>
+                        <th>Winning Bid</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bid in awarded_bids %}
+                    <tr class="bid-row">
+                        <td class="bid-vehicle" data-label="Vehicle">
+                            <div class="bid-vehicle-wrap">
+                                {% if bid.vehicle.file %}
+                                <img src="{{ bid.vehicle.file.url }}" alt="{{ bid.vehicle.make }}" class="bid-thumb">
+                                {% endif %}
+                                <div>
+                                    <span class="bid-make">{{ bid.vehicle.YOM }} {{ bid.vehicle.make }}</span>
+                                    <span class="bid-model">{{ bid.vehicle.model }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="bid-reg"    data-label="Reg No.">{{ bid.vehicle.registration_no }}</td>
+                        <td class="bid-date"   data-label="Date Awarded">{{ bid.awarded_at }}</td>
+                        <td class="bid-amount" data-label="Winning Bid">KSH {{ bid.amount|intcomma }}</td>
+                        <td data-label="Status">
+                            {% if bid.payment_confirmed %}
+                                <span class="status-badge status-confirmed">Confirmed</span>
+                            {% else %}
+                                <span class="status-badge status-pending">Pending</span>
+                            {% endif %}
+                        </td>
+                        <td data-label="Action">
+                            {% if not bid.payment_confirmed %}
+                            <button
+                                class="btn-confirm"
+                                onclick="openPayModal('{{ bid.id }}', '{{ bid.vehicle.registration_no }}', '{{ bid.vehicle.YOM }} {{ bid.vehicle.make }} {{ bid.vehicle.model }}', '{{ bid.amount|intcomma }}')"
+                            >
+                                Submit Proof
+                            </button>
+                            {% else %}
+                            <span class="submitted-label">Submitted</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% else %}
+        <div class="empty-state">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            <p>You have no awarded bids yet.</p>
+            <a href="{% url 'available_vehicles' %}" class="btn-confirm" style="display:inline-block;text-decoration:none;">Browse Vehicles</a>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+
+<!-- PAYMENT CONFIRMATION MODAL -->
+<div class="pay-modal-backdrop" id="payModalBackdrop" aria-hidden="true">
+    <div class="pay-modal" role="dialog" aria-modal="true" aria-labelledby="payModalTitle">
+
+        <div class="pay-modal-header">
+            <div>
+                <p class="pay-modal-eyebrow">Payment Confirmation</p>
+                <h2 class="pay-modal-title" id="payModalTitle">Submit Proof</h2>
+            </div>
+            <button class="pay-modal-close" onclick="closePayModal()" aria-label="Close">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="pay-vehicle-strip">
+            <div class="pay-vehicle-info">
+                <span class="pay-vehicle-name" id="modalVehicleName">—</span>
+                <span class="pay-vehicle-reg"  id="modalVehicleReg">—</span>
+            </div>
+            <span class="pay-vehicle-amount" id="modalVehicleAmount">KSH —</span>
+        </div>
+
+        <div class="pay-type-selector">
+            <button class="pay-type-btn active" data-type="text" onclick="switchType('text', this)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                Text Note
+            </button>
+            <button class="pay-type-btn" data-type="image" onclick="switchType('image', this)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                Image
+            </button>
+            <button class="pay-type-btn" data-type="pdf" onclick="switchType('pdf', this)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                PDF
+            </button>
+        </div>
+
+        <form id="payConfirmForm" method="POST" action="{% url 'submit_payment_confirmation' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="bid_id" id="formBidId">
+            <input type="hidden" name="confirmation_type" id="formType" value="text">
+
+            <div class="pay-modal-body">
+
+                <!-- Text Panel -->
+                <div class="pay-panel" id="panel-text">
+                    <label class="pay-label" for="textNote">Payment note</label>
+                    <textarea
+                        id="textNote"
+                        name="text_note"
+                        class="pay-textarea"
+                        rows="5"
+                        placeholder="e.g. Transferred KSH 1,200,000 via M-Pesa on 22 Apr 2026. Transaction ref: QAB12345X..."
+                    ></textarea>
+                </div>
+
+                <!-- Image Panel -->
+                <div class="pay-panel hidden" id="panel-image">
+                    <label class="pay-label">Upload screenshot or photo</label>
+                    <div class="pay-dropzone" id="imageDropzone" onclick="document.getElementById('imageInput').click()">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        <p class="dropzone-label">Click to select image</p>
+                        <p class="dropzone-sub">PNG, JPG, WEBP — compressed automatically before upload</p>
+                    </div>
+                    <input type="file" id="imageInput" name="image_file" accept="image/*" class="hidden-input" onchange="handleImageSelect(this)">
+                    <div id="imagePreviewWrap" class="image-preview-wrap hidden">
+                        <img id="imagePreview" src="" alt="Preview" class="image-preview">
+                        <div class="image-preview-meta">
+                            <span id="imageName" class="preview-filename"></span>
+                            <span id="imageSize" class="preview-size"></span>
+                        </div>
+                        <button type="button" class="remove-file-btn" onclick="clearImage()">Remove</button>
+                    </div>
+                    <canvas id="compressCanvas" class="hidden-input"></canvas>
+                    <input type="hidden" id="compressedImageData" name="compressed_image_data">
+                    <input type="hidden" id="compressedImageName" name="compressed_image_name">
+                </div>
+
+                <!-- PDF Panel -->
+                <div class="pay-panel hidden" id="panel-pdf">
+                    <label class="pay-label">Upload PDF document</label>
+                    <div class="pay-dropzone" id="pdfDropzone" onclick="document.getElementById('pdfInput').click()">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        <p class="dropzone-label">Click to select PDF</p>
+                        <p class="dropzone-sub">PDF only — max 10 MB</p>
+                    </div>
+                    <input type="file" id="pdfInput" name="pdf_file" accept="application/pdf" class="hidden-input" onchange="handlePdfSelect(this)">
+                    <div id="pdfPreviewWrap" class="image-preview-wrap hidden">
+                        <div class="pdf-file-row">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            <div class="image-preview-meta">
+                                <span id="pdfName" class="preview-filename"></span>
+                                <span id="pdfSize" class="preview-size"></span>
+                            </div>
+                        </div>
+                        <button type="button" class="remove-file-btn" onclick="clearPdf()">Remove</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pay-modal-footer">
+                <button type="button" class="btn-cancel" onclick="closePayModal()">Cancel</button>
+                <button type="submit" class="btn-submit" id="paySubmitBtn">
+                    <span class="spinner-border spinner-border-sm d-none" id="paySpinner" role="status"></span>
+                    Submit Confirmation
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+<script>
+function openPayModal(bidId, reg, name, amount) {
+    document.getElementById('formBidId').value = bidId;
+    document.getElementById('modalVehicleName').textContent = name;
+    document.getElementById('modalVehicleReg').textContent = reg;
+    document.getElementById('modalVehicleAmount').textContent = 'KSH ' + amount;
+    document.getElementById('payModalBackdrop').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closePayModal() {
+    document.getElementById('payModalBackdrop').classList.remove('open');
+    document.body.style.overflow = '';
+    resetForm();
+}
+
+document.getElementById('payModalBackdrop').addEventListener('click', function(e) {
+    if (e.target === this) closePayModal();
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePayModal();
+});
+
+function switchType(type, btn) {
+    document.querySelectorAll('.pay-type-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('formType').value = type;
+    document.querySelectorAll('.pay-panel').forEach(p => p.classList.add('hidden'));
+    document.getElementById('panel-' + type).classList.remove('hidden');
+}
+
+function handleImageSelect(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const MAX_WIDTH = 1280, MAX_HEIGHT = 1280, QUALITY = 0.72;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            let w = img.width, h = img.height;
+            if (w > MAX_WIDTH || h > MAX_HEIGHT) {
+                const ratio = Math.min(MAX_WIDTH / w, MAX_HEIGHT / h);
+                w = Math.round(w * ratio);
+                h = Math.round(h * ratio);
+            }
+            const canvas = document.getElementById('compressCanvas');
+            canvas.width = w; canvas.height = h;
+            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+            const compressed = canvas.toDataURL('image/jpeg', QUALITY);
+            const sizeKB = Math.round(atob(compressed.split(',')[1]).length / 1024);
+            document.getElementById('compressedImageData').value = compressed;
+            document.getElementById('compressedImageName').value =
+                file.name.replace(/\.[^.]+$/, '') + '_compressed.jpg';
+            document.getElementById('imagePreview').src = compressed;
+            document.getElementById('imageName').textContent =
+                file.name.replace(/\.[^.]+$/, '') + '_compressed.jpg';
+            document.getElementById('imageSize').textContent =
+                sizeKB + ' KB (compressed from ' + Math.round(file.size / 1024) + ' KB)';
+            document.getElementById('imageDropzone').classList.add('hidden');
+            document.getElementById('imagePreviewWrap').classList.remove('hidden');
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+function clearImage() {
+    document.getElementById('imageInput').value = '';
+    document.getElementById('compressedImageData').value = '';
+    document.getElementById('compressedImageName').value = '';
+    document.getElementById('imagePreview').src = '';
+    document.getElementById('imageDropzone').classList.remove('hidden');
+    document.getElementById('imagePreviewWrap').classList.add('hidden');
+}
+
+function handlePdfSelect(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const sizeKB = Math.round(file.size / 1024);
+    document.getElementById('pdfName').textContent = file.name;
+    document.getElementById('pdfSize').textContent =
+        sizeKB > 1024 ? (sizeKB / 1024).toFixed(1) + ' MB' : sizeKB + ' KB';
+    document.getElementById('pdfDropzone').classList.add('hidden');
+    document.getElementById('pdfPreviewWrap').classList.remove('hidden');
+}
+
+function clearPdf() {
+    document.getElementById('pdfInput').value = '';
+    document.getElementById('pdfDropzone').classList.remove('hidden');
+    document.getElementById('pdfPreviewWrap').classList.add('hidden');
+}
+
+document.getElementById('payConfirmForm').addEventListener('submit', function() {
+    const btn = document.getElementById('paySubmitBtn');
+    document.getElementById('paySpinner').classList.remove('d-none');
+    btn.disabled = true;
+});
+
+function resetForm() {
+    clearImage();
+    clearPdf();
+    document.getElementById('textNote').value = '';
+    switchType('text', document.querySelector('[data-type="text"]'));
+    document.getElementById('payConfirmForm').reset();
+}
+</script>
+{% endblock content %}
