@@ -43,9 +43,5 @@ urlpatterns = [
     path('payments/pending/<int:payment_id>/', views.payment_pending, name='payment_pending'),
     path('payments/status/<int:payment_id>/', views.check_payment_status, name='check_payment_status'),
     path('payments/mpesa/callback/', views.mpesa_callback, name='mpesa_callback'),
-    path('my-bids/',views.awarded_bids,name='awarded_bids'),
-    path('payment-confirmation/submit/',views.submit_payment_confirmation, name='submit_payment_confirmation'),
-
-
 
 ]

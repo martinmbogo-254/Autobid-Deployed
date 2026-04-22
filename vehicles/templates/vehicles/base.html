@@ -3,36 +3,37 @@
 <html lang="en">
 
 <head>
-    <!-- Google tag (gtag.js) --> 
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-T22ZQYJGM6"></script>
     <script>
-        window.dataLayer = window.dataLayer || []; 
-        function gtag(){dataLayer.push(arguments);} 
-        gtag('js', new Date()); 
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
         gtag('config', 'G-T22ZQYJGM6');
     </script>
     <!-- SEO Meta Tags -->
     <title>{% block title %}Riverlong | Autobid - Vehicle sales , Kenya{% endblock %}</title>
-   
+
     <meta name="description" content=" vehicles sales Nairobi, car auctions Nairobi, used car auctions Nairobi, vehicle auctions Kenya, Kiambu Road car auctions, Nairobi car bazaar, buy cars Nairobi auction, sell cars Nairobi auction, truck auctions Nairobi, SUV auctions Nairobi, affordable cars Nairobi, cheap cars Nairobi, online car auction Nairobi, Kenya car auction website">
     <meta name="author" content="Riverlong Autobid">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    
+
     <!-- Open Graph Meta Tags (For Social Media Sharing) -->
     <meta property="og:title" content="Riverlong Autobid - Buy Vehicles">
 
     <meta property="og:image" content="{% static 'images/logo-autobid.svg' %}">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:type" content="website">
-  
+
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Riverlong Autobid - Buy Vehicles">
-  
-    <meta name="twitter:image" content="{% static 'images/logo-autobid.svg' %}">
 
-  
+    <meta name="twitter:image" content="{% static 'images/logo-autobid.svg' %}">
+    <link rel="stylesheet" href="{% static 'vehicles/css/notificationmodal.css' %}">
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -65,12 +66,12 @@
             z-index: 9999;
             {% comment %} backdrop-filter: blur(2px); {% endcomment %}
         }
-        
+
         .loader-content {
             text-align: center;
             position: relative;
         }
-        
+
         .loader-spinner {
             width: 60px;
             height: 60px;
@@ -81,7 +82,7 @@
             animation: spin 0.3s cubic-bezier(0.65, 0.25, 0.25, 0.65) infinite;
             margin: 0 auto 20px;
         }
-        
+
         .loader-logo {
             width: 100px;
             position: absolute;
@@ -90,7 +91,7 @@
             transform: translate(-50%, -50%);
             opacity: 0.9;
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -98,7 +99,7 @@
     </style>
 </head>
 
-<body> 
+<body>
     <!-- Modern Spinner HTML -->
     <div id="page-loader" class="page-loader">
         <div class="loader-content">
@@ -123,7 +124,7 @@
                     </a>
                 </div>
             </div>
-    
+
             <!-- Right Side - User Authentication -->
             <div class="col-10 col-md-5 text-md-center sticky-top" id="auth">
                 <ul class="list-inline mb-2 mt-2 ml-5 text-lg-center">
@@ -135,11 +136,7 @@
                     <li class="list-inline-item">
                         <a class="nav-link text-light" href="{% url 'dashboard' %}">Dashboard</a>
                     </li>
-
                     {% endif %}
-                    <li class="list-inline-item">
-                        <a href="{% url 'awarded_bids' %}" class="text-light nav-link">My Awarded Bids</a>
-                    </li>
                     <li class="list-inline-item">
                         <a href="/profile" class="text-light nav-link">{{ user.username }}</a>
                     </li>
@@ -155,7 +152,7 @@
                     </li>
                     {% endif %}
                 </ul>
-            </div>   
+            </div>
         </div>
 
         <!-- Bottom Layer Navbar (Main Links) -->
@@ -165,12 +162,12 @@
                 <a class="navbar-brand" href="{% url 'homepage' %}">
                     <img src="{% static 'images/logo-autobid.svg' %}" height="50px" />
                 </a>
-    
+
                 <!-- Navbar Toggler (For mobile view) -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon text-dark"></span>
                 </button>
-    
+
                 <!-- Navbar Links -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto d-flex justify-content-center">
@@ -198,7 +195,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="messageModalLabel">Notification</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div class="modal-body">
                     <div class="container text-center message-container">
@@ -215,12 +212,12 @@
         </div>
     </div>
 
-    <div class="bg-light">   
+    <div class="bg-light">
         <div class="container_body">
             {% block content %} {% endblock content %}
             {% block footer %} {% endblock %}
         </div>
-        
+
         {% include 'vehicles/footer.html' %}
     </div>
 
@@ -230,7 +227,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('page-loader').style.display = 'flex';
         });
-        
+
         // Hide loader when everything is loaded
         window.addEventListener('load', function() {
             setTimeout(function() {
@@ -240,7 +237,7 @@
                 }, 300);
             }, 300); // Minimum show time for better UX
         });
-        
+
         // Also hide loader if there's an error
         window.addEventListener('error', function() {
             document.getElementById('page-loader').style.display = 'none';
