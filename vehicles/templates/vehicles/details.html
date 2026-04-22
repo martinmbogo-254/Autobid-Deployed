@@ -6,7 +6,6 @@
 
 {% block content %}
 <div class="container-fluid details_pane">
-    <head>
         <head>
             <!-- Google tag (gtag.js) -->
 {% comment %} <script async src="https://www.googletagmanager.com/gtag/js?id=G-5HBY7XY3QB"></script>
@@ -31,7 +30,7 @@
             <meta property="og:image" content="{{ vehicle.vehicleimage_set.first.image.url|default:'https://www.bmw.co.ke/content/dam/bmw/common/topics/offers-and-services/bmw-special-sales-2020/protection-vehicle/bmw-special-sales-protection-vehicle-protection-sd-01.jpg' }}" />
             <meta property="og:url" content="{{ request.build_absolute_uri }}" />
             <meta property="og:type" content="website" />
-        </head>
+            <link rel="stylesheet" href="{% static 'vehicles/css/bid-modal.css' %}">
         
     </head>
 <div class="jumbotron center">
@@ -276,7 +275,7 @@
     {% endfor %}
 </div>
 
-<!-- Bid Modal -->
+
 <!-- Bid Modal --> 
 <div class="modal fade" id="bidModal" tabindex="-1" role="dialog" aria-labelledby="bidModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -284,7 +283,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="bidModalLabel">Place Bid</h5>
                 <button class="btn btn-dark text-light" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true"><i class="fa-solid fa-xmark"></i></span>
                 </button>
             </div>
             <div class="modal-body">
@@ -296,6 +295,7 @@
                     {% csrf_token %}
                     <div class="form-group">
                         <p>Reserve Price: Ksh {{ vehicle.reserve_price|intcomma }}</p>
+                         <p>Highest Offer: Ksh {{ highest_bid.amount|intcomma }}</p>
                         <input 
                             type="text" 
                             class="form-control" 
@@ -319,7 +319,7 @@
                             type="checkbox" 
                             class="form-check-input" 
                             id="acceptTerms" 
-                            name="accept_terms" 
+                            name="accept_terms"
                             required>
                         <label class="form-check-label" for="acceptTerms">
                             I accept the <a href="{% url 'terms' %}" target="_blank">Terms and Conditions</a>.
