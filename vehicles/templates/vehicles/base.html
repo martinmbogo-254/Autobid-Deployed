@@ -136,7 +136,11 @@
                     <li class="list-inline-item">
                         <a class="nav-link text-light" href="{% url 'dashboard' %}">Dashboard</a>
                     </li>
+
                     {% endif %}
+                    <li class="list-inline-item">
+                        <a href="{% url 'awarded_bids' %}" class="text-light nav-link">My Awarded Bids</a>
+                    </li>
                     <li class="list-inline-item">
                         <a href="/profile" class="text-light nav-link">{{ user.username }}</a>
                     </li>
