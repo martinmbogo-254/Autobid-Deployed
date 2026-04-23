@@ -1,7 +1,7 @@
-from .models import Vehicle, Bidding, VehicleView, Auction, AuctionHistory, NotificationRecipient,  BiddingFeePayment
+from .models import Vehicle, Bidding, VehicleView, Auction, AuctionHistory, NotificationRecipient,  BiddingFeePayment,PaymentConfirmation
 from django.contrib.auth import logout
 from .filters import VehicleFilter
-from .forms import AuctionForm, FeedbackForm, BidForm
+from .forms import AuctionForm, FeedbackForm, BidForm,PaymentConfirmationForm
 from django.utils import timezone
 from django.utils.html import strip_tags
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -10,16 +10,132 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 import json
 import logging
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 from django.conf import settings
 from .mpesa.stkservice import initiate_stk_push
 from .mpesa.mpesautil import format_phone_number
 from .decorators import requires_bidding_fee
-
 logger = logging.getLogger(__name__)
+import base64
+import uuid
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.core.files.base import ContentFile
+from django.views.decorators.http import require_POST
+
+# Awarded Bids List
+
+
+@login_required
+def awarded_bids(request):
+    """
+    Lists all bids awarded to the logged-in user.
+    Passes a fresh PaymentConfirmationForm to the template
+    so the modal form is rendered server-side.
+    """
+    bids = (
+        Bidding.objects
+        .filter(user=request.user, awarded=True)
+        .select_related('vehicle')
+        .prefetch_related('payment_confirmation')
+        .order_by('-awarded_at')
+    )
+
+    for bid in bids:
+        bid.payment_confirmed = hasattr(bid, 'payment_confirmation')
+
+    return render(request, 'vehicles/awarded_bids.html', {
+        'awarded_bids': bids,
+        'form': PaymentConfirmationForm(),   # fresh form for the modal
+    })
+
+
+# Submit Payment Confirmation
+
+
+@login_required
+@require_POST
+def submit_payment_confirmation(request):
+    """
+    Validates via PaymentConfirmationForm, then saves the confirmation.
+    Redirects back to the awarded bids page with a Django message.
+    """
+    form = PaymentConfirmationForm(request.POST, request.FILES)
+
+    if not form.is_valid():
+        error_list = [
+            error
+            for field_errors in form.errors.values()
+            for error in field_errors
+        ]
+        messages.error(request, ' '.join(error_list))
+        return redirect('awarded_bids')
+
+    data  = form.cleaned_data
+    ctype = data['confirmation_type']
+
+    # ── Validate bid ownership
+    bid = get_object_or_404(
+        Bidding,
+        id=data['bid_id'],
+        user=request.user,
+        awarded=True,
+    )
+
+    # ── Guard: already submitted
+    if hasattr(bid, 'payment_confirmation'):
+        messages.warning(
+            request,
+            'You have already submitted payment proof for this vehicle.'
+        )
+        return redirect('awarded_bids')
+
+    # ── Build and save the confirmation
+    confirmation = PaymentConfirmation(
+        bid=bid,
+        user=request.user,
+        confirmation_type=ctype,
+    )
+
+    try:
+        if ctype == 'text':
+            confirmation.text_note = data['text_note']
+
+        elif ctype == 'image':
+            raw_data  = data.get('compressed_image_data', '')
+            file_name = data.get('compressed_image_name') or f'proof_{uuid.uuid4().hex}.jpg'
+
+            if raw_data and ',' in raw_data:
+                # JS-compressed base64 path (primary)
+                _, b64_data = raw_data.split(',', 1)
+                image_bytes = base64.b64decode(b64_data)
+                confirmation.image_file.save(
+                    file_name,
+                    ContentFile(image_bytes),
+                    save=False,
+                )
+            else:
+                # Fallback: raw file if JS compression was unavailable
+                confirmation.image_file = data['image_file']
+
+        elif ctype == 'pdf':
+            confirmation.pdf_file = data['pdf_file']
+
+        confirmation.save()
+        messages.success(
+            request,
+            f'Payment confirmation submitted for '
+            f'{bid.vehicle.registration_no}. Our team will review it shortly.'
+        )
+
+    except Exception as e:
+        messages.error(
+            request,
+            f'Something went wrong while saving your confirmation: {str(e)}'
+        )
+
+    return redirect('awarded_bids')
 
 
 #Payment Initiation
