@@ -1,31 +1,57 @@
-
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from django.shortcuts import render
 from django.urls import path
+from users.models import Profile
+from django.contrib.auth.models import User
+from django.contrib import admin
+from django.utils import timezone
+
 from .admin_forms import ReviseVehiclePriceForm
 from .models import AdminActionLog, Auction, Vehicle, AuctionHistory, VehiclePriceRevision, NotificationLog
+from django.contrib import admin, messages
+from .forms import AuctionForm
+from django.utils import timezone
+from django.contrib import admin
+from django.utils import timezone
+from .models import Auction, Vehicle, AuctionHistory
+from django.contrib import admin
 from django.utils import timezone
 from .models import (
     VehicleImage, VehicleMake, VehicleModel,
     ManufactureYear, FuelType, VehicleBody, Vehicle, Bidding, Auction, VehicleView, AuctionHistory,NotificationRecipient,Financier,Yard,AwardHistory,BiddingFeePayment
 )
+
+
+from django.contrib import admin
 from django.http import HttpResponse
 import csv
+from django.core.mail import send_mail
+from django.conf import settings
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags, format_html
+import os
+from reportlab.platypus import Image
 from django.contrib import messages
 from .Utils.sms import send_sms
+# from rangefilter.filters import DateRangeFilter
+
+from datetime import datetime
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
+import tempfile
 import os
-from django.contrib import admin
-from django.utils import timezone
-from .models import PaymentConfirmation
-from django.contrib import admin
-from django.db.models import Max
-from django.contrib.admin import SimpleListFilter
-from django.core.exceptions import ValidationError
-from datetime import timedelta
-from django.db.models import Max, OuterRef, Subquery, F, Min
+from simple_history.admin import SimpleHistoryAdmin
+
+from datetime import datetime
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
+from reportlab.lib.units import inch
 
 
 
@@ -86,6 +112,14 @@ class AwardHistoryAdmin(admin.ModelAdmin):
     # Optional: Customize the ordering of the records
     ordering = ('-awarded_at',)
 
+from django.contrib import admin
+from django.db.models import Max
+from django.contrib.admin import SimpleListFilter
+from django.core.exceptions import ValidationError
+from datetime import timedelta
+
+
+from django.db.models import Max, OuterRef, Subquery, F, Min
 
 class HighestBidPerUserFilter(SimpleListFilter):
     title = 'Highest Bids Only'
@@ -2350,135 +2384,6 @@ class NotificationLogAdmin(admin.ModelAdmin):
     search_fields = ("phone_number", "user__username", "vehicle__registration_no")
     readonly_fields = [f.name for f in NotificationLog._meta.fields]
 
-
-@admin.register(PaymentConfirmation)
-class PaymentConfirmationAdmin(admin.ModelAdmin):
-
-    # ── List view ──────────────────────────────────────────
-    list_display = (
-        'vehicle_reg',
-        'user_link',
-        'confirmation_type',
-        'status_badge',
-        'submitted_at',
-        'reviewed_by',
-    )
-    list_filter  = ('status', 'confirmation_type', 'submitted_at')
-    search_fields = (
-        'user__username',
-        'user__email',
-        'bid__vehicle__registration_no',
-    )
-    date_hierarchy = 'submitted_at'
-    ordering       = ('-submitted_at',)
-
-    # ── Detail view ────────────────────────────────────────
-    readonly_fields = (
-        'bid',
-        'user',
-        'confirmation_type',
-        'submitted_at',
-        'reviewed_at',
-        'reviewed_by',
-        'proof_preview',
-    )
-    fieldsets = (
-        ('Bid & User', {
-            'fields': ('bid', 'user', 'submitted_at'),
-        }),
-        ('Submitted Proof', {
-            'fields': ('confirmation_type', 'text_note', 'image_file', 'pdf_file', 'proof_preview'),
-        }),
-        ('Review', {
-            'fields': ('status', 'admin_note', 'reviewed_at', 'reviewed_by'),
-        }),
-    )
-
-    actions = ['approve_selected', 'reject_selected']
-
-    # ── Custom list columns ────────────────────────────────
-
-    @admin.display(description='Vehicle Reg', ordering='bid__vehicle__registration_no')
-    def vehicle_reg(self, obj):
-        return obj.bid.vehicle.registration_no
-
-    @admin.display(description='User')
-    def user_link(self, obj):
-        return format_html(
-            '<a href="/admin/auth/user/{}/change/">{}</a>',
-            obj.user.id,
-            obj.user.username,
-        )
-
-    @admin.display(description='Status')
-    def status_badge(self, obj):
-        colours = {
-            'pending':  ('#7a5c10', '#fffbf0', '#f0e0a0'),
-            'approved': ('#2d6a47', '#f0faf4', '#c6e9d4'),
-            'rejected': ('#8b2f2f', '#fdf3f3', '#f0c8c8'),
-        }
-        fg, bg, border = colours.get(obj.status, ('#333', '#f5f5f5', '#ddd'))
-        return format_html(
-            '<span style="'
-            'color:{};background:{};border:1px solid {};'
-            'padding:3px 10px;border-radius:20px;'
-            'font-size:0.72rem;font-weight:600;letter-spacing:0.06em;'
-            'text-transform:uppercase;">{}</span>',
-            fg, bg, border,
-            obj.get_status_display(),
-        )
-
-    # ── Proof preview in detail view ───────────────────────
-
-    @admin.display(description='Proof Preview')
-    def proof_preview(self, obj):
-        if obj.confirmation_type == 'image' and obj.image_file:
-            return format_html(
-                '<img src="{}" style="max-width:420px;max-height:300px;'
-                'border-radius:8px;border:1px solid #e4e0da;" />',
-                obj.image_file.url,
-            )
-        if obj.confirmation_type == 'pdf' and obj.pdf_file:
-            return format_html(
-                '<a href="{}" target="_blank" style="font-weight:500;">Open PDF</a>',
-                obj.pdf_file.url,
-            )
-        if obj.confirmation_type == 'text' and obj.text_note:
-            return format_html(
-                '<div style="background:#faf9f7;padding:12px 16px;'
-                'border-radius:8px;border:1px solid #e4e0da;'
-                'font-size:0.875rem;white-space:pre-wrap;">{}</div>',
-                obj.text_note,
-            )
-        return '—'
-
-    # ── Bulk actions ───────────────────────────────────────
-
-    @admin.action(description='Approve selected confirmations')
-    def approve_selected(self, request, queryset):
-        updated = queryset.update(
-            status='approved',
-            reviewed_at=timezone.now(),
-            reviewed_by=request.user,
-        )
-        self.message_user(request, f'{updated} confirmation(s) approved.')
-
-    @admin.action(description='Reject selected confirmations')
-    def reject_selected(self, request, queryset):
-        updated = queryset.update(
-            status='rejected',
-            reviewed_at=timezone.now(),
-            reviewed_by=request.user,
-        )
-        self.message_user(request, f'{updated} confirmation(s) rejected.')
-
-    # ── Auto-fill reviewed_by on save ─────────────────────
-
-    def save_model(self, request, obj, form, change):
-        if change and 'status' in form.changed_data:
-            obj.reviewed_at = timezone.now()
-            obj.reviewed_by = request.user
-        super().save_model(request, obj, form, change)
 
 admin.site.site_header = "Autobid Admin"
 admin.site.site_title = "Riverlong Autobid"
