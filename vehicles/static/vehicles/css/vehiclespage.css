@@ -1,0 +1,463 @@
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ══════════════════════════════
+   VEHICLES PAGE — BASE
+══════════════════════════════ */
+
+.vehicles-page {
+    font-family: 'DM Sans', sans-serif;
+    background: #f7f5f2;
+    min-height: 80vh;
+    padding-bottom: 60px;
+}
+
+/* ══════════════════════════════
+   SEARCH BAR
+══════════════════════════════ */
+
+.search-section {
+    background: #fff;
+    border-bottom: 1px solid #ebe8e3;
+    padding: 28px 0 24px;
+}
+
+.search-inner {
+    width: 100%;
+    padding: 0 24px;
+}
+
+.vehicle-search-form {
+    background: #faf9f7;
+    border: 1px solid #e8e4df;
+    border-radius: 12px;
+    padding: 20px 22px;
+}
+
+.search-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.search-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 160px;
+}
+
+.search-group label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #b0a89c;
+}
+
+.search-group select,
+.search-group input {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    color: #1a1a1a;
+    background: #fff;
+    border: 1px solid #e0ddd8;
+    border-radius: 8px;
+    padding: 10px 13px;
+    height: 40px;
+    width: 100%;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.search-group select:focus,
+.search-group input:focus {
+    outline: none;
+    border-color: #1a1a1a;
+    box-shadow: 0 0 0 3px rgba(26,26,26,0.06);
+}
+
+.search-group input::placeholder { color: #c0b8b0; }
+
+.search-actions {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.search-button {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-decoration: none;
+    display: inline-block;
+    white-space: nowrap;
+    height: 40px;
+    line-height: 20px;
+}
+
+.search-button-primary {
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+}
+.search-button-primary:hover { opacity: 0.8; color: #fff; text-decoration: none; }
+
+.search-button-reset {
+    background: #faf9f7;
+    color: #888;
+    border: 1px solid #e4e0da;
+}
+.search-button-reset:hover { background: #f0ede8; color: #333; text-decoration: none; }
+
+/* ══════════════════════════════
+   TOOLBAR (sort + count)
+══════════════════════════════ */
+
+.vehicles-toolbar {
+
+    margin: 28px 0 18px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.vehicles-count {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #b0a89c;
+}
+
+.sort-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sort-wrap label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #b0a89c;
+    white-space: nowrap;
+}
+
+.sort-wrap select {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    color: #333;
+    background: #fff;
+    border: 1px solid #e0ddd8;
+    border-radius: 8px;
+    padding: 7px 12px;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+}
+.sort-wrap select:focus { outline: none; border-color: #1a1a1a; }
+
+/* ══════════════════════════════
+   SECTION WRAPPERS
+══════════════════════════════ */
+
+
+.section-wrap {
+
+    margin: 0 auto 40px;
+    padding: 0 24px;
+}
+
+.section-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #ebe8e3;
+}
+
+.section-label h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.section-pill {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+/* ══════════════════════════════
+   VEHICLE CARD
+══════════════════════════════ */
+
+.vehicle-col { margin-bottom: 20px; }
+
+.car_cad {
+    border: 1px solid #ebe8e3;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    position: relative;
+    height: 100%;
+}
+
+.car_cad:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transform: translateY(-3px);
+}
+
+.car_image { overflow: hidden; }
+
+.car_img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+.car_cad:hover .car_img { transform: scale(1.03); }
+
+.card-body { padding: 14px 16px 16px; }
+
+.car_name {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    line-height: 1.3;
+}
+
+.car_name a {
+    color: inherit;
+    text-decoration: none;
+}
+.car_name a:hover { color: #555; }
+
+.car_info {
+    font-size: 0.78rem;
+    color: #999;
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+.cicon { color: #b0a89c; margin-right: 2px; font-size: 0.75rem; }
+
+.car_divider {
+    border: none;
+    border-top: 1px solid #f2f0ec;
+    margin: 10px 0;
+}
+
+.car_price {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.finance-tag {
+    display: inline-block;
+    background: #f0faf4;
+    border: 1px solid #c6e9d4;
+    color: #2d6a47;
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-top: 6px;
+}
+
+/* ── Card badge (top-right corner) ── */
+.card-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    z-index: 2;
+}
+
+.badge-auction { background: #1a1a1a; color: #fff; }
+.badge-deal    { background: #d94f4f; color: #fff; }
+
+/* ══════════════════════════════
+   ON AUCTION SECTION
+══════════════════════════════ */
+
+.auction-section .car_cad {
+    border-color: #e0ddd8;
+}
+
+.auction-section .car_img { height: 210px; }
+
+/* ══════════════════════════════
+   DEALS OF THE DAY
+══════════════════════════════ */
+
+.deals-section-wrap {
+    background: #fff;
+    border: 1px solid #ebe8e3;
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 40px;
+}
+
+.deals-section-wrap .section-label h2 { color: #d94f4f; }
+
+.deals-section-wrap .section-pill {
+    background: #fdf3f3;
+    border: 1px solid #f0c8c8;
+    color: #8b2f2f;
+}
+
+.deals-section-wrap .car_cad { border-color: #f0c8c8; }
+.deals-section-wrap .car_price { color: #d94f4f; }
+
+/* ══════════════════════════════
+   BLACK FRIDAY / NOVEMBER
+══════════════════════════════ */
+
+.blacknov-section-wrap {
+    background: #1a1010;
+    border-radius: 14px;
+    padding: 32px 24px;
+    margin-bottom: 40px;
+}
+
+.blacknov-section-wrap .section-label {
+    border-bottom-color: rgba(255,255,255,0.1);
+}
+
+.blacknov-section-wrap .section-label h2 {
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.blacknov-section-wrap .section-pill {
+    background: #d94f4f;
+    color: #fff;
+    border: none;
+}
+
+.blacknov-section-wrap .car_cad {
+    border-color: rgba(255,255,255,0.08);
+    background: #fff;
+}
+
+.blacknov-section-wrap .badge-bnov {
+    background: #d94f4f;
+    color: #fff;
+}
+
+/* ══════════════════════════════
+   PAGINATION
+══════════════════════════════ */
+
+.pagination-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.pagination-wrap .btn {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 7px;
+    border: 1px solid #e4e0da;
+    background: #fff;
+    color: #555;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.pagination-wrap .btn:hover {
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+    color: #fff;
+}
+
+.pagination-wrap .current-page {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #b0a89c;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+}
+
+/* ══════════════════════════════
+   EMPTY STATE
+══════════════════════════════ */
+
+.empty-vehicles {
+    text-align: center;
+    padding: 60px 24px;
+    background: #fff;
+    border: 1px solid #ebe8e3;
+    border-radius: 14px;
+    color: #c0b8b0;
+    font-size: 0.9rem;
+}
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+
+@media (max-width: 768px) {
+    .search-inner,
+    .vehicles-toolbar,
+    /* .section-wrap removed — using container-fluid in template *
+.section-wrap-unused { padding: 0 16px; }
+
+    .search-row { gap: 10px; }
+    .search-group { min-width: 100%; }
+
+    .vehicles-toolbar { flex-direction: column; align-items: flex-start; gap: 10px; }
+
+    .car_img { height: 180px; }
+
+    .deals-section-wrap,
+    .blacknov-section-wrap { padding: 18px 14px; }
+}
