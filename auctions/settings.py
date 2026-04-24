@@ -189,7 +189,7 @@ CKEDITOR_CONFIGS = {
         'width': 800,
     },
 }
-ADMIN_NOTIFICATION_EMAILS = ['autobid@riverlong.com']
+ADMIN_NOTIFICATION_EMAILS = ['mmburu@riverlong.com']
 
 SECURE_CONTENT_TYPE_NOSNIFF = False  # Allow CDN scripts to load
 TIARA_API_URL = config('TIARA_API_URL')
