@@ -46,6 +46,8 @@ urlpatterns = [
     path('my-bids/',views.awarded_bids,name='awarded_bids'),
     path('payment-confirmation/submit/',views.submit_payment_confirmation, name='submit_payment_confirmation'),
 
+    path('upcomingauctions/',views.upcoming_auctions,name='upcoming_auctions'),
+    path('upcomingauctions/<int:pk>/download/', views.download_auction_flyer, name='download_auction_flyer'),
 
 
 ]
