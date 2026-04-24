@@ -129,8 +129,8 @@ def submit_payment_confirmation(request):
         confirmation.save()
         messages.success(
             request,
-            f'Payment confirmation submitted for '
-            f'{bid.vehicle.registration_no}. Our team will review it shortly.'
+            f'Thank you for submitting payment confirmation for '
+            f'{bid.vehicle.registration_no}.'
         )
 
     except Exception as e:
@@ -721,8 +721,6 @@ def send_outbid_notification(user, vehicle, amount):
         html_message=html_message,
         fail_silently=False,
     )
-
-
 
 def send_thank_you_notification(bid, vehicle):
     formatted_amount = f"{bid.amount:,.0f}"

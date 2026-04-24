@@ -644,6 +644,7 @@ class PaymentConfirmation(models.Model):
     ]
 
     STATUS_CHOICES = [
+        ('submitted','Submitted'),
         ('pending', 'Pending Review'),
         ('approved', 'Approved'),
         ('rejected', 'Rejected'),
@@ -670,7 +671,7 @@ class PaymentConfirmation(models.Model):
     pdf_file    = models.FileField(upload_to='payment_proofs/pdfs/',   blank=True, null=True)
 
     # ── Admin review ──
-    status      = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+    status      = models.CharField(max_length=10, choices=STATUS_CHOICES, default='submitted')
     admin_note  = models.TextField(blank=True, null=True, help_text="Internal note visible only to staff")
 
     # ── Timestamps ──
