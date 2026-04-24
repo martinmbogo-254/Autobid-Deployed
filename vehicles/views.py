@@ -23,9 +23,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.views.decorators.http import require_POST
+import os
+from django.shortcuts import get_object_or_404
+from django.http import FileResponse, Http404
+from django.utils import timezone
+from .models import UpcomingAuction
 
 # Awarded Bids List
-
 
 @login_required
 def awarded_bids(request):
@@ -894,3 +898,43 @@ def feedback_view(request):
         form = FeedbackForm()
     
     return render(request, 'vehicles/contactus.html', {'form': form})
+
+
+
+def upcoming_auctions(request):
+    """Public list — only approved auctions, soonest first."""
+    auctions = UpcomingAuction.objects.filter(
+        status='approved',
+        auction_date__gte=timezone.now(),
+    ).order_by('auction_date')
+
+    past_auctions = UpcomingAuction.objects.filter(
+        status='approved',
+        auction_date__lt=timezone.now(),
+    ).order_by('-auction_date')[:6]
+
+    return render(request, 'vehicles/upcoming_auctions.html', {
+        'auctions':      auctions,
+        'past_auctions': past_auctions,
+    })
+
+
+def download_auction_flyer(request, pk):
+    """Serves the flyer image as a browser download."""
+    auction = get_object_or_404(UpcomingAuction, pk=pk, status='approved')
+
+    if not auction.image:
+        raise Http404("No flyer available.")
+
+    file_path = auction.image.path
+    if not os.path.exists(file_path):
+        raise Http404("Flyer file not found.")
+
+    ext      = os.path.splitext(file_path)[1]
+    filename = f"auction_{auction.auction_date.strftime('%Y-%m-%d')}{ext}"
+
+    return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=filename)
+
+
+
+

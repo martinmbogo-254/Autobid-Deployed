@@ -6,7 +6,7 @@ from .models import AdminActionLog, Auction, Vehicle, AuctionHistory, VehiclePri
 from django.utils import timezone
 from .models import (
     VehicleImage, VehicleMake, VehicleModel,
-    ManufactureYear, FuelType, VehicleBody, Vehicle, Bidding, Auction, VehicleView, AuctionHistory,NotificationRecipient,Financier,Yard,AwardHistory,BiddingFeePayment
+    ManufactureYear, FuelType, VehicleBody, Vehicle, Bidding, Auction, VehicleView, AuctionHistory,NotificationRecipient,Financier,Yard,AwardHistory,UpcomingAuction
 )
 from django.http import HttpResponse
 import csv
@@ -26,8 +26,9 @@ from django.contrib.admin import SimpleListFilter
 from django.core.exceptions import ValidationError
 from datetime import timedelta
 from django.db.models import Max, OuterRef, Subquery, F, Min
-
-
+from django.contrib import admin
+from django.utils import timezone
+from django.utils.html import format_html
 
 # Add a description to the custom action
 @admin.register(AwardHistory)
@@ -2354,7 +2355,7 @@ class NotificationLogAdmin(admin.ModelAdmin):
 @admin.register(PaymentConfirmation)
 class PaymentConfirmationAdmin(admin.ModelAdmin):
 
-    # ── List view ──────────────────────────────────────────
+    # ── List view
     list_display = (
         'vehicle_reg',
         'user_link',
@@ -2372,7 +2373,7 @@ class PaymentConfirmationAdmin(admin.ModelAdmin):
     date_hierarchy = 'submitted_at'
     ordering       = ('-submitted_at',)
 
-    # ── Detail view ────────────────────────────────────────
+    # ── Detail view
     readonly_fields = (
         'bid',
         'user',
@@ -2396,7 +2397,7 @@ class PaymentConfirmationAdmin(admin.ModelAdmin):
 
     actions = ['approve_selected', 'reject_selected']
 
-    # ── Custom list columns ────────────────────────────────
+    # ── Custom list columns
 
     @admin.display(description='Vehicle Reg', ordering='bid__vehicle__registration_no')
     def vehicle_reg(self, obj):
@@ -2428,7 +2429,7 @@ class PaymentConfirmationAdmin(admin.ModelAdmin):
             obj.get_status_display(),
         )
 
-    # ── Proof preview in detail view ───────────────────────
+    # ── Proof preview in detail view
 
     @admin.display(description='Proof Preview')
     def proof_preview(self, obj):
@@ -2452,7 +2453,7 @@ class PaymentConfirmationAdmin(admin.ModelAdmin):
             )
         return '—'
 
-    # ── Bulk actions ───────────────────────────────────────
+    # ── Bulk actions
 
     @admin.action(description='Approve selected confirmations')
     def approve_selected(self, request, queryset):
@@ -2472,12 +2473,134 @@ class PaymentConfirmationAdmin(admin.ModelAdmin):
         )
         self.message_user(request, f'{updated} confirmation(s) rejected.')
 
-    # ── Auto-fill reviewed_by on save ─────────────────────
+    # ── Auto-fill reviewed_by on save
 
     def save_model(self, request, obj, form, change):
         if change and 'status' in form.changed_data:
             obj.reviewed_at = timezone.now()
             obj.reviewed_by = request.user
+        super().save_model(request, obj, form, change)
+
+# Add this to your existing admin.py
+
+
+
+
+@admin.register(UpcomingAuction)
+class UpcomingAuctionAdmin(admin.ModelAdmin):
+
+    list_display  = (
+        'title', 'auction_date',
+        'status_badge', 'created_by', 'created_at',
+        'approved_by', 'approved_at',
+    )
+    list_filter   = ('status', 'auction_date')
+    search_fields = ('title', )
+    date_hierarchy = 'auction_date'
+    ordering       = ['auction_date']
+    actions        = ['approve_selected', 'disapprove_selected','archive_selected']
+
+    readonly_fields = (
+        'created_at', 'created_by',
+        'updated_at', 'updated_by',
+        'approved_at', 'approved_by',
+        'disapproved_at', 'disapproved_by',
+        'flyer_preview',
+    )
+
+    fieldsets = (
+        ('Auction Details', {
+            'fields': ('title', 'description', 'auction_date', 'image', 'flyer_preview'),
+        }),
+        ('Status', {
+            'fields': ('status', 'approved_at', 'approved_by','disapproved_at','disapproved_by'),
+        }),
+        ('Audit Trail', {
+            'fields': ('created_at', 'created_by', 'updated_at', 'updated_by'),
+            'classes': ('collapse',),
+        }),
+    )
+
+    # ── List columns
+
+    @admin.display(description='Status')
+    def status_badge(self, obj):
+        colours = {
+            'draft':    ('#7a5c10', '#fffbf0', '#f0e0a0'),
+            'approved': ('#2d6a47', '#f0faf4', '#c6e9d4'),
+            'disapproved': ('#7a1f1f', '#fdf2f2', '#f0bcbc'),
+            'archived': ('#666',    '#f5f5f5', '#ddd'),
+        }
+        fg, bg, border = colours.get(obj.status, ('#333', '#f5f5f5', '#ddd'))
+        return format_html(
+            '<span style="color:{};background:{};border:1px solid {};'
+            'padding:3px 10px;border-radius:20px;font-size:0.72rem;'
+            'font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">{}</span>',
+            fg, bg, border, obj.get_status_display(),
+        )
+
+    @admin.display(description='Flyer Preview')
+    def flyer_preview(self, obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" style="max-width:360px;max-height:260px;'
+                'border-radius:8px;border:1px solid #e4e0da;margin-top:6px;" />',
+                obj.image.url,
+            )
+        return '—'
+
+    # ── Bulk actions
+
+    @admin.action(description='Approve selected auctions')
+    def approve_selected(self, request, queryset):
+        updated = queryset.update(
+            status='approved',
+            approved_at=timezone.now(),
+            approved_by=request.user,
+            updated_by=request.user,
+        )
+        self.message_user(request, f'{updated} auction(s) approved and now visible to users.')
+
+    @admin.action(description='Disapprove selected auctions')
+    def disapprove_selected(self, request, queryset):
+        updated = queryset.update(
+            status='disapproved',
+            disapproved_at=timezone.now(),
+            disapproved_by=request.user,
+            updated_by=request.user,
+        )
+        self.message_user(request, f'{updated} auction(s) disapproved .')
+
+    @admin.action(description='Archive selected auctions')
+    def archive_selected(self, request, queryset):
+        now = timezone.now()
+
+        can_archive = queryset.filter(auction_date__lt=now)
+        cannot_archive = queryset.filter(auction_date__gte=now)
+
+        if cannot_archive.exists():
+            titles = ', '.join(f'"{a.title}"' for a in cannot_archive)
+            self.message_user(
+                request,
+                f'The following auction(s) have not yet taken place and cannot be archived: {titles}',
+                level='error',
+            )
+
+        if can_archive.exists():
+            can_archive.update(status='archived', updated_by=request.user)
+            self.message_user(
+                request,
+                f'{can_archive.count()} auction(s) archived successfully.',
+            )
+
+    # ── Auto-stamp audit fields
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.created_by = request.user
+        obj.updated_by = request.user
+        if 'status' in form.changed_data and obj.status == 'approved':
+            obj.approved_at = timezone.now()
+            obj.approved_by = request.user
         super().save_model(request, obj, form, change)
 
 admin.site.site_header = "Autobid Admin"

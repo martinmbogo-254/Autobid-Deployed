@@ -28,15 +28,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-   '6850-197-237-29-119.ngrok-free.app' ]
+ALLOWED_HOSTS = ['*' ]
 
 # Application definition
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://6850-197-237-29-119.ngrok-free.app'
+    'https://8228-197-237-29-119.ngrok-free.app '
 ]
 
 INSTALLED_APPS = [
