@@ -1821,6 +1821,10 @@ class AuctionAdmin(admin.ModelAdmin):
         
         # Disapprove all selected auctions
         queryset.update(approved=False)
+
+        for auction in queryset:
+            auction.vehicles.all().update(status='available')
+
         modeladmin.message_user(request, f"{queryset.count()} auction(s) disapproved successfully.")
 
     disapprove_auction.short_description = "Disapprove selected auctions"
