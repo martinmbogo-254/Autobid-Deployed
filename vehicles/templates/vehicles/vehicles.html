@@ -74,8 +74,12 @@
                             </a>
                         </div>
                         <div class="card-body">
-                            <span class="car_name">{{ vehicle.YOM }} {{ vehicle.make }}</span>
-                            <span class="car_name">{{ vehicle.model }}</span>
+                            <a href="{% url 'detail' vehicle.id %}">
+                                <img class="car_img" loading="lazy" src="{{ vehicle.file.url }}" alt="{{ vehicle.make }} {{ vehicle.model }}">
+                            </a>
+                           <a href="{% url 'detail' vehicle.id %}" class="car_name-link">
+                                <span class="car_name">{{ vehicle.YOM }} {{ vehicle.make }} {{ vehicle.model }}</span>
+                            </a>
                             <p class="car_info">
                                 <i class="fa-solid fa-road cicon"></i> {{ vehicle.mileage|intcomma }} KM &bull;
                                 <i class="fas fa-tachometer-alt cicon"></i> {{ vehicle.engine_cc }} CC &bull;
@@ -121,8 +125,9 @@
                         </a>
                     </div>
                     <div class="card-body">
-                        <span class="car_name">{{ vehicle.YOM }} {{ vehicle.make }}</span>
-                        <span class="car_name">{{ vehicle.model }}</span>
+                        <a href="{% url 'detail' vehicle.id %}" class="car_name-link">
+                                <span class="car_name">{{ vehicle.YOM }} {{ vehicle.make }} {{ vehicle.model }}</span>
+                            </a>
                         <p class="car_info">
                             <i class="fa-solid fa-road cicon"></i> {{ vehicle.mileage|intcomma }} KM &bull;
                             <i class="fas fa-tachometer-alt cicon"></i> {{ vehicle.engine_cc }} CC &bull;
@@ -167,8 +172,9 @@
                             </a>
                         </div>
                         <div class="card-body">
-                            <span class="car_name">{{ vehicle.YOM }} {{ vehicle.make }}</span>
-                            <span class="car_name">{{ vehicle.model }}</span>
+                            <a href="{% url 'detail' vehicle.id %}" class="car_name-link">
+                                <span class="car_name">{{ vehicle.YOM }} {{ vehicle.make }} {{ vehicle.model }}</span>
+                            </a>
                             <p class="car_info">
                                 <i class="fa-solid fa-road cicon"></i> {{ vehicle.mileage|intcomma }} KM &bull;
                                 <i class="fas fa-tachometer-alt cicon"></i> {{ vehicle.engine_cc }} CC &bull;
@@ -208,8 +214,9 @@
                         </a>
                     </div>
                     <div class="card-body">
-                        <span class="car_name">{{ vehicle.YOM }} {{ vehicle.make }}</span>
-                        <span class="car_name">{{ vehicle.model }}</span>
+                        <a href="{% url 'detail' vehicle.id %}" class="car_name-link">
+                                <span class="car_name">{{ vehicle.YOM }} {{ vehicle.make }} {{ vehicle.model }}</span>
+                        </a>
                         <p class="car_info">
                             <i class="fa-solid fa-road cicon"></i> {{ vehicle.mileage|intcomma }} KM &bull;
                             <i class="fas fa-tachometer-alt cicon"></i> {{ vehicle.engine_cc }} CC &bull;

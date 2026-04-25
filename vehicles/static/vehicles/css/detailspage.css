@@ -549,7 +549,7 @@
 
 /* Tablet */
 @media (max-width: 991px) {
-    #vehicleCarousel .carousel-item img { height: 380px; }
+    #vehicleCarousel .carousel-item img { height: 650px; }
 
     .right_box { position: static; margin-top: 16px; }
 
@@ -594,7 +594,7 @@
     .col-md-4          { order: 3; }
     .row.mb-4          { display: flex; flex-wrap: wrap; }
 
-    #vehicleCarousel .carousel-item img { height: 280px; }
+    #vehicleCarousel .carousel-item img { height: 360px; }
 
     .carousel-control-prev,
     .carousel-control-next { opacity: 0.7; }  /* always visible on touch */
