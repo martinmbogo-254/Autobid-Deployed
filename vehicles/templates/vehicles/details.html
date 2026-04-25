@@ -55,12 +55,12 @@
                     </div>
                     {% endfor %}
                 </div>
-                <a class="carousel-control-prev" href="#vehicleCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </a>
-                <a class="carousel-control-next" href="#vehicleCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </a>
+<!--                <a class="carousel-control-prev" href="#vehicleCarousel" role="button" data-slide="prev">-->
+<!--                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--                </a>-->
+<!--                <a class="carousel-control-next" href="#vehicleCarousel" role="button" data-slide="next">-->
+<!--                    <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--                </a>-->
             </div>
         </div>
         
@@ -94,17 +94,13 @@
                     {% endif %}
 
                     {% if user.is_authenticated %}
-                        {% if has_paid_fee %}
+
                         <button type="button" id="bidbtn"
                             class="btn-bid"
                             data-toggle="modal" data-target="#bidModal">
                             <i class="fa fa-gavel"></i> Place a Bid
                         </button>
-                        {% else %}
-                        <a href="{% url 'pay_bidding_fee' vehicle_id=vehicle.id %}" class="btn-bid">
-                            <i class="fa fa-gavel"></i> Pay to Bid
-                        </a>
-                        {% endif %}
+
                     {% else %}
                     <a href="{% url 'login' %}?next={% url 'detail' vehicle.id %}" class="btn-login-bid">
                         <i class="fa fa-lock"></i> Login to Bid
