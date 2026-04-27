@@ -36,7 +36,11 @@ ALLOWED_HOSTS = [
 # Application definition
 
 CSRF_TRUSTED_ORIGINS = [
+<<<<<<< Updated upstream
     'https://6850-197-237-29-119.ngrok-free.app'
+=======
+    'https://98b9-197-237-29-119.ngrok-free.app'
+>>>>>>> Stashed changes
 ]
 
 INSTALLED_APPS = [

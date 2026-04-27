@@ -94,8 +94,13 @@
                     {% endif %}
 
                     {% if user.is_authenticated %}
+<<<<<<< Updated upstream
 
                        <button type="button" id="bidbtn"
+=======
+                        {% if has_paid_fee %}
+                         <button type="button" id="bidbtn"
+>>>>>>> Stashed changes
                             class="btn-bid"
                             data-bs-toggle="modal" data-bs-target="#bidModal">
                             <i class="fa fa-gavel"></i> Place a Bid
