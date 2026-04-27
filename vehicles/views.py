@@ -576,7 +576,7 @@ def send_thank_you_notification(bid, vehicle):
         fail_silently=False
     )
 
-@requires_bidding_fee
+
 @login_required(login_url='login')
 def place_bid(request, pk, allowed_statuses=None):
     vehicle = get_object_or_404(Vehicle, id=pk)

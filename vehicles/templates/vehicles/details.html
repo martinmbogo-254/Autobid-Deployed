@@ -55,15 +55,15 @@
                     </div>
                     {% endfor %}
                 </div>
-                <a class="carousel-control-prev" href="#vehicleCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </a>
-                <a class="carousel-control-next" href="#vehicleCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </a>
+<!--                <a class="carousel-control-prev" href="#vehicleCarousel" role="button" data-slide="prev">-->
+<!--                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--                </a>-->
+<!--                <a class="carousel-control-next" href="#vehicleCarousel" role="button" data-slide="next">-->
+<!--                    <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--                </a>-->
             </div>
         </div>
-        
+
 
         <!-- Right Panel -->
         <div class="col-md-4 mt-3 mt-md-0">
@@ -94,17 +94,18 @@
                     {% endif %}
 
                     {% if user.is_authenticated %}
+<<<<<<< Updated upstream
+
+                       <button type="button" id="bidbtn"
+=======
                         {% if has_paid_fee %}
-                        <button type="button" id="bidbtn"
+                         <button type="button" id="bidbtn"
+>>>>>>> Stashed changes
                             class="btn-bid"
-                            data-toggle="modal" data-target="#bidModal">
+                            data-bs-toggle="modal" data-bs-target="#bidModal">
                             <i class="fa fa-gavel"></i> Place a Bid
                         </button>
-                        {% else %}
-                        <a href="{% url 'pay_bidding_fee' vehicle_id=vehicle.id %}" class="btn-bid">
-                            <i class="fa fa-gavel"></i> Pay to Bid
-                        </a>
-                        {% endif %}
+
                     {% else %}
                     <a href="{% url 'login' %}?next={% url 'detail' vehicle.id %}" class="btn-login-bid">
                         <i class="fa fa-lock"></i> Login to Bid
@@ -242,7 +243,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="bidModalLabel">Place Bid</h5>
-                <button class="btn btn-dark text-light" type="button" data-dismiss="modal" aria-label="Close">
+                <button class="btn btn-dark text-light" type="button" data-bs-dismiss="modal" aria-label="Close">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -256,7 +257,7 @@
                     <div class="form-group">
                         <p>Reserve Price: Ksh {{ vehicle.reserve_price|intcomma }}</p>
                         <p>Highest Offer: Ksh {% if highest_bid %}{{ highest_bid.amount|intcomma }}{% else %}0{% endif %}</p>
-                        <input type="text"  class="form-control"       id="amount"      name="amount"      placeholder="Enter bid amount"          required>
+                        <input type="text"  class="form-control"       id="amount"      name="amount"      placeholder="Enter bid amount in multiples of 1000"          required>
                         <input type="text"  class="form-control mt-2 mb-2" id="referred_by" name="referred_by" placeholder="Enter your referee full name" required>
                     </div>
                     <div class="form-group form-check">

@@ -78,7 +78,7 @@
                     <li><a href="/admin" class="nav-link">Admin</a></li>
                     <li><a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a></li>
                     {% endif %}
-                    <li><a href="{% url 'awarded_bids' %}" class="nav-link">My Bids</a></li>
+                    <li><a href="{% url 'awarded_bids' %}" class="nav-link">Payment Confirmations</a></li>
                     <li><a href="/profile" class="nav-link">{{ user.username }}</a></li>
                     <li><a href="/logout" class="nav-link">Logout</a></li>
                 {% else %}
