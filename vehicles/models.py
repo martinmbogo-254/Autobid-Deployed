@@ -644,6 +644,7 @@ class PaymentConfirmation(models.Model):
     ]
 
     STATUS_CHOICES = [
+        ('submitted','Submitted'),
         ('pending', 'Pending Review'),
         ('approved', 'Approved'),
         ('rejected', 'Rejected'),
@@ -670,7 +671,7 @@ class PaymentConfirmation(models.Model):
     pdf_file    = models.FileField(upload_to='payment_proofs/pdfs/',   blank=True, null=True)
 
     # ── Admin review ──
-    status      = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+    status      = models.CharField(max_length=10, choices=STATUS_CHOICES, default='submitted')
     admin_note  = models.TextField(blank=True, null=True, help_text="Internal note visible only to staff")
 
     # ── Timestamps ──
@@ -694,4 +695,53 @@ class PaymentConfirmation(models.Model):
     @property
     def is_approved(self):
         return self.status == 'approved'
-   
+
+
+class UpcomingAuction(models.Model):
+    STATUS_CHOICES = [
+        ('draft', 'Draft'),
+        ('approved', 'Approved'),
+        ('disapproved','Disapproved'),
+        ('archived', 'Archived'),
+    ]
+
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+    auction_date = models.DateTimeField()
+    image = models.ImageField(upload_to='upcoming_auctions/')
+
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='draft')
+
+    # Approval
+    approved_at = models.DateTimeField(blank=True, null=True)
+    approved_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='approved_auction',
+    )
+    # Disapproval
+    disapproved_at = models.DateTimeField(blank=True, null=True)
+    disapproved_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='disapproved_auction',
+    )
+
+
+    # Audit
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='created_auctions',
+    )
+    updated_at = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='updated_auctions',
+    )
+
+    class Meta:
+        verbose_name = 'Upcoming Auction'
+        verbose_name_plural = 'Upcoming Auctions'
+        ordering = ['auction_date']
+
+    def __str__(self):
+        return f"{self.title} — {self.auction_date.strftime('%d %b %Y')}"

@@ -583,10 +583,11 @@
 
         <div class="cta-buttons">
           {% if user.is_authenticated%}
-          <a href="{% url 'available_vehicles' %}" class="btn btn-secondary">🚗 Explore Vehicles</a>
+          <a href="{% url 'available_vehicles' %}" class="btn btn-secondary">Explore Vehicles</a>
+          <a href="{% url 'upcoming_auctions' %}" class="btn btn-primary"> Upcoming Auctions</a>
           {% else %}
-          <a href="/register" class="btn btn-primary">🚀 Register Now</a>
-          <a href="{% url 'available_vehicles' %}" class="btn btn-secondary">🚗 Explore Vehicles</a>
+          <a href="/register" class="btn btn-primary">Register Now</a>
+          <a href="{% url 'available_vehicles' %}" class="btn btn-secondary">Explore Vehicles</a>
           {% endif %}
           
         </div>

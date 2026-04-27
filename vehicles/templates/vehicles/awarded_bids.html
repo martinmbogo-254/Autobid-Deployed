@@ -493,6 +493,7 @@
                         <td class="bid-reg"    data-label="Reg No.">{{ bid.vehicle.registration_no }}</td>
                         <td class="bid-date"   data-label="Date Awarded">{{ bid.awarded_at }}</td>
                         <td class="bid-amount" data-label="Winning Bid">KSH {{ bid.amount|intcomma }}</td>
+
                         <td data-label="Status">
                             {% if bid.payment_confirmed %}
                                 <span class="status-badge status-confirmed">Confirmed</span>
