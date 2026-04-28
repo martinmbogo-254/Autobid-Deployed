@@ -1219,17 +1219,17 @@ class VehicleImageInline(admin.TabularInline):
     model = VehicleImage
     extra = 1  # Number of empty forms to display
 
-class BidInline(admin.TabularInline):
-    model = Bidding
-    readonly_fields = ('user', 'amount', 'bid_time',)  
-    # extra = 1  
-    can_delete = False
+# class BidInline(admin.TabularInline):
+#     model = Bidding
+#     readonly_fields = ('user', 'amount', 'bid_time',)
+#     # extra = 1
+#     can_delete = False
 
-class VehicleViewInline(admin.TabularInline):
-    model = VehicleView
-    # extra = 1 
-    readonly_fields=('vehicle','user','viewed_at')
-    can_delete = False
+# class VehicleViewInline(admin.TabularInline):
+#     model = VehicleView
+#     # extra = 1
+#     readonly_fields=('vehicle','user','viewed_at')
+#     can_delete = False
 
 
 @admin.register(Vehicle)
@@ -1322,7 +1322,7 @@ class VehicleAdmin(admin.ModelAdmin):
     # Other configurations
     search_fields = ('make__name', 'registration_no', 'model__name', 'YOM__year', 'status','yard__name','Financier__name')
     list_filter = ('Financier',PriceRangeFilter,'yard',AwardedBidderFilter,'status','is_hotsale', 'is_flashsale' ,'fuel_type', 'created_at', 'updated_at','approved_at','disapproved_at','disapproved_by', 'is_approved')
-    inlines = [VehicleImageInline, BidInline, VehicleViewInline]
+    inlines = [VehicleImageInline]
     readonly_fields = ('views','is_approved', 'approved_by', 'approved_at','disapproved_by', 'disapproved_at','sold_at','sold_by')
     actions = ['make_available', 'generate_vehicle_report', 'approve_vehicle','disapprove_vehicle','revise_price','stop_sale','add_to_flashsale','remove_from_flashsale']
     list_per_page = 15  # Items per page
