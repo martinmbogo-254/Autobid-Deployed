@@ -707,7 +707,8 @@ class UpcomingAuction(models.Model):
 
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
-    auction_date = models.DateTimeField()
+    auction_startdate = models.DateTimeField()
+    auction_enddate = models.DateTimeField(blank=True, null=True)
     image = models.ImageField(upload_to='upcoming_auctions/')
 
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='draft')
@@ -741,7 +742,7 @@ class UpcomingAuction(models.Model):
     class Meta:
         verbose_name = 'Upcoming Auction'
         verbose_name_plural = 'Upcoming Auctions'
-        ordering = ['auction_date']
+        ordering = ['auction_startdate']
 
     def __str__(self):
-        return f"{self.title} — {self.auction_date.strftime('%d %b %Y')}"
+        return f"{self.title} — {self.auction_startdate.strftime('%d %b %Y')}"
