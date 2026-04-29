@@ -3,14 +3,11 @@
 {% load humanize %}
 {% load social_share %}
 
-{% block extra_css %}
 <meta property="og:title"       content="{{ vehicle.YOM }} {{ vehicle.make }} {{ vehicle.model }}" />
 <meta property="og:description" content="Reserved Price: Ksh {{ vehicle.reserve_price|intcomma }}. View more details and images here." />
 <meta property="og:image"       content="{{ vehicle.vehicleimage_set.first.image.url|default:'https://www.bmw.co.ke/content/dam/bmw/common/topics/offers-and-services/bmw-special-sales-2020/protection-vehicle/bmw-special-sales-protection-vehicle-protection-sd-01.jpg' }}" />
 <meta property="og:url"         content="{{ request.build_absolute_uri }}" />
 <meta property="og:type"        content="website" />
-
-{% endblock %}
 
 {% block content %}
 <div class="container-fluid details_pane px-4">
@@ -92,20 +89,18 @@
                     <span class="countdown-label" id="countdown"></span>
                     <script>const auctionEndDate = "{{ vehicle.current_auction_end_date|date:'Y-m-d H:i:s' }}";</script>
                     {% endif %}
-
-                    {% if user.is_authenticated %}
-<<<<<<< Updated upstream
-
-                       <button type="button" id="bidbtn"
-=======
+                     {% if user.is_authenticated %}
                         {% if has_paid_fee %}
                          <button type="button" id="bidbtn"
->>>>>>> Stashed changes
                             class="btn-bid"
                             data-bs-toggle="modal" data-bs-target="#bidModal">
                             <i class="fa fa-gavel"></i> Place a Bid
                         </button>
-
+                        {% else %}
+                        <a href="{% url 'pay_bidding_fee' vehicle_id=vehicle.id %}" class="btn-bid">
+                            <i class="fa fa-gavel"></i> Pay to Bid
+                        </a>
+                        {% endif %}
                     {% else %}
                     <a href="{% url 'login' %}?next={% url 'detail' vehicle.id %}" class="btn-login-bid">
                         <i class="fa fa-lock"></i> Login to Bid
@@ -380,4 +375,4 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'ArrowRight') lbNext(e);
 });
 </script>
-{% endblock content %}
+{% endblock content%}

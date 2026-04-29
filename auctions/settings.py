@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['*' ]
 # Application definition
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://98b9-197-237-29-119.ngrok-free.app'
+    'https://75fc-197-237-29-119.ngrok-free.app'
 ]
 
 INSTALLED_APPS = [
@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'django.contrib.sitemaps',
+    'settings'
     # 'django_daraja',
     # 'simple_history',
 
@@ -210,12 +211,12 @@ AUTH_TOKEN = config('AUTH_TOKEN')
 #     MPESA_BASE_URL = "https://api.safaricom.co.ke"
 
 
-MPESA_CONFIG = {
-    "ENVIRONMENT": "sandbox",
-    "CONSUMER_KEY": config('MPESA_CONSUMER_KEY'),
-    "CONSUMER_SECRET": config('MPESA_CONSUMER_SECRET'),
-    "SHORTCODE": "174379",                    # Sandbox shortcode
-    "PASSKEY": config('MPESA_PASSKEY'),       # From Daraja portal
-    "CALLBACK_URL": config('MPESA_CALLBACK_URL'),
-    "BIDDING_FEE_AMOUNT": 1,                  # KES
-}
+# MPESA_CONFIG = {
+#     "ENVIRONMENT": "sandbox",
+#     "CONSUMER_KEY": config('MPESA_CONSUMER_KEY'),
+#     "CONSUMER_SECRET": config('MPESA_CONSUMER_SECRET'),
+#     "SHORTCODE": "174379",                    # Sandbox shortcode
+#     "PASSKEY": config('MPESA_PASSKEY'),       # From Daraja portal
+#     "CALLBACK_URL": config('MPESA_CALLBACK_URL'),
+#     "BIDDING_FEE_AMOUNT": 1,                  # KES
+# }
