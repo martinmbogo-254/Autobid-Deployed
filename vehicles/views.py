@@ -172,7 +172,7 @@ def pay_bidding_fee(request, vehicle_id):
             response = initiate_stk_push(
                 phone_number=formatted_phone,
                 amount=amount,
-                account_reference=f"BID-VEH-{vehicle.registration_no}",
+                account_reference=f"AUTOBID-{vehicle.registration_no}",
                 transaction_desc=f"Bidding fee for {vehicle.registration_no}",
             )
 
