@@ -35,7 +35,7 @@
                              alt="{{ auction.title }}"
                              class="auction-img"
                              loading="lazy">
-                        <span class="auction-date-badge">{{ auction.auction_date|date:"d M Y" }}</span>
+                        <span class="auction-date-badge">{{ auction.auction_startdate|date:"d M Y" }}</span>
                     </div>
 
                     <div class="auction-card-body">
@@ -43,7 +43,7 @@
 
                         <p class="auction-meta">
                             <i class="fa-regular fa-clock"></i>
-                            {{ auction.auction_date|date:"D, d M Y \a\t g:i A" }}
+                            {{ auction.auction_startdate|date:"D, d M Y " }} from {{auction.auction_startdate|date:"  g:i A"}} to {{auction.auction_enddate|date:"  g:i A"}}
                         </p>
                         {% if auction.location %}
                         <p class="auction-meta">
@@ -57,7 +57,7 @@
                         {% endif %}
 
                         <div class="auction-countdown"
-                             data-date="{{ auction.auction_date|date:'Y-m-d H:i:s' }}">
+                             data-date="{{ auction.auction_startdate|date:'Y-m-d H:i:s' }}">
                             <span class="countdown-dot"></span>
                             <span class="countdown-text">Loading…</span>
                         </div>
@@ -99,7 +99,7 @@
             <div class="past-info">
                 <p class="past-title">{{ auction.title }}</p>
                 <p class="past-date">
-                    {{ auction.auction_date|date:"d M Y" }}
+                    {{ auction.auction_startdate|date:"d M Y" }}
                     {% if auction.location %}&bull; {{ auction.location }}{% endif %}
                 </p>
             </div>
