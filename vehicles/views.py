@@ -901,13 +901,13 @@ def upcoming_auctions(request):
     """Public list — only approved auctions, soonest first."""
     auctions = UpcomingAuction.objects.filter(
         status='approved',
-        auction_date__gte=timezone.now(),
-    ).order_by('auction_date')
+        auction_startdate__gte=timezone.now(),
+    ).order_by('auction_startdate')
 
     past_auctions = UpcomingAuction.objects.filter(
         status='approved',
-        auction_date__lt=timezone.now(),
-    ).order_by('-auction_date')[:6]
+        auction_startdate__lt=timezone.now(),
+    ).order_by('-auction_startdate')[:6]
 
     return render(request, 'vehicles/upcoming_auctions.html', {
         'auctions':      auctions,
@@ -927,7 +927,7 @@ def download_auction_flyer(request, pk):
         raise Http404("Flyer file not found.")
 
     ext      = os.path.splitext(file_path)[1]
-    filename = f"auction_{auction.auction_date.strftime('%Y-%m-%d')}{ext}"
+    filename = f"auction_{auction.auction_startdate.strftime('%Y-%m-%d')}{ext}"
 
     return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=filename)
 

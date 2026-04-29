@@ -2494,14 +2494,14 @@ class PaymentConfirmationAdmin(admin.ModelAdmin):
 class UpcomingAuctionAdmin(admin.ModelAdmin):
 
     list_display  = (
-        'title', 'auction_date',
+        'title', 'auction_startdate',
         'status_badge', 'created_by', 'created_at',
         'approved_by', 'approved_at',
     )
-    list_filter   = ('status', 'auction_date')
+    list_filter   = ('status', 'auction_startdate')
     search_fields = ('title', )
-    date_hierarchy = 'auction_date'
-    ordering       = ['auction_date']
+    date_hierarchy = 'auction_startdate'
+    ordering       = ['auction_startdate']
     actions        = ['approve_selected', 'disapprove_selected','archive_selected']
 
     readonly_fields = (
@@ -2514,7 +2514,7 @@ class UpcomingAuctionAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('Auction Details', {
-            'fields': ('title', 'description', 'auction_date', 'image', 'flyer_preview'),
+            'fields': ('title', 'description', 'auction_startdate','auction_enddate', 'image', 'flyer_preview'),
         }),
         ('Status', {
             'fields': ('status', 'approved_at', 'approved_by','disapproved_at','disapproved_by'),

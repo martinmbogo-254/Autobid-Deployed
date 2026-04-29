@@ -12,4 +12,7 @@ src
 myenv.rar
 migrations/
 .pyc
-auctions/settings.py
+db.sqlite3
+settings/migrations/0001_initial.py
+vehicles/migrations/0006_merge_20260428_1534.py
+settings/migrations/0002_sitesettings_safaricom_callback_url.py
