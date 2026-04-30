@@ -28,6 +28,7 @@ from django.shortcuts import get_object_or_404
 from django.http import FileResponse, Http404
 from django.utils import timezone
 from .models import UpcomingAuction
+from settings.models import SiteSettings
 
 # Awarded Bids List
 
@@ -145,12 +146,13 @@ def submit_payment_confirmation(request):
 #Payment Initiation
 
 @login_required
+@login_required
 def pay_bidding_fee(request, vehicle_id):
     """Show payment form and trigger STK Push."""
     vehicle = get_object_or_404(Vehicle, pk=vehicle_id)
-    config = settings.MPESA_CONFIG
+    cfg = SiteSettings.get()
+    amount = cfg.bidding_fee
 
-    # Already paid? Go straight to the vehicle
     if BiddingFeePayment.has_paid(request.user, vehicle):
         messages.success(request, "You have already paid the bidding fee for this vehicle.")
         return redirect("vehicle_detail", pk=vehicle_id)
@@ -159,20 +161,21 @@ def pay_bidding_fee(request, vehicle_id):
         phone = request.POST.get("phone_number", "").strip()
         if not phone:
             messages.error(request, "Please enter your M-Pesa phone number.")
-            return render(request, "vehicles/payments/pay_bidding_fee.html", {"vehicle": vehicle, "amount": config["BIDDING_FEE_AMOUNT"]})
+            return render(request, "vehicles/payments/pay_bidding_fee.html", {
+                "vehicle": vehicle,
+                "amount": amount,
+            })
 
         formatted_phone = format_phone_number(phone)
-        amount = config["BIDDING_FEE_AMOUNT"]
 
         try:
             response = initiate_stk_push(
                 phone_number=formatted_phone,
                 amount=amount,
-                account_reference=f"BID-VEH-{vehicle.pk}",
+                account_reference=f"AUTOBID-{vehicle.registration_no}",
                 transaction_desc=f"Bidding fee for {vehicle.registration_no}",
             )
 
-            # Save a pending payment record
             payment = BiddingFeePayment.objects.create(
                 user=request.user,
                 vehicle=vehicle,
@@ -185,21 +188,20 @@ def pay_bidding_fee(request, vehicle_id):
 
             messages.info(
                 request,
-                f"STK Push sent to {phone}. Enter your M-Pesa PIN to complete payment."
+                f"STK Push sent to {phone}. Enter your M-Pesa PIN to complete payment.",
             )
             return redirect("payment_pending", payment_id=payment.pk)
 
         except Exception as e:
-            logger.error(f"STK Push error for user {request.user}: {e}")
+            logger.error("STK Push error for user %s: %s", request.user, e)
             messages.error(request, f"Payment initiation failed: {str(e)}")
 
     return render(request, "vehicles/payments/pay_bidding_fee.html", {
         "vehicle": vehicle,
-        "amount": config["BIDDING_FEE_AMOUNT"],
+        "amount": amount,
     })
 
 
-#Payment Pending / Status Check
 @login_required
 def payment_pending(request, payment_id):
     """Polling page — user waits here while we confirm payment."""
@@ -217,20 +219,18 @@ def check_payment_status(request, payment_id):
     })
 
 
-# M-Pesa Callback (called by Safaricom)
-
 @csrf_exempt
 def mpesa_callback(request):
     """
     Safaricom POSTs the payment result here.
-    This view must be publicly accessible (no login required).
+    Must be publicly accessible (no login required).
     """
     if request.method != "POST":
         return HttpResponse(status=405)
 
     try:
         body = json.loads(request.body)
-        logger.info(f"M-Pesa callback received: {body}")
+        logger.info("M-Pesa callback received: %s", body)
 
         stk_callback = body["Body"]["stkCallback"]
         checkout_request_id = stk_callback["CheckoutRequestID"]
@@ -241,28 +241,26 @@ def mpesa_callback(request):
         ).first()
 
         if not payment:
-            logger.warning(f"No payment found for CheckoutRequestID: {checkout_request_id}")
+            logger.warning("No payment found for CheckoutRequestID: %s", checkout_request_id)
             return JsonResponse({"ResultCode": 0, "ResultDesc": "Accepted"})
 
         if result_code == 0:
-            # Success — extract receipt number
             callback_metadata = stk_callback.get("CallbackMetadata", {}).get("Item", [])
             receipt = next(
                 (item["Value"] for item in callback_metadata if item["Name"] == "MpesaReceiptNumber"),
-                ""
+                "",
             )
             payment.status = "completed"
             payment.mpesa_receipt_number = receipt
         else:
-            # User cancelled or insufficient funds etc.
             payment.status = "failed"
 
         payment.save()
 
     except Exception as e:
-        logger.error(f"Callback processing error: {e}", exc_info=True)
+        logger.error("Callback processing error: %s", e, exc_info=True)
 
-    # Always respond with success so Safaricom doesn't retry endlessly
+    # Always return success so Safaricom doesn't retry
     return JsonResponse({"ResultCode": 0, "ResultDesc": "Accepted"})
 
 
