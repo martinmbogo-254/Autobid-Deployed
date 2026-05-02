@@ -1324,7 +1324,7 @@ class VehicleAdmin(admin.ModelAdmin):
     list_filter = ('Financier',PriceRangeFilter,'yard',AwardedBidderFilter,'status','is_hotsale', 'is_flashsale' ,'fuel_type', 'created_at', 'updated_at','approved_at','disapproved_at','disapproved_by', 'is_approved')
     inlines = [VehicleImageInline]
     readonly_fields = ('views','is_approved', 'approved_by', 'approved_at','disapproved_by', 'disapproved_at','sold_at','sold_by')
-    actions = ['make_available', 'generate_vehicle_report', 'approve_vehicle','disapprove_vehicle','revise_price','stop_sale','add_to_flashsale','remove_from_flashsale']
+    actions = ['make_available', 'generate_vehicle_report', 'approve_vehicle','disapprove_vehicle','add_to_pendingauction','revise_price','stop_sale','add_to_flashsale','remove_from_flashsale']
     list_per_page = 15  # Items per page
     list_max_show_all = 1000  # Maximum items when showing all
     show_full_result_count = True  # Show total count in pagination
@@ -1570,6 +1570,43 @@ class VehicleAdmin(admin.ModelAdmin):
             )
 
     make_available.short_description = "Mark selected vehicles as available"
+
+    def add_to_pendingauction(self, request, queryset):
+
+        # Filter out vehicles that have an awarded bid
+        invalid_vehicles_awarded_bid = queryset.filter(bidding__awarded=True)
+
+        # Filter out vehicles that are in 'sold' status
+        invalid_vehicles_sold = queryset.filter(status='sold',)
+        # Filter out vehicles that are in 'sold' status
+        invalid_vehicles_available = queryset.filter(status='available', )
+
+        # Combine all invalid vehicles
+        invalid_vehicles = invalid_vehicles_awarded_bid | invalid_vehicles_sold | invalid_vehicles_available
+
+        if invalid_vehicles.exists():
+            # Notify the admin that some vehicles cannot be marked as available
+            self.message_user(
+                request,
+                f"The selected vehicle(s) are either sold or have an awarded bid and cannot be added to pending auction.",
+                level=messages.ERROR
+            )
+
+        # Filter the queryset to exclude invalid vehicles
+        valid_vehicles = queryset.exclude(status='sold').exclude(status='available').exclude(bidding__awarded=True)
+
+        # Update the status of valid vehicles
+        updated = valid_vehicles.update(status='pending_auction')
+
+        # Notify the admin of successful updates
+        if updated:
+            self.message_user(
+                request,
+                f"{updated} vehicle(s) successfully updated to pending auction.",
+                level=messages.SUCCESS
+            )
+
+    add_to_pendingauction.short_description = "Update selected vehicles to pending auction"
 
     def stop_sale(self, request, queryset):
         if not request.user.groups.filter(name='Approvers').exists():

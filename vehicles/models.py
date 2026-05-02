@@ -91,6 +91,7 @@ class Vehicle(models.Model):
     BID_STATUS_CHOICES = [
         ('idle', 'idle'),
         ('available', 'available'),
+        ('pending_auction', 'pending_auction'),
         ('on_auction', 'on_auction'),
         ('on_bid', 'on_bid'),
         ('bid_won','bid_won'),
@@ -117,7 +118,7 @@ class Vehicle(models.Model):
     color = models.CharField(max_length=10,default ='white')
     seats = models.IntegerField(default=5)
     yard = models.ForeignKey(Yard, on_delete=models.SET_DEFAULT,default='Riverlong', blank=True, null=True)
-    status = models.CharField(max_length=10, choices=BID_STATUS_CHOICES, default='idle')
+    status = models.CharField(max_length=20, choices=BID_STATUS_CHOICES, default='idle')
     reserve_price = models.IntegerField()
     description = RichTextField(blank=True)
     file = models.FileField(upload_to='images/',default='images/default-vehicle.png',blank=False)
